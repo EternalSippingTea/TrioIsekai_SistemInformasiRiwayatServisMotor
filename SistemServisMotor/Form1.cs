@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace SistemServisMotor
 {
@@ -19,7 +20,24 @@ namespace SistemServisMotor
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-
+            try
+            {
+                using (var conn = DatabaseHelper.GetConn())
+                {
+                    conn.Open();
+                    lblStatus.Text = "Status : Connected.";
+                    lblStatus.ForeColor = System.Drawing.Color.Green;
+                }
+            }
+            catch
+            {
+                lblStatus.Text = "Status : Failed to Connect.";
+                lblStatus.ForeColor = System.Drawing.Color.Red;
+                btnlogin.Enabled = false;
+            }
         }
+
     }
 }
+
+  
