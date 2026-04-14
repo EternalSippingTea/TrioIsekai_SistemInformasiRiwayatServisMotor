@@ -37,6 +37,16 @@ namespace SistemServisMotor
             }
         }
 
+
+        private void btnlogin_Click(object sender, EventArgs e)
+        {
+            // Validasi (Bagian F)
+            if (txtusername.Text.Trim() == "" || txttele.Text.Trim() == "")
+            {
+                MessageBox.Show("Username dan No. Telp harus diisi!");
+                return;
+            }
+        }
     }
 }
 
