@@ -46,6 +46,41 @@ namespace SistemServisMotor
                 MessageBox.Show("Username dan No. Telp harus diisi!");
                 return;
             }
+
+            try
+            {
+                using (var conn = DatabaseHelper.GetConn())
+                {
+                    conn.Open();
+                    string sql = "SELECT id_user, nama, role FROM Users WHERE username=@u AND no_telp=@t";
+                    var cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@u", txtusername.Text.Trim());
+                    cmd.Parameters.AddWithValue("@t", txttele.Text.Trim());
+
+                    // SqlDataReader (Bagian A)
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        int id = (int)reader["id_user"];
+                        string nama = reader["nama"].ToString();
+                        string role = reader["role"].ToString();
+                        reader.Close();
+
+                        MessageBox.Show("Welcome, " + nama + "!");
+                        var f2 = new Form2(id, nama, role);
+                        f2.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Login gagal! Username atau No. Telp salah.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
     }
 }
