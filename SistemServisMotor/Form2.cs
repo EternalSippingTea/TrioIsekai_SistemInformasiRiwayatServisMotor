@@ -74,8 +74,23 @@ namespace SistemServisMotor
             using (var conn = DatabaseHelper.GetConn())
             {
                 conn.Open();
-                var dt = new DataTable();
-                new SqlDataAdapter(sql, conn).Fill(dt);
+                SqlCommand cmd = new SqlCommand(sql, conn);       
+                SqlDataReader reader = cmd.ExecuteReader();        
+                DataTable dt = new DataTable();
+                dt.Load(reader);
+                reader.Close();
+                dgv.DataSource = dt;
+            }
+        }
+
+        void SearchData(string sql, DataGridView dgv)
+        {
+            using (var conn = DatabaseHelper.GetConn())
+            {
+                conn.Open();
+                DataTable dt = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);  
+                adapter.Fill(dt);
                 dgv.DataSource = dt;
             }
         }
@@ -114,7 +129,36 @@ namespace SistemServisMotor
         }
 
 
+        // Combos 
+        void LoadCombos()
+        {
+            FillCombo(cmbpelanggan,
+                "SELECT id_pelanggan, nama FROM Pelanggan",
+                "id_pelanggan", "nama", "-- Pilih Pelanggan --");
 
+            FillCombo(cmbkendaraan,
+                "SELECT id_kendaraan, plat_no + ' - ' + merk AS info FROM Kendaraan",
+                "id_kendaraan", "info", "-- Pilih Kendaraan --");
+
+            FillCombo(cmbusers,
+                "SELECT id_user, nama FROM Users",
+                "id_user", "nama", "-- Pilih Petugas --");
+        }
+
+        void FillCombo(ComboBox cmb, string sql, string idCol, string nameCol, string placeholder)
+        {
+            cmb.Items.Clear();
+            cmb.Items.Add(placeholder);
+            using (var conn = DatabaseHelper.GetConn())
+            {
+                conn.Open();
+                var reader = new SqlCommand(sql, conn).ExecuteReader();
+                while (reader.Read())
+                    cmb.Items.Add(reader[idCol] + " - " + reader[nameCol]);
+                reader.Close();
+            }
+            cmb.SelectedIndex = 0;
+        }
 
         private void tabPelanggan_Click(object sender, EventArgs e)
         {
