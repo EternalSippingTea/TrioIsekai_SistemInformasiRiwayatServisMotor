@@ -26,6 +26,36 @@ namespace SistemServisMotor
             userRole = role;
         }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            lblwelcome.Text = "Halo, " + userName + " (" + userRole + ")";
+
+            // Connection status (Bagian B)
+            try
+            {
+                using (var c = DatabaseHelper.GetConn()) { c.Open(); }
+                lblcon.Text = "Koneksi: Terhubung";
+                lblcon.ForeColor = Color.Green;
+            }
+            catch
+            {
+                lblcon.Text = "Koneksi: Gagal";
+                lblcon.ForeColor = Color.Red;
+            }
+
+            // Hide delete buttons for petugas
+            if (userRole == "petugas")
+            {
+                btndelp.Visible = false;
+                btndelk.Visible = false;
+                btndels.Visible = false;
+                btndelu.Visible = false;
+            }
+
+            // Load first tab data + combos on startup
+            LoadPelanggan();
+            LoadCombos();
+        }        
 
         private void tabPelanggan_Click(object sender, EventArgs e)
         {
