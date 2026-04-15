@@ -32,6 +32,15 @@
             this.btnlogout = new System.Windows.Forms.Button();
             this.tabcontrol1 = new System.Windows.Forms.TabControl();
             this.tabPelanggan = new System.Windows.Forms.TabPage();
+            this.btncarip = new System.Windows.Forms.Button();
+            this.txtcarip = new System.Windows.Forms.TextBox();
+            this.lblcarip = new System.Windows.Forms.Label();
+            this.btnloadp = new System.Windows.Forms.Button();
+            this.btnclearp = new System.Windows.Forms.Button();
+            this.btndelp = new System.Windows.Forms.Button();
+            this.btnupp = new System.Windows.Forms.Button();
+            this.btnaddp = new System.Windows.Forms.Button();
+            this.lblcountp = new System.Windows.Forms.Label();
             this.dgvPelanggan = new System.Windows.Forms.DataGridView();
             this.txtnohp = new System.Windows.Forms.TextBox();
             this.lblnotelp = new System.Windows.Forms.Label();
@@ -40,6 +49,15 @@
             this.txtnamapel = new System.Windows.Forms.TextBox();
             this.lblnamapel = new System.Windows.Forms.Label();
             this.tabKendaraan = new System.Windows.Forms.TabPage();
+            this.btncarik = new System.Windows.Forms.Button();
+            this.txtcarik = new System.Windows.Forms.TextBox();
+            this.lblcarik = new System.Windows.Forms.Label();
+            this.btnloadk = new System.Windows.Forms.Button();
+            this.btncleark = new System.Windows.Forms.Button();
+            this.btndelk = new System.Windows.Forms.Button();
+            this.btnupk = new System.Windows.Forms.Button();
+            this.btnaddk = new System.Windows.Forms.Button();
+            this.lblcountk = new System.Windows.Forms.Label();
             this.txttahunken = new System.Windows.Forms.TextBox();
             this.lbltahunken = new System.Windows.Forms.Label();
             this.cmbpelanggan = new System.Windows.Forms.ComboBox();
@@ -50,6 +68,11 @@
             this.lblmerk = new System.Windows.Forms.Label();
             this.lblpelk = new System.Windows.Forms.Label();
             this.tabServis = new System.Windows.Forms.TabPage();
+            this.btncaris = new System.Windows.Forms.Button();
+            this.txtcaris = new System.Windows.Forms.TextBox();
+            this.lblcaris = new System.Windows.Forms.Label();
+            this.btnloads = new System.Windows.Forms.Button();
+            this.lblcounts = new System.Windows.Forms.Label();
             this.txtcatatan = new System.Windows.Forms.TextBox();
             this.lblcatatan = new System.Windows.Forms.Label();
             this.txtbiaya = new System.Windows.Forms.TextBox();
@@ -70,6 +93,15 @@
             this.lbltanggal = new System.Windows.Forms.Label();
             this.lblkens = new System.Windows.Forms.Label();
             this.tabUsers = new System.Windows.Forms.TabPage();
+            this.btncariu = new System.Windows.Forms.Button();
+            this.txtcariu = new System.Windows.Forms.TextBox();
+            this.lblcariu = new System.Windows.Forms.Label();
+            this.btnloadu = new System.Windows.Forms.Button();
+            this.btnclearu = new System.Windows.Forms.Button();
+            this.btndelu = new System.Windows.Forms.Button();
+            this.btnupu = new System.Windows.Forms.Button();
+            this.btnaddu = new System.Windows.Forms.Button();
+            this.lblcountusers = new System.Windows.Forms.Label();
             this.cmbrole = new System.Windows.Forms.ComboBox();
             this.lblrole = new System.Windows.Forms.Label();
             this.dgvUsers = new System.Windows.Forms.DataGridView();
@@ -82,38 +114,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblcon = new System.Windows.Forms.Label();
-            this.lblcountp = new System.Windows.Forms.Label();
-            this.lblcountk = new System.Windows.Forms.Label();
-            this.lblcounts = new System.Windows.Forms.Label();
-            this.lblcountusers = new System.Windows.Forms.Label();
-            this.btnclearu = new System.Windows.Forms.Button();
-            this.btndelu = new System.Windows.Forms.Button();
-            this.btnupu = new System.Windows.Forms.Button();
-            this.btnaddu = new System.Windows.Forms.Button();
-            this.btncleark = new System.Windows.Forms.Button();
-            this.btndelk = new System.Windows.Forms.Button();
-            this.btnupk = new System.Windows.Forms.Button();
-            this.btnaddk = new System.Windows.Forms.Button();
-            this.btnloadp = new System.Windows.Forms.Button();
-            this.btnclearp = new System.Windows.Forms.Button();
-            this.btndelp = new System.Windows.Forms.Button();
-            this.btnupp = new System.Windows.Forms.Button();
-            this.btnaddp = new System.Windows.Forms.Button();
-            this.lblcarip = new System.Windows.Forms.Label();
-            this.txtcarip = new System.Windows.Forms.TextBox();
-            this.btncarip = new System.Windows.Forms.Button();
-            this.btncarik = new System.Windows.Forms.Button();
-            this.txtcarik = new System.Windows.Forms.TextBox();
-            this.lblcarik = new System.Windows.Forms.Label();
-            this.btnloadk = new System.Windows.Forms.Button();
-            this.btncaris = new System.Windows.Forms.Button();
-            this.txtcaris = new System.Windows.Forms.TextBox();
-            this.lblcaris = new System.Windows.Forms.Label();
-            this.btnloads = new System.Windows.Forms.Button();
-            this.btncariu = new System.Windows.Forms.Button();
-            this.txtcariu = new System.Windows.Forms.TextBox();
-            this.lblcariu = new System.Windows.Forms.Label();
-            this.btnloadu = new System.Windows.Forms.Button();
+            this.btnprint = new System.Windows.Forms.Button();
             this.tabcontrol1.SuspendLayout();
             this.tabPelanggan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPelanggan)).BeginInit();
@@ -184,6 +185,94 @@
             this.tabPelanggan.TabIndex = 0;
             this.tabPelanggan.Text = "Pelanggan";
             this.tabPelanggan.UseVisualStyleBackColor = true;
+            // 
+            // btncarip
+            // 
+            this.btncarip.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btncarip.Location = new System.Drawing.Point(279, 274);
+            this.btncarip.Name = "btncarip";
+            this.btncarip.Size = new System.Drawing.Size(93, 31);
+            this.btncarip.TabIndex = 52;
+            this.btncarip.Text = "Search";
+            this.btncarip.UseVisualStyleBackColor = true;
+            // 
+            // txtcarip
+            // 
+            this.txtcarip.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtcarip.Location = new System.Drawing.Point(14, 274);
+            this.txtcarip.Name = "txtcarip";
+            this.txtcarip.Size = new System.Drawing.Size(247, 31);
+            this.txtcarip.TabIndex = 51;
+            // 
+            // lblcarip
+            // 
+            this.lblcarip.AutoSize = true;
+            this.lblcarip.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblcarip.Location = new System.Drawing.Point(10, 237);
+            this.lblcarip.Name = "lblcarip";
+            this.lblcarip.Size = new System.Drawing.Size(117, 24);
+            this.lblcarip.TabIndex = 50;
+            this.lblcarip.Text = "Search Pelanggan :";
+            // 
+            // btnloadp
+            // 
+            this.btnloadp.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnloadp.Location = new System.Drawing.Point(14, 367);
+            this.btnloadp.Name = "btnloadp";
+            this.btnloadp.Size = new System.Drawing.Size(83, 31);
+            this.btnloadp.TabIndex = 49;
+            this.btnloadp.Text = "Load";
+            this.btnloadp.UseVisualStyleBackColor = true;
+            // 
+            // btnclearp
+            // 
+            this.btnclearp.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnclearp.Location = new System.Drawing.Point(299, 178);
+            this.btnclearp.Name = "btnclearp";
+            this.btnclearp.Size = new System.Drawing.Size(73, 34);
+            this.btnclearp.TabIndex = 48;
+            this.btnclearp.Text = "Clear";
+            this.btnclearp.UseVisualStyleBackColor = true;
+            // 
+            // btndelp
+            // 
+            this.btndelp.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btndelp.Location = new System.Drawing.Point(202, 178);
+            this.btndelp.Name = "btndelp";
+            this.btndelp.Size = new System.Drawing.Size(76, 34);
+            this.btndelp.TabIndex = 47;
+            this.btndelp.Text = "Delete";
+            this.btndelp.UseVisualStyleBackColor = true;
+            // 
+            // btnupp
+            // 
+            this.btnupp.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnupp.Location = new System.Drawing.Point(108, 178);
+            this.btnupp.Name = "btnupp";
+            this.btnupp.Size = new System.Drawing.Size(78, 34);
+            this.btnupp.TabIndex = 46;
+            this.btnupp.Text = "Update";
+            this.btnupp.UseVisualStyleBackColor = true;
+            // 
+            // btnaddp
+            // 
+            this.btnaddp.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnaddp.Location = new System.Drawing.Point(13, 178);
+            this.btnaddp.Name = "btnaddp";
+            this.btnaddp.Size = new System.Drawing.Size(77, 34);
+            this.btnaddp.TabIndex = 45;
+            this.btnaddp.Text = "Add";
+            this.btnaddp.UseVisualStyleBackColor = true;
+            // 
+            // lblcountp
+            // 
+            this.lblcountp.AutoSize = true;
+            this.lblcountp.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblcountp.Location = new System.Drawing.Point(25, 561);
+            this.lblcountp.Name = "lblcountp";
+            this.lblcountp.Size = new System.Drawing.Size(174, 24);
+            this.lblcountp.TabIndex = 2;
+            this.lblcountp.Text = "Count Pelanggan : \"Total : 0\"";
             // 
             // dgvPelanggan
             // 
@@ -278,6 +367,94 @@
             this.tabKendaraan.Text = "Kendaraan";
             this.tabKendaraan.UseVisualStyleBackColor = true;
             // 
+            // btncarik
+            // 
+            this.btncarik.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btncarik.Location = new System.Drawing.Point(278, 292);
+            this.btncarik.Name = "btncarik";
+            this.btncarik.Size = new System.Drawing.Size(93, 31);
+            this.btncarik.TabIndex = 56;
+            this.btncarik.Text = "Search";
+            this.btncarik.UseVisualStyleBackColor = true;
+            // 
+            // txtcarik
+            // 
+            this.txtcarik.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtcarik.Location = new System.Drawing.Point(13, 292);
+            this.txtcarik.Name = "txtcarik";
+            this.txtcarik.Size = new System.Drawing.Size(247, 31);
+            this.txtcarik.TabIndex = 55;
+            // 
+            // lblcarik
+            // 
+            this.lblcarik.AutoSize = true;
+            this.lblcarik.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblcarik.Location = new System.Drawing.Point(9, 255);
+            this.lblcarik.Name = "lblcarik";
+            this.lblcarik.Size = new System.Drawing.Size(119, 24);
+            this.lblcarik.TabIndex = 54;
+            this.lblcarik.Text = "Search Kendaraan :";
+            // 
+            // btnloadk
+            // 
+            this.btnloadk.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnloadk.Location = new System.Drawing.Point(13, 385);
+            this.btnloadk.Name = "btnloadk";
+            this.btnloadk.Size = new System.Drawing.Size(83, 31);
+            this.btnloadk.TabIndex = 53;
+            this.btnloadk.Text = "Load";
+            this.btnloadk.UseVisualStyleBackColor = true;
+            // 
+            // btncleark
+            // 
+            this.btncleark.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btncleark.Location = new System.Drawing.Point(299, 198);
+            this.btncleark.Name = "btncleark";
+            this.btncleark.Size = new System.Drawing.Size(73, 34);
+            this.btncleark.TabIndex = 48;
+            this.btncleark.Text = "Clear";
+            this.btncleark.UseVisualStyleBackColor = true;
+            // 
+            // btndelk
+            // 
+            this.btndelk.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btndelk.Location = new System.Drawing.Point(202, 198);
+            this.btndelk.Name = "btndelk";
+            this.btndelk.Size = new System.Drawing.Size(76, 34);
+            this.btndelk.TabIndex = 47;
+            this.btndelk.Text = "Delete";
+            this.btndelk.UseVisualStyleBackColor = true;
+            // 
+            // btnupk
+            // 
+            this.btnupk.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnupk.Location = new System.Drawing.Point(108, 198);
+            this.btnupk.Name = "btnupk";
+            this.btnupk.Size = new System.Drawing.Size(78, 34);
+            this.btnupk.TabIndex = 46;
+            this.btnupk.Text = "Update";
+            this.btnupk.UseVisualStyleBackColor = true;
+            // 
+            // btnaddk
+            // 
+            this.btnaddk.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnaddk.Location = new System.Drawing.Point(13, 198);
+            this.btnaddk.Name = "btnaddk";
+            this.btnaddk.Size = new System.Drawing.Size(77, 34);
+            this.btnaddk.TabIndex = 45;
+            this.btnaddk.Text = "Add";
+            this.btnaddk.UseVisualStyleBackColor = true;
+            // 
+            // lblcountk
+            // 
+            this.lblcountk.AutoSize = true;
+            this.lblcountk.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblcountk.Location = new System.Drawing.Point(26, 557);
+            this.lblcountk.Name = "lblcountk";
+            this.lblcountk.Size = new System.Drawing.Size(176, 24);
+            this.lblcountk.TabIndex = 25;
+            this.lblcountk.Text = "Count Kendaraan : \"Total : 0\"";
+            // 
             // txttahunken
             // 
             this.txttahunken.Font = new System.Drawing.Font("Dubai", 8.25F);
@@ -363,6 +540,7 @@
             // 
             // tabServis
             // 
+            this.tabServis.Controls.Add(this.btnprint);
             this.tabServis.Controls.Add(this.btncaris);
             this.tabServis.Controls.Add(this.txtcaris);
             this.tabServis.Controls.Add(this.lblcaris);
@@ -394,6 +572,54 @@
             this.tabServis.TabIndex = 2;
             this.tabServis.Text = "Servis";
             this.tabServis.UseVisualStyleBackColor = true;
+            // 
+            // btncaris
+            // 
+            this.btncaris.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btncaris.Location = new System.Drawing.Point(278, 439);
+            this.btncaris.Name = "btncaris";
+            this.btncaris.Size = new System.Drawing.Size(93, 31);
+            this.btncaris.TabIndex = 56;
+            this.btncaris.Text = "Search";
+            this.btncaris.UseVisualStyleBackColor = true;
+            // 
+            // txtcaris
+            // 
+            this.txtcaris.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtcaris.Location = new System.Drawing.Point(13, 439);
+            this.txtcaris.Name = "txtcaris";
+            this.txtcaris.Size = new System.Drawing.Size(247, 31);
+            this.txtcaris.TabIndex = 55;
+            // 
+            // lblcaris
+            // 
+            this.lblcaris.AutoSize = true;
+            this.lblcaris.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblcaris.Location = new System.Drawing.Point(9, 402);
+            this.lblcaris.Name = "lblcaris";
+            this.lblcaris.Size = new System.Drawing.Size(89, 24);
+            this.lblcaris.TabIndex = 54;
+            this.lblcaris.Text = "Search Servis:";
+            // 
+            // btnloads
+            // 
+            this.btnloads.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnloads.Location = new System.Drawing.Point(13, 514);
+            this.btnloads.Name = "btnloads";
+            this.btnloads.Size = new System.Drawing.Size(83, 31);
+            this.btnloads.TabIndex = 53;
+            this.btnloads.Text = "Load";
+            this.btnloads.UseVisualStyleBackColor = true;
+            // 
+            // lblcounts
+            // 
+            this.lblcounts.AutoSize = true;
+            this.lblcounts.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblcounts.Location = new System.Drawing.Point(26, 558);
+            this.lblcounts.Name = "lblcounts";
+            this.lblcounts.Size = new System.Drawing.Size(149, 24);
+            this.lblcounts.TabIndex = 43;
+            this.lblcounts.Text = "Count Servis : \"Total : 0\"";
             // 
             // txtcatatan
             // 
@@ -602,6 +828,94 @@
             this.tabUsers.Text = "Users";
             this.tabUsers.UseVisualStyleBackColor = true;
             // 
+            // btncariu
+            // 
+            this.btncariu.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btncariu.Location = new System.Drawing.Point(278, 282);
+            this.btncariu.Name = "btncariu";
+            this.btncariu.Size = new System.Drawing.Size(93, 31);
+            this.btncariu.TabIndex = 56;
+            this.btncariu.Text = "Search";
+            this.btncariu.UseVisualStyleBackColor = true;
+            // 
+            // txtcariu
+            // 
+            this.txtcariu.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtcariu.Location = new System.Drawing.Point(13, 282);
+            this.txtcariu.Name = "txtcariu";
+            this.txtcariu.Size = new System.Drawing.Size(247, 31);
+            this.txtcariu.TabIndex = 55;
+            // 
+            // lblcariu
+            // 
+            this.lblcariu.AutoSize = true;
+            this.lblcariu.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblcariu.Location = new System.Drawing.Point(9, 245);
+            this.lblcariu.Name = "lblcariu";
+            this.lblcariu.Size = new System.Drawing.Size(84, 24);
+            this.lblcariu.TabIndex = 54;
+            this.lblcariu.Text = "Search User :";
+            // 
+            // btnloadu
+            // 
+            this.btnloadu.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnloadu.Location = new System.Drawing.Point(13, 375);
+            this.btnloadu.Name = "btnloadu";
+            this.btnloadu.Size = new System.Drawing.Size(83, 31);
+            this.btnloadu.TabIndex = 53;
+            this.btnloadu.Text = "Load";
+            this.btnloadu.UseVisualStyleBackColor = true;
+            // 
+            // btnclearu
+            // 
+            this.btnclearu.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnclearu.Location = new System.Drawing.Point(299, 191);
+            this.btnclearu.Name = "btnclearu";
+            this.btnclearu.Size = new System.Drawing.Size(73, 34);
+            this.btnclearu.TabIndex = 48;
+            this.btnclearu.Text = "Clear";
+            this.btnclearu.UseVisualStyleBackColor = true;
+            // 
+            // btndelu
+            // 
+            this.btndelu.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btndelu.Location = new System.Drawing.Point(202, 191);
+            this.btndelu.Name = "btndelu";
+            this.btndelu.Size = new System.Drawing.Size(76, 34);
+            this.btndelu.TabIndex = 47;
+            this.btndelu.Text = "Delete";
+            this.btndelu.UseVisualStyleBackColor = true;
+            // 
+            // btnupu
+            // 
+            this.btnupu.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnupu.Location = new System.Drawing.Point(108, 191);
+            this.btnupu.Name = "btnupu";
+            this.btnupu.Size = new System.Drawing.Size(78, 34);
+            this.btnupu.TabIndex = 46;
+            this.btnupu.Text = "Update";
+            this.btnupu.UseVisualStyleBackColor = true;
+            // 
+            // btnaddu
+            // 
+            this.btnaddu.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnaddu.Location = new System.Drawing.Point(13, 191);
+            this.btnaddu.Name = "btnaddu";
+            this.btnaddu.Size = new System.Drawing.Size(77, 34);
+            this.btnaddu.TabIndex = 45;
+            this.btnaddu.Text = "Add";
+            this.btnaddu.UseVisualStyleBackColor = true;
+            // 
+            // lblcountusers
+            // 
+            this.lblcountusers.AutoSize = true;
+            this.lblcountusers.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblcountusers.Location = new System.Drawing.Point(26, 555);
+            this.lblcountusers.Name = "lblcountusers";
+            this.lblcountusers.Size = new System.Drawing.Size(147, 24);
+            this.lblcountusers.TabIndex = 36;
+            this.lblcountusers.Text = "Count Users : \"Total : 0\"";
+            // 
             // cmbrole
             // 
             this.cmbrole.Font = new System.Drawing.Font("Dubai", 8.25F);
@@ -714,317 +1028,15 @@
             this.lblcon.TabIndex = 4;
             this.lblcon.Text = "Connection : -";
             // 
-            // lblcountp
+            // btnprint
             // 
-            this.lblcountp.AutoSize = true;
-            this.lblcountp.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.lblcountp.Location = new System.Drawing.Point(25, 561);
-            this.lblcountp.Name = "lblcountp";
-            this.lblcountp.Size = new System.Drawing.Size(174, 24);
-            this.lblcountp.TabIndex = 2;
-            this.lblcountp.Text = "Count Pelanggan : \"Total : 0\"";
-            // 
-            // lblcountk
-            // 
-            this.lblcountk.AutoSize = true;
-            this.lblcountk.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.lblcountk.Location = new System.Drawing.Point(26, 557);
-            this.lblcountk.Name = "lblcountk";
-            this.lblcountk.Size = new System.Drawing.Size(176, 24);
-            this.lblcountk.TabIndex = 25;
-            this.lblcountk.Text = "Count Kendaraan : \"Total : 0\"";
-            // 
-            // lblcounts
-            // 
-            this.lblcounts.AutoSize = true;
-            this.lblcounts.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.lblcounts.Location = new System.Drawing.Point(26, 558);
-            this.lblcounts.Name = "lblcounts";
-            this.lblcounts.Size = new System.Drawing.Size(149, 24);
-            this.lblcounts.TabIndex = 43;
-            this.lblcounts.Text = "Count Servis : \"Total : 0\"";
-            // 
-            // lblcountusers
-            // 
-            this.lblcountusers.AutoSize = true;
-            this.lblcountusers.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.lblcountusers.Location = new System.Drawing.Point(26, 555);
-            this.lblcountusers.Name = "lblcountusers";
-            this.lblcountusers.Size = new System.Drawing.Size(147, 24);
-            this.lblcountusers.TabIndex = 36;
-            this.lblcountusers.Text = "Count Users : \"Total : 0\"";
-            // 
-            // btnclearu
-            // 
-            this.btnclearu.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnclearu.Location = new System.Drawing.Point(299, 191);
-            this.btnclearu.Name = "btnclearu";
-            this.btnclearu.Size = new System.Drawing.Size(73, 34);
-            this.btnclearu.TabIndex = 48;
-            this.btnclearu.Text = "Clear";
-            this.btnclearu.UseVisualStyleBackColor = true;
-            // 
-            // btndelu
-            // 
-            this.btndelu.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btndelu.Location = new System.Drawing.Point(202, 191);
-            this.btndelu.Name = "btndelu";
-            this.btndelu.Size = new System.Drawing.Size(76, 34);
-            this.btndelu.TabIndex = 47;
-            this.btndelu.Text = "Delete";
-            this.btndelu.UseVisualStyleBackColor = true;
-            // 
-            // btnupu
-            // 
-            this.btnupu.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnupu.Location = new System.Drawing.Point(108, 191);
-            this.btnupu.Name = "btnupu";
-            this.btnupu.Size = new System.Drawing.Size(78, 34);
-            this.btnupu.TabIndex = 46;
-            this.btnupu.Text = "Update";
-            this.btnupu.UseVisualStyleBackColor = true;
-            // 
-            // btnaddu
-            // 
-            this.btnaddu.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnaddu.Location = new System.Drawing.Point(13, 191);
-            this.btnaddu.Name = "btnaddu";
-            this.btnaddu.Size = new System.Drawing.Size(77, 34);
-            this.btnaddu.TabIndex = 45;
-            this.btnaddu.Text = "Add";
-            this.btnaddu.UseVisualStyleBackColor = true;
-            // 
-            // btncleark
-            // 
-            this.btncleark.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btncleark.Location = new System.Drawing.Point(299, 198);
-            this.btncleark.Name = "btncleark";
-            this.btncleark.Size = new System.Drawing.Size(73, 34);
-            this.btncleark.TabIndex = 48;
-            this.btncleark.Text = "Clear";
-            this.btncleark.UseVisualStyleBackColor = true;
-            // 
-            // btndelk
-            // 
-            this.btndelk.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btndelk.Location = new System.Drawing.Point(202, 198);
-            this.btndelk.Name = "btndelk";
-            this.btndelk.Size = new System.Drawing.Size(76, 34);
-            this.btndelk.TabIndex = 47;
-            this.btndelk.Text = "Delete";
-            this.btndelk.UseVisualStyleBackColor = true;
-            // 
-            // btnupk
-            // 
-            this.btnupk.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnupk.Location = new System.Drawing.Point(108, 198);
-            this.btnupk.Name = "btnupk";
-            this.btnupk.Size = new System.Drawing.Size(78, 34);
-            this.btnupk.TabIndex = 46;
-            this.btnupk.Text = "Update";
-            this.btnupk.UseVisualStyleBackColor = true;
-            // 
-            // btnaddk
-            // 
-            this.btnaddk.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnaddk.Location = new System.Drawing.Point(13, 198);
-            this.btnaddk.Name = "btnaddk";
-            this.btnaddk.Size = new System.Drawing.Size(77, 34);
-            this.btnaddk.TabIndex = 45;
-            this.btnaddk.Text = "Add";
-            this.btnaddk.UseVisualStyleBackColor = true;
-            // 
-            // btnloadp
-            // 
-            this.btnloadp.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnloadp.Location = new System.Drawing.Point(14, 367);
-            this.btnloadp.Name = "btnloadp";
-            this.btnloadp.Size = new System.Drawing.Size(83, 31);
-            this.btnloadp.TabIndex = 49;
-            this.btnloadp.Text = "Load";
-            this.btnloadp.UseVisualStyleBackColor = true;
-            // 
-            // btnclearp
-            // 
-            this.btnclearp.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnclearp.Location = new System.Drawing.Point(299, 178);
-            this.btnclearp.Name = "btnclearp";
-            this.btnclearp.Size = new System.Drawing.Size(73, 34);
-            this.btnclearp.TabIndex = 48;
-            this.btnclearp.Text = "Clear";
-            this.btnclearp.UseVisualStyleBackColor = true;
-            // 
-            // btndelp
-            // 
-            this.btndelp.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btndelp.Location = new System.Drawing.Point(202, 178);
-            this.btndelp.Name = "btndelp";
-            this.btndelp.Size = new System.Drawing.Size(76, 34);
-            this.btndelp.TabIndex = 47;
-            this.btndelp.Text = "Delete";
-            this.btndelp.UseVisualStyleBackColor = true;
-            // 
-            // btnupp
-            // 
-            this.btnupp.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnupp.Location = new System.Drawing.Point(108, 178);
-            this.btnupp.Name = "btnupp";
-            this.btnupp.Size = new System.Drawing.Size(78, 34);
-            this.btnupp.TabIndex = 46;
-            this.btnupp.Text = "Update";
-            this.btnupp.UseVisualStyleBackColor = true;
-            // 
-            // btnaddp
-            // 
-            this.btnaddp.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnaddp.Location = new System.Drawing.Point(13, 178);
-            this.btnaddp.Name = "btnaddp";
-            this.btnaddp.Size = new System.Drawing.Size(77, 34);
-            this.btnaddp.TabIndex = 45;
-            this.btnaddp.Text = "Add";
-            this.btnaddp.UseVisualStyleBackColor = true;
-            // 
-            // lblcarip
-            // 
-            this.lblcarip.AutoSize = true;
-            this.lblcarip.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.lblcarip.Location = new System.Drawing.Point(10, 237);
-            this.lblcarip.Name = "lblcarip";
-            this.lblcarip.Size = new System.Drawing.Size(117, 24);
-            this.lblcarip.TabIndex = 50;
-            this.lblcarip.Text = "Search Pelanggan :";
-            // 
-            // txtcarip
-            // 
-            this.txtcarip.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.txtcarip.Location = new System.Drawing.Point(14, 274);
-            this.txtcarip.Name = "txtcarip";
-            this.txtcarip.Size = new System.Drawing.Size(247, 31);
-            this.txtcarip.TabIndex = 51;
-            // 
-            // btncarip
-            // 
-            this.btncarip.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btncarip.Location = new System.Drawing.Point(279, 274);
-            this.btncarip.Name = "btncarip";
-            this.btncarip.Size = new System.Drawing.Size(93, 31);
-            this.btncarip.TabIndex = 52;
-            this.btncarip.Text = "Search";
-            this.btncarip.UseVisualStyleBackColor = true;
-            // 
-            // btncarik
-            // 
-            this.btncarik.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btncarik.Location = new System.Drawing.Point(278, 292);
-            this.btncarik.Name = "btncarik";
-            this.btncarik.Size = new System.Drawing.Size(93, 31);
-            this.btncarik.TabIndex = 56;
-            this.btncarik.Text = "Search";
-            this.btncarik.UseVisualStyleBackColor = true;
-            // 
-            // txtcarik
-            // 
-            this.txtcarik.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.txtcarik.Location = new System.Drawing.Point(13, 292);
-            this.txtcarik.Name = "txtcarik";
-            this.txtcarik.Size = new System.Drawing.Size(247, 31);
-            this.txtcarik.TabIndex = 55;
-            // 
-            // lblcarik
-            // 
-            this.lblcarik.AutoSize = true;
-            this.lblcarik.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.lblcarik.Location = new System.Drawing.Point(9, 255);
-            this.lblcarik.Name = "lblcarik";
-            this.lblcarik.Size = new System.Drawing.Size(119, 24);
-            this.lblcarik.TabIndex = 54;
-            this.lblcarik.Text = "Search Kendaraan :";
-            // 
-            // btnloadk
-            // 
-            this.btnloadk.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnloadk.Location = new System.Drawing.Point(13, 385);
-            this.btnloadk.Name = "btnloadk";
-            this.btnloadk.Size = new System.Drawing.Size(83, 31);
-            this.btnloadk.TabIndex = 53;
-            this.btnloadk.Text = "Load";
-            this.btnloadk.UseVisualStyleBackColor = true;
-            // 
-            // btncaris
-            // 
-            this.btncaris.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btncaris.Location = new System.Drawing.Point(278, 439);
-            this.btncaris.Name = "btncaris";
-            this.btncaris.Size = new System.Drawing.Size(93, 31);
-            this.btncaris.TabIndex = 56;
-            this.btncaris.Text = "Search";
-            this.btncaris.UseVisualStyleBackColor = true;
-            // 
-            // txtcaris
-            // 
-            this.txtcaris.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.txtcaris.Location = new System.Drawing.Point(13, 439);
-            this.txtcaris.Name = "txtcaris";
-            this.txtcaris.Size = new System.Drawing.Size(247, 31);
-            this.txtcaris.TabIndex = 55;
-            // 
-            // lblcaris
-            // 
-            this.lblcaris.AutoSize = true;
-            this.lblcaris.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.lblcaris.Location = new System.Drawing.Point(9, 402);
-            this.lblcaris.Name = "lblcaris";
-            this.lblcaris.Size = new System.Drawing.Size(89, 24);
-            this.lblcaris.TabIndex = 54;
-            this.lblcaris.Text = "Search Servis:";
-            // 
-            // btnloads
-            // 
-            this.btnloads.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnloads.Location = new System.Drawing.Point(13, 514);
-            this.btnloads.Name = "btnloads";
-            this.btnloads.Size = new System.Drawing.Size(83, 31);
-            this.btnloads.TabIndex = 53;
-            this.btnloads.Text = "Load";
-            this.btnloads.UseVisualStyleBackColor = true;
-            // 
-            // btncariu
-            // 
-            this.btncariu.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btncariu.Location = new System.Drawing.Point(278, 282);
-            this.btncariu.Name = "btncariu";
-            this.btncariu.Size = new System.Drawing.Size(93, 31);
-            this.btncariu.TabIndex = 56;
-            this.btncariu.Text = "Search";
-            this.btncariu.UseVisualStyleBackColor = true;
-            // 
-            // txtcariu
-            // 
-            this.txtcariu.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.txtcariu.Location = new System.Drawing.Point(13, 282);
-            this.txtcariu.Name = "txtcariu";
-            this.txtcariu.Size = new System.Drawing.Size(247, 31);
-            this.txtcariu.TabIndex = 55;
-            // 
-            // lblcariu
-            // 
-            this.lblcariu.AutoSize = true;
-            this.lblcariu.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.lblcariu.Location = new System.Drawing.Point(9, 245);
-            this.lblcariu.Name = "lblcariu";
-            this.lblcariu.Size = new System.Drawing.Size(84, 24);
-            this.lblcariu.TabIndex = 54;
-            this.lblcariu.Text = "Search User :";
-            // 
-            // btnloadu
-            // 
-            this.btnloadu.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnloadu.Location = new System.Drawing.Point(13, 375);
-            this.btnloadu.Name = "btnloadu";
-            this.btnloadu.Size = new System.Drawing.Size(83, 31);
-            this.btnloadu.TabIndex = 53;
-            this.btnloadu.Text = "Load";
-            this.btnloadu.UseVisualStyleBackColor = true;
+            this.btnprint.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnprint.Location = new System.Drawing.Point(110, 514);
+            this.btnprint.Name = "btnprint";
+            this.btnprint.Size = new System.Drawing.Size(84, 31);
+            this.btnprint.TabIndex = 57;
+            this.btnprint.Text = "Print";
+            this.btnprint.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1145,5 +1157,6 @@
         private System.Windows.Forms.TextBox txtcariu;
         private System.Windows.Forms.Label lblcariu;
         private System.Windows.Forms.Button btnloadu;
+        private System.Windows.Forms.Button btnprint;
     }
 }

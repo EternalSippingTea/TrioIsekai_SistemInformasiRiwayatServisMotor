@@ -224,7 +224,7 @@ namespace SistemServisMotor
             if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
 
             // Konfirmasi (Bagian F)
-            if (MessageBox.Show("Yakin hapus?", "Konfirmasi", MessageBoxButtons.YesNo) == DialogResult.No) return;
+            if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
             RunQuery("DELETE FROM Pelanggan WHERE id_pelanggan=@id", new SqlParameter("@id", id));
             MessageBox.Show("Data berhasil dihapus!");
@@ -295,7 +295,7 @@ namespace SistemServisMotor
             if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
             if (idP == -1 || txtmerk.Text == "" || txtplano.Text == "")
             { MessageBox.Show("Semua field harus diisi!"); return; }
-            if (MessageBox.Show("Yakin ubah?", "Konfirmasi", MessageBoxButtons.YesNo) == DialogResult.No) return;
+            if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
             RunQuery("UPDATE Kendaraan SET id_pelanggan=@a, merk=@b, plat_no=@c, tahun=@d WHERE id_kendaraan=@id",
                 new SqlParameter("@a", idP),
@@ -312,7 +312,7 @@ namespace SistemServisMotor
         {
             int id = GetSelectedId(dgvKendaraan);
             if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
-            if (MessageBox.Show("Yakin hapus?", "Konfirmasi", MessageBoxButtons.YesNo) == DialogResult.No) return;
+            if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
             RunQuery("DELETE FROM Kendaraan WHERE id_kendaraan=@id", new SqlParameter("@id", id));
             MessageBox.Show("Data berhasil dihapus!");
@@ -351,6 +351,140 @@ namespace SistemServisMotor
             txtmerk.Clear(); txtplano.Clear(); txttahunken.Clear();
             txtcarik.Clear(); cmbpelanggan.SelectedIndex = 0;
         }
+
+
+        // TAB SERVIS
+
+        void LoadServis()
+        {
+            LoadData(@"SELECT s.id_servis AS ID, k.plat_no AS [Plat No], u.nama AS Petugas,
+                       s.Tanggal, s.JenisServis AS [Jenis Servis], 
+                       s.SukuCadang AS [Suku Cadang], s.Biaya, s.Catatan
+                       FROM Servis s 
+                       JOIN Kendaraan k ON s.id_kendaraan = k.id_kendaraan
+                       JOIN Users u ON s.id_user = u.id_user",
+                     dgvServis);
+            lblcounts.Text = "Total: " + CountRows("Servis");
+        }
+
+        private void btnadds_Click(object sender, EventArgs e)
+        {
+            int idK = GetComboId(cmbkendaraan);
+            int idU = GetComboId(cmbusers);
+            if (idK == -1 || idU == -1)
+            { MessageBox.Show("Pilih kendaraan dan petugas!"); return; }
+            if (txtjenisservis.Text == "" || txtsukucadang.Text == "" || txtbiaya.Text == "")
+            { MessageBox.Show("Jenis Servis, Suku Cadang, dan Biaya harus diisi!"); return; }
+
+            decimal biaya;
+            if (!decimal.TryParse(txtbiaya.Text, out biaya))
+            { MessageBox.Show("Biaya harus angka!"); return; }
+
+            RunQuery(@"INSERT INTO Servis(id_kendaraan, id_user, Tanggal, JenisServis, SukuCadang, Biaya, Catatan) 
+                       VALUES(@a,@b,@c,@d,@e,@f,@g)",
+                new SqlParameter("@a", idK),
+                new SqlParameter("@b", idU),
+                new SqlParameter("@c", dtptanggal.Value),
+                new SqlParameter("@d", txtjenisservis.Text.Trim()),
+                new SqlParameter("@e", txtsukucadang.Text.Trim()),
+                new SqlParameter("@f", biaya),
+                new SqlParameter("@g", txtcatatan.Text == "" ? (object)DBNull.Value : txtcatatan.Text.Trim()));
+
+            MessageBox.Show("Data berhasil ditambahkan!");
+            ClearS(); LoadServis();
+        }
+
+        private void btnups_Click(object sender, EventArgs e)
+        {
+            int id = GetSelectedId(dgvServis);
+            int idK = GetComboId(cmbkendaraan);
+            int idU = GetComboId(cmbusers);
+            if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
+            if (idK == -1 || idU == -1 || txtjenisservis.Text == "" || txtsukucadang.Text == "" || txtbiaya.Text == "")
+            { MessageBox.Show("Semua field harus diisi!"); return; }
+
+            decimal biaya;
+            if (!decimal.TryParse(txtbiaya.Text, out biaya))
+            { MessageBox.Show("Biaya harus angka!"); return; }
+
+            if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
+
+            RunQuery(@"UPDATE Servis SET id_kendaraan=@a, id_user=@b, Tanggal=@c, 
+                       JenisServis=@d, SukuCadang=@e, Biaya=@f, Catatan=@g 
+                       WHERE id_servis=@id",
+                new SqlParameter("@a", idK),
+                new SqlParameter("@b", idU),
+                new SqlParameter("@c", dtptanggal.Value),
+                new SqlParameter("@d", txtjenisservis.Text.Trim()),
+                new SqlParameter("@e", txtsukucadang.Text.Trim()),
+                new SqlParameter("@f", biaya),
+                new SqlParameter("@g", txtcatatan.Text == "" ? (object)DBNull.Value : txtcatatan.Text.Trim()),
+                new SqlParameter("@id", id));
+
+            MessageBox.Show("Data berhasil diubah!");
+            ClearS(); LoadServis();
+        }
+
+        private void btndels_Click(object sender, EventArgs e)
+        {
+            int id = GetSelectedId(dgvServis);
+            if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
+            if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
+
+            RunQuery("DELETE FROM Servis WHERE id_servis=@id", new SqlParameter("@id", id));
+            MessageBox.Show("Data berhasil dihapus!");
+            ClearS(); LoadServis();
+        }
+
+        private void btncaris_Click(object sender, EventArgs e)
+        {
+            string cari = txtcaris.Text.Trim();
+            SearchData(@"SELECT s.id_servis AS ID, k.plat_no AS [Plat No], u.nama AS Petugas,
+                         s.Tanggal, s.JenisServis AS [Jenis Servis], 
+                         s.SukuCadang AS [Suku Cadang], s.Biaya, s.Catatan
+                         FROM Servis s JOIN Kendaraan k ON s.id_kendaraan=k.id_kendaraan
+                         JOIN Users u ON s.id_user=u.id_user
+                         WHERE k.plat_no LIKE '%" + cari + "%' OR s.JenisServis LIKE '%" + cari + "%'",
+                       dgvServis);
+        }
+
+        private void btnloads_Click(object sender, EventArgs e) { LoadServis(); }
+
+        private void dgvServis_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            var row = dgvServis.Rows[e.RowIndex];
+            txtjenisservis.Text = row.Cells["Jenis Servis"].Value.ToString();
+            txtsukucadang.Text = row.Cells["Suku Cadang"].Value.ToString();
+            txtbiaya.Text = row.Cells["Biaya"].Value.ToString();
+            txtcatatan.Text = row.Cells["Catatan"].Value?.ToString() ?? "";
+
+            if (row.Cells["Tanggal"].Value != null)
+                dtptanggal.Value = Convert.ToDateTime(row.Cells["Tanggal"].Value);
+
+            string plat = row.Cells["Plat No"].Value.ToString();
+            for (int i = 0; i < cmbkendaraan.Items.Count; i++)
+                if (cmbkendaraan.Items[i].ToString().Contains(plat))
+                { cmbkendaraan.SelectedIndex = i; break; }
+
+            string pet = row.Cells["Petugas"].Value.ToString();
+            for (int i = 0; i < cmbusers.Items.Count; i++)
+                if (cmbusers.Items[i].ToString().Contains(pet))
+                { cmbusers.SelectedIndex = i; break; }
+        }
+
+        private void btnclears_Click(object sender, EventArgs e) { ClearS(); }
+        void ClearS()
+        {
+            txtjenisservis.Clear(); txtsukucadang.Clear(); txtbiaya.Clear();
+            txtcatatan.Clear(); txtcaris.Clear();
+            dtptanggal.Value = DateTime.Now;
+            cmbkendaraan.SelectedIndex = 0; cmbusers.SelectedIndex = 0;
+        }
+
+        
+
+
     }
 }
       
