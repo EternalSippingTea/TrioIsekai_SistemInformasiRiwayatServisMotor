@@ -34,12 +34,12 @@ namespace SistemServisMotor
             try
             {
                 using (var c = DatabaseHelper.GetConn()) { c.Open(); }
-                lblcon.Text = "Koneksi: Terhubung";
+                lblcon.Text = "Connection : Successful";
                 lblcon.ForeColor = Color.Green;
             }
             catch
             {
-                lblcon.Text = "Koneksi: Gagal";
+                lblcon.Text = "Connection : Failed";
                 lblcon.ForeColor = Color.Red;
             }
 
@@ -55,7 +55,66 @@ namespace SistemServisMotor
             // Load first tab data + combos on startup
             LoadPelanggan();
             LoadCombos();
-        }        
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (tabcontrol1.SelectedIndex)
+            {
+                case 0: LoadPelanggan(); break;
+                case 1: LoadKendaraan(); break;
+                case 2: LoadServis(); break;
+                case 3: LoadUsers(); break;
+            }
+            LoadCombos();
+        }
+
+        void LoadData(string sql, DataGridView dgv)
+        {
+            using (var conn = DatabaseHelper.GetConn())
+            {
+                conn.Open();
+                var dt = new DataTable();
+                new SqlDataAdapter(sql, conn).Fill(dt);
+                dgv.DataSource = dt;
+            }
+        }
+
+        void RunQuery(string sql, params SqlParameter[] pars)
+        {
+            using (var conn = DatabaseHelper.GetConn())
+            {
+                conn.Open();
+                var cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddRange(pars);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        int CountRows(string table)
+        {
+            using (var conn = DatabaseHelper.GetConn())
+            {
+                conn.Open();
+                var cmd = new SqlCommand("SELECT COUNT(*) FROM " + table, conn);
+                return (int)cmd.ExecuteScalar();
+            }
+        }
+
+        int GetSelectedId(DataGridView dgv)
+        {
+            if (dgv.CurrentRow == null) return -1;
+            return Convert.ToInt32(dgv.CurrentRow.Cells[0].Value);
+        }
+
+        int GetComboId(ComboBox cmb)
+        {
+            if (cmb.SelectedIndex <= 0) return -1;
+            return int.Parse(cmb.SelectedItem.ToString().Split('-')[0].Trim());
+        }
+
+
+
 
         private void tabPelanggan_Click(object sender, EventArgs e)
         {
