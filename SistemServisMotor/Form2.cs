@@ -152,12 +152,22 @@ namespace SistemServisMotor
             using (var conn = DatabaseHelper.GetConn())
             {
                 conn.Open();
-                var reader = new SqlCommand(sql, conn).ExecuteReader();
+                SqlDataReader reader = new SqlCommand(sql, conn).ExecuteReader();  // SqlDataReader
                 while (reader.Read())
                     cmb.Items.Add(reader[idCol] + " - " + reader[nameCol]);
                 reader.Close();
             }
             cmb.SelectedIndex = 0;
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Yakin logout?", "Konfirmasi",
+                MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                new LoginForm().Show();
+                this.Close();
+            }
         }
 
         private void tabPelanggan_Click(object sender, EventArgs e)
