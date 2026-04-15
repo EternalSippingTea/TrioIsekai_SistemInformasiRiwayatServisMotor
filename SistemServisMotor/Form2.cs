@@ -330,7 +330,27 @@ namespace SistemServisMotor
                        dgvKendaraan);
         }
 
+        private void btnloadk_Click(object sender, EventArgs e) { LoadKendaraan(); }
 
+        private void dgvKendaraan_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            var row = dgvKendaraan.Rows[e.RowIndex];
+            txtmerk.Text = row.Cells["Merk"].Value.ToString();
+            txtplano.Text = row.Cells["Plat No"].Value.ToString();
+            txttahunken.Text = row.Cells["Tahun"].Value?.ToString() ?? "";
+            string pel = row.Cells["Pelanggan"].Value.ToString();
+            for (int i = 0; i < cmbpelanggan.Items.Count; i++)
+                if (cmbpelanggan.Items[i].ToString().Contains(pel))
+                { cmbpelanggan.SelectedIndex = i; break; }
+        }
+
+        private void btncleark_Click(object sender, EventArgs e) { ClearK(); }
+        void ClearK()
+        {
+            txtmerk.Clear(); txtplano.Clear(); txttahunken.Clear();
+            txtcarik.Clear(); cmbpelanggan.SelectedIndex = 0;
+        }
     }
 }
       
