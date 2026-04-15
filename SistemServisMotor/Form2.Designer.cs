@@ -1,0 +1,880 @@
+﻿namespace SistemServisMotor
+{
+    partial class MainForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.lblwelcome = new System.Windows.Forms.Label();
+            this.btnlogout = new System.Windows.Forms.Button();
+            this.tabcontrol1 = new System.Windows.Forms.TabControl();
+            this.tabPelanggan = new System.Windows.Forms.TabPage();
+            this.btnclearp = new System.Windows.Forms.Button();
+            this.btndelp = new System.Windows.Forms.Button();
+            this.btnupp = new System.Windows.Forms.Button();
+            this.btnaddp = new System.Windows.Forms.Button();
+            this.dgvPelanggan = new System.Windows.Forms.DataGridView();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.lblnotelp = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblalamat = new System.Windows.Forms.Label();
+            this.txtnamapel = new System.Windows.Forms.TextBox();
+            this.lblnamapel = new System.Windows.Forms.Label();
+            this.tabKendaraan = new System.Windows.Forms.TabPage();
+            this.txttahunken = new System.Windows.Forms.TextBox();
+            this.lbltahunken = new System.Windows.Forms.Label();
+            this.cmbpelanggan = new System.Windows.Forms.ComboBox();
+            this.btncleark = new System.Windows.Forms.Button();
+            this.btndelk = new System.Windows.Forms.Button();
+            this.btnupk = new System.Windows.Forms.Button();
+            this.btnaddk = new System.Windows.Forms.Button();
+            this.dgvKendaraan = new System.Windows.Forms.DataGridView();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.lblplatno = new System.Windows.Forms.Label();
+            this.txtmerk = new System.Windows.Forms.TextBox();
+            this.lblmerk = new System.Windows.Forms.Label();
+            this.lblpelk = new System.Windows.Forms.Label();
+            this.tabServis = new System.Windows.Forms.TabPage();
+            this.txtcatatan = new System.Windows.Forms.TextBox();
+            this.lblcatatan = new System.Windows.Forms.Label();
+            this.txtbiaya = new System.Windows.Forms.TextBox();
+            this.lblbiaya = new System.Windows.Forms.Label();
+            this.txtsukucadang = new System.Windows.Forms.TextBox();
+            this.lblsukucadang = new System.Windows.Forms.Label();
+            this.dtptanggal = new System.Windows.Forms.DateTimePicker();
+            this.cmbusers = new System.Windows.Forms.ComboBox();
+            this.lblusers = new System.Windows.Forms.Label();
+            this.cmbkendaraan = new System.Windows.Forms.ComboBox();
+            this.btnclears = new System.Windows.Forms.Button();
+            this.btndels = new System.Windows.Forms.Button();
+            this.btnups = new System.Windows.Forms.Button();
+            this.btnadds = new System.Windows.Forms.Button();
+            this.dgvServis = new System.Windows.Forms.DataGridView();
+            this.txtjenisservis = new System.Windows.Forms.TextBox();
+            this.lbljenisservis = new System.Windows.Forms.Label();
+            this.lbltanggal = new System.Windows.Forms.Label();
+            this.lblkens = new System.Windows.Forms.Label();
+            this.tabUsers = new System.Windows.Forms.TabPage();
+            this.cmbrole = new System.Windows.Forms.ComboBox();
+            this.lblrole = new System.Windows.Forms.Label();
+            this.btnclearu = new System.Windows.Forms.Button();
+            this.btndelu = new System.Windows.Forms.Button();
+            this.btnupu = new System.Windows.Forms.Button();
+            this.btnaddu = new System.Windows.Forms.Button();
+            this.dgvUsers = new System.Windows.Forms.DataGridView();
+            this.txtnoteluser = new System.Windows.Forms.TextBox();
+            this.lblnoteluser = new System.Windows.Forms.Label();
+            this.txtusername = new System.Windows.Forms.TextBox();
+            this.lblusername = new System.Windows.Forms.Label();
+            this.txtnamauser = new System.Windows.Forms.TextBox();
+            this.lblnamausers = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.tabcontrol1.SuspendLayout();
+            this.tabPelanggan.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPelanggan)).BeginInit();
+            this.tabKendaraan.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKendaraan)).BeginInit();
+            this.tabServis.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvServis)).BeginInit();
+            this.tabUsers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // lblwelcome
+            // 
+            this.lblwelcome.AutoSize = true;
+            this.lblwelcome.Font = new System.Drawing.Font("Dubai", 10F);
+            this.lblwelcome.Location = new System.Drawing.Point(24, 35);
+            this.lblwelcome.Name = "lblwelcome";
+            this.lblwelcome.Size = new System.Drawing.Size(196, 29);
+            this.lblwelcome.TabIndex = 0;
+            this.lblwelcome.Text = "Welcome Admin/Petugas!";
+            this.lblwelcome.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // btnlogout
+            // 
+            this.btnlogout.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnlogout.Location = new System.Drawing.Point(235, 35);
+            this.btnlogout.Name = "btnlogout";
+            this.btnlogout.Size = new System.Drawing.Size(100, 29);
+            this.btnlogout.TabIndex = 1;
+            this.btnlogout.Text = "Logout";
+            this.btnlogout.UseVisualStyleBackColor = true;
+            // 
+            // tabcontrol1
+            // 
+            this.tabcontrol1.Controls.Add(this.tabPelanggan);
+            this.tabcontrol1.Controls.Add(this.tabKendaraan);
+            this.tabcontrol1.Controls.Add(this.tabServis);
+            this.tabcontrol1.Controls.Add(this.tabUsers);
+            this.tabcontrol1.Location = new System.Drawing.Point(12, 94);
+            this.tabcontrol1.Name = "tabcontrol1";
+            this.tabcontrol1.SelectedIndex = 0;
+            this.tabcontrol1.Size = new System.Drawing.Size(990, 633);
+            this.tabcontrol1.TabIndex = 2;
+            // 
+            // tabPelanggan
+            // 
+            this.tabPelanggan.Controls.Add(this.btnclearp);
+            this.tabPelanggan.Controls.Add(this.btndelp);
+            this.tabPelanggan.Controls.Add(this.btnupp);
+            this.tabPelanggan.Controls.Add(this.btnaddp);
+            this.tabPelanggan.Controls.Add(this.dgvPelanggan);
+            this.tabPelanggan.Controls.Add(this.textBox2);
+            this.tabPelanggan.Controls.Add(this.lblnotelp);
+            this.tabPelanggan.Controls.Add(this.textBox1);
+            this.tabPelanggan.Controls.Add(this.lblalamat);
+            this.tabPelanggan.Controls.Add(this.txtnamapel);
+            this.tabPelanggan.Controls.Add(this.lblnamapel);
+            this.tabPelanggan.Location = new System.Drawing.Point(4, 25);
+            this.tabPelanggan.Name = "tabPelanggan";
+            this.tabPelanggan.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPelanggan.Size = new System.Drawing.Size(982, 604);
+            this.tabPelanggan.TabIndex = 0;
+            this.tabPelanggan.Text = "Pelanggan";
+            this.tabPelanggan.UseVisualStyleBackColor = true;
+            this.tabPelanggan.Click += new System.EventHandler(this.tabPelanggan_Click);
+            // 
+            // btnclearp
+            // 
+            this.btnclearp.Location = new System.Drawing.Point(290, 198);
+            this.btnclearp.Name = "btnclearp";
+            this.btnclearp.Size = new System.Drawing.Size(75, 23);
+            this.btnclearp.TabIndex = 10;
+            this.btnclearp.Text = "Clear";
+            this.btnclearp.UseVisualStyleBackColor = true;
+            // 
+            // btndelp
+            // 
+            this.btndelp.Location = new System.Drawing.Point(195, 198);
+            this.btndelp.Name = "btndelp";
+            this.btndelp.Size = new System.Drawing.Size(75, 23);
+            this.btndelp.TabIndex = 9;
+            this.btndelp.Text = "Delete";
+            this.btndelp.UseVisualStyleBackColor = true;
+            // 
+            // btnupp
+            // 
+            this.btnupp.Location = new System.Drawing.Point(104, 198);
+            this.btnupp.Name = "btnupp";
+            this.btnupp.Size = new System.Drawing.Size(75, 23);
+            this.btnupp.TabIndex = 8;
+            this.btnupp.Text = "Update";
+            this.btnupp.UseVisualStyleBackColor = true;
+            this.btnupp.Click += new System.EventHandler(this.btnupp_Click);
+            // 
+            // btnaddp
+            // 
+            this.btnaddp.Location = new System.Drawing.Point(13, 198);
+            this.btnaddp.Name = "btnaddp";
+            this.btnaddp.Size = new System.Drawing.Size(75, 23);
+            this.btnaddp.TabIndex = 7;
+            this.btnaddp.Text = "Add";
+            this.btnaddp.UseVisualStyleBackColor = true;
+            // 
+            // dgvPelanggan
+            // 
+            this.dgvPelanggan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPelanggan.Location = new System.Drawing.Point(392, 18);
+            this.dgvPelanggan.Name = "dgvPelanggan";
+            this.dgvPelanggan.RowHeadersWidth = 51;
+            this.dgvPelanggan.RowTemplate.Height = 24;
+            this.dgvPelanggan.Size = new System.Drawing.Size(563, 580);
+            this.dgvPelanggan.TabIndex = 6;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.textBox2.Location = new System.Drawing.Point(137, 119);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(199, 31);
+            this.textBox2.TabIndex = 5;
+            // 
+            // lblnotelp
+            // 
+            this.lblnotelp.AutoSize = true;
+            this.lblnotelp.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblnotelp.Location = new System.Drawing.Point(24, 122);
+            this.lblnotelp.Name = "lblnotelp";
+            this.lblnotelp.Size = new System.Drawing.Size(87, 24);
+            this.lblnotelp.TabIndex = 4;
+            this.lblnotelp.Text = "No.Telphone :";
+            this.lblnotelp.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.textBox1.Location = new System.Drawing.Point(137, 55);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(199, 58);
+            this.textBox1.TabIndex = 3;
+            // 
+            // lblalamat
+            // 
+            this.lblalamat.AutoSize = true;
+            this.lblalamat.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblalamat.Location = new System.Drawing.Point(24, 58);
+            this.lblalamat.Name = "lblalamat";
+            this.lblalamat.Size = new System.Drawing.Size(58, 24);
+            this.lblalamat.TabIndex = 2;
+            this.lblalamat.Text = "Alamat :";
+            this.lblalamat.Click += new System.EventHandler(this.label1_Click_2);
+            // 
+            // txtnamapel
+            // 
+            this.txtnamapel.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtnamapel.Location = new System.Drawing.Point(137, 18);
+            this.txtnamapel.Name = "txtnamapel";
+            this.txtnamapel.Size = new System.Drawing.Size(199, 31);
+            this.txtnamapel.TabIndex = 1;
+            // 
+            // lblnamapel
+            // 
+            this.lblnamapel.AutoSize = true;
+            this.lblnamapel.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblnamapel.Location = new System.Drawing.Point(24, 21);
+            this.lblnamapel.Name = "lblnamapel";
+            this.lblnamapel.Size = new System.Drawing.Size(113, 24);
+            this.lblnamapel.TabIndex = 0;
+            this.lblnamapel.Text = "Nama Pelanggan :";
+            this.lblnamapel.Click += new System.EventHandler(this.label1_Click_1);
+            // 
+            // tabKendaraan
+            // 
+            this.tabKendaraan.Controls.Add(this.txttahunken);
+            this.tabKendaraan.Controls.Add(this.lbltahunken);
+            this.tabKendaraan.Controls.Add(this.cmbpelanggan);
+            this.tabKendaraan.Controls.Add(this.btncleark);
+            this.tabKendaraan.Controls.Add(this.btndelk);
+            this.tabKendaraan.Controls.Add(this.btnupk);
+            this.tabKendaraan.Controls.Add(this.btnaddk);
+            this.tabKendaraan.Controls.Add(this.dgvKendaraan);
+            this.tabKendaraan.Controls.Add(this.textBox3);
+            this.tabKendaraan.Controls.Add(this.lblplatno);
+            this.tabKendaraan.Controls.Add(this.txtmerk);
+            this.tabKendaraan.Controls.Add(this.lblmerk);
+            this.tabKendaraan.Controls.Add(this.lblpelk);
+            this.tabKendaraan.Location = new System.Drawing.Point(4, 25);
+            this.tabKendaraan.Name = "tabKendaraan";
+            this.tabKendaraan.Padding = new System.Windows.Forms.Padding(3);
+            this.tabKendaraan.Size = new System.Drawing.Size(982, 604);
+            this.tabKendaraan.TabIndex = 1;
+            this.tabKendaraan.Text = "Kendaraan";
+            this.tabKendaraan.UseVisualStyleBackColor = true;
+            // 
+            // txttahunken
+            // 
+            this.txttahunken.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txttahunken.Location = new System.Drawing.Point(139, 133);
+            this.txttahunken.Name = "txttahunken";
+            this.txttahunken.Size = new System.Drawing.Size(199, 31);
+            this.txttahunken.TabIndex = 24;
+            // 
+            // lbltahunken
+            // 
+            this.lbltahunken.AutoSize = true;
+            this.lbltahunken.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lbltahunken.Location = new System.Drawing.Point(26, 136);
+            this.lbltahunken.Name = "lbltahunken";
+            this.lbltahunken.Size = new System.Drawing.Size(52, 24);
+            this.lbltahunken.TabIndex = 23;
+            this.lbltahunken.Text = "Tahun :";
+            // 
+            // cmbpelanggan
+            // 
+            this.cmbpelanggan.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.cmbpelanggan.FormattingEnabled = true;
+            this.cmbpelanggan.Location = new System.Drawing.Point(139, 19);
+            this.cmbpelanggan.Name = "cmbpelanggan";
+            this.cmbpelanggan.Size = new System.Drawing.Size(199, 32);
+            this.cmbpelanggan.TabIndex = 22;
+            // 
+            // btncleark
+            // 
+            this.btncleark.Location = new System.Drawing.Point(291, 201);
+            this.btncleark.Name = "btncleark";
+            this.btncleark.Size = new System.Drawing.Size(75, 23);
+            this.btncleark.TabIndex = 21;
+            this.btncleark.Text = "Clear";
+            this.btncleark.UseVisualStyleBackColor = true;
+            // 
+            // btndelk
+            // 
+            this.btndelk.Location = new System.Drawing.Point(199, 201);
+            this.btndelk.Name = "btndelk";
+            this.btndelk.Size = new System.Drawing.Size(75, 23);
+            this.btndelk.TabIndex = 20;
+            this.btndelk.Text = "Delete";
+            this.btndelk.UseVisualStyleBackColor = true;
+            // 
+            // btnupk
+            // 
+            this.btnupk.Location = new System.Drawing.Point(105, 201);
+            this.btnupk.Name = "btnupk";
+            this.btnupk.Size = new System.Drawing.Size(75, 23);
+            this.btnupk.TabIndex = 19;
+            this.btnupk.Text = "Update";
+            this.btnupk.UseVisualStyleBackColor = true;
+            // 
+            // btnaddk
+            // 
+            this.btnaddk.Location = new System.Drawing.Point(13, 201);
+            this.btnaddk.Name = "btnaddk";
+            this.btnaddk.Size = new System.Drawing.Size(75, 23);
+            this.btnaddk.TabIndex = 18;
+            this.btnaddk.Text = "Add";
+            this.btnaddk.UseVisualStyleBackColor = true;
+            // 
+            // dgvKendaraan
+            // 
+            this.dgvKendaraan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvKendaraan.Location = new System.Drawing.Point(388, 19);
+            this.dgvKendaraan.Name = "dgvKendaraan";
+            this.dgvKendaraan.RowHeadersWidth = 51;
+            this.dgvKendaraan.RowTemplate.Height = 24;
+            this.dgvKendaraan.Size = new System.Drawing.Size(569, 579);
+            this.dgvKendaraan.TabIndex = 17;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.textBox3.Location = new System.Drawing.Point(139, 94);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(199, 31);
+            this.textBox3.TabIndex = 16;
+            // 
+            // lblplatno
+            // 
+            this.lblplatno.AutoSize = true;
+            this.lblplatno.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblplatno.Location = new System.Drawing.Point(26, 97);
+            this.lblplatno.Name = "lblplatno";
+            this.lblplatno.Size = new System.Drawing.Size(82, 24);
+            this.lblplatno.TabIndex = 15;
+            this.lblplatno.Text = "Plat Nomor :";
+            // 
+            // txtmerk
+            // 
+            this.txtmerk.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtmerk.Location = new System.Drawing.Point(139, 57);
+            this.txtmerk.Name = "txtmerk";
+            this.txtmerk.Size = new System.Drawing.Size(199, 31);
+            this.txtmerk.TabIndex = 14;
+            // 
+            // lblmerk
+            // 
+            this.lblmerk.AutoSize = true;
+            this.lblmerk.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblmerk.Location = new System.Drawing.Point(26, 60);
+            this.lblmerk.Name = "lblmerk";
+            this.lblmerk.Size = new System.Drawing.Size(45, 24);
+            this.lblmerk.TabIndex = 13;
+            this.lblmerk.Text = "Merk :";
+            this.lblmerk.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // lblpelk
+            // 
+            this.lblpelk.AutoSize = true;
+            this.lblpelk.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblpelk.Location = new System.Drawing.Point(26, 23);
+            this.lblpelk.Name = "lblpelk";
+            this.lblpelk.Size = new System.Drawing.Size(75, 24);
+            this.lblpelk.TabIndex = 11;
+            this.lblpelk.Text = "Pelanggan :";
+            // 
+            // tabServis
+            // 
+            this.tabServis.Controls.Add(this.txtcatatan);
+            this.tabServis.Controls.Add(this.lblcatatan);
+            this.tabServis.Controls.Add(this.txtbiaya);
+            this.tabServis.Controls.Add(this.lblbiaya);
+            this.tabServis.Controls.Add(this.txtsukucadang);
+            this.tabServis.Controls.Add(this.lblsukucadang);
+            this.tabServis.Controls.Add(this.dtptanggal);
+            this.tabServis.Controls.Add(this.cmbusers);
+            this.tabServis.Controls.Add(this.lblusers);
+            this.tabServis.Controls.Add(this.cmbkendaraan);
+            this.tabServis.Controls.Add(this.btnclears);
+            this.tabServis.Controls.Add(this.btndels);
+            this.tabServis.Controls.Add(this.btnups);
+            this.tabServis.Controls.Add(this.btnadds);
+            this.tabServis.Controls.Add(this.dgvServis);
+            this.tabServis.Controls.Add(this.txtjenisservis);
+            this.tabServis.Controls.Add(this.lbljenisservis);
+            this.tabServis.Controls.Add(this.lbltanggal);
+            this.tabServis.Controls.Add(this.lblkens);
+            this.tabServis.Location = new System.Drawing.Point(4, 25);
+            this.tabServis.Name = "tabServis";
+            this.tabServis.Padding = new System.Windows.Forms.Padding(3);
+            this.tabServis.Size = new System.Drawing.Size(982, 604);
+            this.tabServis.TabIndex = 2;
+            this.tabServis.Text = "Servis";
+            this.tabServis.UseVisualStyleBackColor = true;
+            this.tabServis.Click += new System.EventHandler(this.tabServis_Click);
+            // 
+            // txtcatatan
+            // 
+            this.txtcatatan.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtcatatan.Location = new System.Drawing.Point(140, 273);
+            this.txtcatatan.Multiline = true;
+            this.txtcatatan.Name = "txtcatatan";
+            this.txtcatatan.Size = new System.Drawing.Size(199, 65);
+            this.txtcatatan.TabIndex = 42;
+            // 
+            // lblcatatan
+            // 
+            this.lblcatatan.AutoSize = true;
+            this.lblcatatan.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblcatatan.Location = new System.Drawing.Point(28, 273);
+            this.lblcatatan.Name = "lblcatatan";
+            this.lblcatatan.Size = new System.Drawing.Size(62, 24);
+            this.lblcatatan.TabIndex = 41;
+            this.lblcatatan.Text = "Catatan :";
+            this.lblcatatan.Click += new System.EventHandler(this.label3_Click_2);
+            // 
+            // txtbiaya
+            // 
+            this.txtbiaya.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtbiaya.Location = new System.Drawing.Point(140, 223);
+            this.txtbiaya.Name = "txtbiaya";
+            this.txtbiaya.Size = new System.Drawing.Size(199, 31);
+            this.txtbiaya.TabIndex = 40;
+            this.txtbiaya.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
+            // 
+            // lblbiaya
+            // 
+            this.lblbiaya.AutoSize = true;
+            this.lblbiaya.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblbiaya.Location = new System.Drawing.Point(28, 226);
+            this.lblbiaya.Name = "lblbiaya";
+            this.lblbiaya.Size = new System.Drawing.Size(47, 24);
+            this.lblbiaya.TabIndex = 39;
+            this.lblbiaya.Text = "Biaya :";
+            this.lblbiaya.Click += new System.EventHandler(this.label3_Click_1);
+            // 
+            // txtsukucadang
+            // 
+            this.txtsukucadang.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtsukucadang.Location = new System.Drawing.Point(141, 184);
+            this.txtsukucadang.Name = "txtsukucadang";
+            this.txtsukucadang.Size = new System.Drawing.Size(199, 31);
+            this.txtsukucadang.TabIndex = 38;
+            // 
+            // lblsukucadang
+            // 
+            this.lblsukucadang.AutoSize = true;
+            this.lblsukucadang.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblsukucadang.Location = new System.Drawing.Point(28, 187);
+            this.lblsukucadang.Name = "lblsukucadang";
+            this.lblsukucadang.Size = new System.Drawing.Size(90, 24);
+            this.lblsukucadang.TabIndex = 37;
+            this.lblsukucadang.Text = "Suku Cadang :";
+            // 
+            // dtptanggal
+            // 
+            this.dtptanggal.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.dtptanggal.Location = new System.Drawing.Point(139, 100);
+            this.dtptanggal.Name = "dtptanggal";
+            this.dtptanggal.Size = new System.Drawing.Size(200, 31);
+            this.dtptanggal.TabIndex = 36;
+            // 
+            // cmbusers
+            // 
+            this.cmbusers.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.cmbusers.FormattingEnabled = true;
+            this.cmbusers.Location = new System.Drawing.Point(139, 57);
+            this.cmbusers.Name = "cmbusers";
+            this.cmbusers.Size = new System.Drawing.Size(199, 32);
+            this.cmbusers.TabIndex = 35;
+            // 
+            // lblusers
+            // 
+            this.lblusers.AutoSize = true;
+            this.lblusers.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblusers.Location = new System.Drawing.Point(26, 63);
+            this.lblusers.Name = "lblusers";
+            this.lblusers.Size = new System.Drawing.Size(77, 24);
+            this.lblusers.TabIndex = 34;
+            this.lblusers.Text = "Kendaraan :";
+            this.lblusers.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // cmbkendaraan
+            // 
+            this.cmbkendaraan.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.cmbkendaraan.FormattingEnabled = true;
+            this.cmbkendaraan.Location = new System.Drawing.Point(139, 17);
+            this.cmbkendaraan.Name = "cmbkendaraan";
+            this.cmbkendaraan.Size = new System.Drawing.Size(199, 32);
+            this.cmbkendaraan.TabIndex = 33;
+            // 
+            // btnclears
+            // 
+            this.btnclears.Location = new System.Drawing.Point(299, 368);
+            this.btnclears.Name = "btnclears";
+            this.btnclears.Size = new System.Drawing.Size(75, 23);
+            this.btnclears.TabIndex = 32;
+            this.btnclears.Text = "Clear";
+            this.btnclears.UseVisualStyleBackColor = true;
+            // 
+            // btndels
+            // 
+            this.btndels.Location = new System.Drawing.Point(202, 368);
+            this.btndels.Name = "btndels";
+            this.btndels.Size = new System.Drawing.Size(75, 23);
+            this.btndels.TabIndex = 31;
+            this.btndels.Text = "Delete";
+            this.btndels.UseVisualStyleBackColor = true;
+            // 
+            // btnups
+            // 
+            this.btnups.Location = new System.Drawing.Point(108, 368);
+            this.btnups.Name = "btnups";
+            this.btnups.Size = new System.Drawing.Size(75, 23);
+            this.btnups.TabIndex = 30;
+            this.btnups.Text = "Update";
+            this.btnups.UseVisualStyleBackColor = true;
+            // 
+            // btnadds
+            // 
+            this.btnadds.Location = new System.Drawing.Point(13, 368);
+            this.btnadds.Name = "btnadds";
+            this.btnadds.Size = new System.Drawing.Size(75, 23);
+            this.btnadds.TabIndex = 29;
+            this.btnadds.Text = "Add";
+            this.btnadds.UseVisualStyleBackColor = true;
+            // 
+            // dgvServis
+            // 
+            this.dgvServis.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvServis.Location = new System.Drawing.Point(392, 17);
+            this.dgvServis.Name = "dgvServis";
+            this.dgvServis.RowHeadersWidth = 51;
+            this.dgvServis.RowTemplate.Height = 24;
+            this.dgvServis.Size = new System.Drawing.Size(565, 581);
+            this.dgvServis.TabIndex = 28;
+            // 
+            // txtjenisservis
+            // 
+            this.txtjenisservis.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtjenisservis.Location = new System.Drawing.Point(139, 139);
+            this.txtjenisservis.Name = "txtjenisservis";
+            this.txtjenisservis.Size = new System.Drawing.Size(199, 31);
+            this.txtjenisservis.TabIndex = 27;
+            // 
+            // lbljenisservis
+            // 
+            this.lbljenisservis.AutoSize = true;
+            this.lbljenisservis.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lbljenisservis.Location = new System.Drawing.Point(26, 142);
+            this.lbljenisservis.Name = "lbljenisservis";
+            this.lbljenisservis.Size = new System.Drawing.Size(81, 24);
+            this.lbljenisservis.TabIndex = 26;
+            this.lbljenisservis.Text = "Jenis Servis :";
+            // 
+            // lbltanggal
+            // 
+            this.lbltanggal.AutoSize = true;
+            this.lbltanggal.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lbltanggal.Location = new System.Drawing.Point(26, 105);
+            this.lbltanggal.Name = "lbltanggal";
+            this.lbltanggal.Size = new System.Drawing.Size(62, 24);
+            this.lbltanggal.TabIndex = 24;
+            this.lbltanggal.Text = "Tanggal :";
+            // 
+            // lblkens
+            // 
+            this.lblkens.AutoSize = true;
+            this.lblkens.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblkens.Location = new System.Drawing.Point(26, 23);
+            this.lblkens.Name = "lblkens";
+            this.lblkens.Size = new System.Drawing.Size(77, 24);
+            this.lblkens.TabIndex = 22;
+            this.lblkens.Text = "Kendaraan :";
+            // 
+            // tabUsers
+            // 
+            this.tabUsers.Controls.Add(this.cmbrole);
+            this.tabUsers.Controls.Add(this.lblrole);
+            this.tabUsers.Controls.Add(this.btnclearu);
+            this.tabUsers.Controls.Add(this.btndelu);
+            this.tabUsers.Controls.Add(this.btnupu);
+            this.tabUsers.Controls.Add(this.btnaddu);
+            this.tabUsers.Controls.Add(this.dgvUsers);
+            this.tabUsers.Controls.Add(this.txtnoteluser);
+            this.tabUsers.Controls.Add(this.lblnoteluser);
+            this.tabUsers.Controls.Add(this.txtusername);
+            this.tabUsers.Controls.Add(this.lblusername);
+            this.tabUsers.Controls.Add(this.txtnamauser);
+            this.tabUsers.Controls.Add(this.lblnamausers);
+            this.tabUsers.Location = new System.Drawing.Point(4, 25);
+            this.tabUsers.Name = "tabUsers";
+            this.tabUsers.Padding = new System.Windows.Forms.Padding(3);
+            this.tabUsers.Size = new System.Drawing.Size(982, 604);
+            this.tabUsers.TabIndex = 3;
+            this.tabUsers.Text = "Users";
+            this.tabUsers.UseVisualStyleBackColor = true;
+            // 
+            // cmbrole
+            // 
+            this.cmbrole.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.cmbrole.FormattingEnabled = true;
+            this.cmbrole.Location = new System.Drawing.Point(139, 131);
+            this.cmbrole.Name = "cmbrole";
+            this.cmbrole.Size = new System.Drawing.Size(199, 32);
+            this.cmbrole.TabIndex = 35;
+            // 
+            // lblrole
+            // 
+            this.lblrole.AutoSize = true;
+            this.lblrole.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblrole.Location = new System.Drawing.Point(26, 137);
+            this.lblrole.Name = "lblrole";
+            this.lblrole.Size = new System.Drawing.Size(40, 24);
+            this.lblrole.TabIndex = 34;
+            this.lblrole.Text = "Role :";
+            this.lblrole.Click += new System.EventHandler(this.label1_Click_3);
+            // 
+            // btnclearu
+            // 
+            this.btnclearu.Location = new System.Drawing.Point(293, 191);
+            this.btnclearu.Name = "btnclearu";
+            this.btnclearu.Size = new System.Drawing.Size(75, 23);
+            this.btnclearu.TabIndex = 32;
+            this.btnclearu.Text = "Clear";
+            this.btnclearu.UseVisualStyleBackColor = true;
+            // 
+            // btndelu
+            // 
+            this.btndelu.Location = new System.Drawing.Point(198, 191);
+            this.btndelu.Name = "btndelu";
+            this.btndelu.Size = new System.Drawing.Size(75, 23);
+            this.btndelu.TabIndex = 31;
+            this.btndelu.Text = "Delete";
+            this.btndelu.UseVisualStyleBackColor = true;
+            // 
+            // btnupu
+            // 
+            this.btnupu.Location = new System.Drawing.Point(108, 191);
+            this.btnupu.Name = "btnupu";
+            this.btnupu.Size = new System.Drawing.Size(75, 23);
+            this.btnupu.TabIndex = 30;
+            this.btnupu.Text = "Update";
+            this.btnupu.UseVisualStyleBackColor = true;
+            // 
+            // btnaddu
+            // 
+            this.btnaddu.Location = new System.Drawing.Point(13, 191);
+            this.btnaddu.Name = "btnaddu";
+            this.btnaddu.Size = new System.Drawing.Size(75, 23);
+            this.btnaddu.TabIndex = 29;
+            this.btnaddu.Text = "Add";
+            this.btnaddu.UseVisualStyleBackColor = true;
+            // 
+            // dgvUsers
+            // 
+            this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUsers.Location = new System.Drawing.Point(394, 20);
+            this.dgvUsers.Name = "dgvUsers";
+            this.dgvUsers.RowHeadersWidth = 51;
+            this.dgvUsers.RowTemplate.Height = 24;
+            this.dgvUsers.Size = new System.Drawing.Size(563, 578);
+            this.dgvUsers.TabIndex = 28;
+            // 
+            // txtnoteluser
+            // 
+            this.txtnoteluser.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtnoteluser.Location = new System.Drawing.Point(139, 94);
+            this.txtnoteluser.Name = "txtnoteluser";
+            this.txtnoteluser.Size = new System.Drawing.Size(199, 31);
+            this.txtnoteluser.TabIndex = 27;
+            // 
+            // lblnoteluser
+            // 
+            this.lblnoteluser.AutoSize = true;
+            this.lblnoteluser.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblnoteluser.Location = new System.Drawing.Point(26, 97);
+            this.lblnoteluser.Name = "lblnoteluser";
+            this.lblnoteluser.Size = new System.Drawing.Size(90, 24);
+            this.lblnoteluser.TabIndex = 26;
+            this.lblnoteluser.Text = "No. Telphone :";
+            // 
+            // txtusername
+            // 
+            this.txtusername.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtusername.Location = new System.Drawing.Point(139, 57);
+            this.txtusername.Name = "txtusername";
+            this.txtusername.Size = new System.Drawing.Size(199, 31);
+            this.txtusername.TabIndex = 25;
+            // 
+            // lblusername
+            // 
+            this.lblusername.AutoSize = true;
+            this.lblusername.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblusername.Location = new System.Drawing.Point(26, 60);
+            this.lblusername.Name = "lblusername";
+            this.lblusername.Size = new System.Drawing.Size(73, 24);
+            this.lblusername.TabIndex = 24;
+            this.lblusername.Text = "Username :";
+            this.lblusername.Click += new System.EventHandler(this.label10_Click);
+            // 
+            // txtnamauser
+            // 
+            this.txtnamauser.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtnamauser.Location = new System.Drawing.Point(139, 20);
+            this.txtnamauser.Name = "txtnamauser";
+            this.txtnamauser.Size = new System.Drawing.Size(199, 31);
+            this.txtnamauser.TabIndex = 23;
+            // 
+            // lblnamausers
+            // 
+            this.lblnamausers.AutoSize = true;
+            this.lblnamausers.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.lblnamausers.Location = new System.Drawing.Point(26, 23);
+            this.lblnamausers.Name = "lblnamausers";
+            this.lblnamausers.Size = new System.Drawing.Size(51, 24);
+            this.lblnamausers.TabIndex = 22;
+            this.lblnamausers.Text = "Nama :";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnlogout);
+            this.panel1.Controls.Add(this.lblwelcome);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1014, 88);
+            this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // panel2
+            // 
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 733);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1014, 82);
+            this.panel2.TabIndex = 3;
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1014, 815);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.tabcontrol1);
+            this.Name = "MainForm";
+            this.Text = "ServisForm";
+            this.tabcontrol1.ResumeLayout(false);
+            this.tabPelanggan.ResumeLayout(false);
+            this.tabPelanggan.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPelanggan)).EndInit();
+            this.tabKendaraan.ResumeLayout(false);
+            this.tabKendaraan.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKendaraan)).EndInit();
+            this.tabServis.ResumeLayout(false);
+            this.tabServis.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvServis)).EndInit();
+            this.tabUsers.ResumeLayout(false);
+            this.tabUsers.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Label lblwelcome;
+        private System.Windows.Forms.Button btnlogout;
+        private System.Windows.Forms.TabControl tabcontrol1;
+        private System.Windows.Forms.TabPage tabPelanggan;
+        private System.Windows.Forms.TabPage tabKendaraan;
+        private System.Windows.Forms.TabPage tabServis;
+        private System.Windows.Forms.TabPage tabUsers;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox txtnamapel;
+        public System.Windows.Forms.Label lblnamapel;
+        private System.Windows.Forms.TextBox textBox1;
+        public System.Windows.Forms.Label lblalamat;
+        private System.Windows.Forms.TextBox textBox2;
+        public System.Windows.Forms.Label lblnotelp;
+        private System.Windows.Forms.DataGridView dgvPelanggan;
+        private System.Windows.Forms.Button btnclearp;
+        private System.Windows.Forms.Button btndelp;
+        private System.Windows.Forms.Button btnupp;
+        private System.Windows.Forms.Button btnaddp;
+        private System.Windows.Forms.Button btncleark;
+        private System.Windows.Forms.Button btndelk;
+        private System.Windows.Forms.Button btnupk;
+        private System.Windows.Forms.Button btnaddk;
+        private System.Windows.Forms.DataGridView dgvKendaraan;
+        private System.Windows.Forms.TextBox textBox3;
+        public System.Windows.Forms.Label lblplatno;
+        private System.Windows.Forms.TextBox txtmerk;
+        public System.Windows.Forms.Label lblmerk;
+        public System.Windows.Forms.Label lblpelk;
+        private System.Windows.Forms.ComboBox cmbpelanggan;
+        private System.Windows.Forms.Button btnclears;
+        private System.Windows.Forms.Button btndels;
+        private System.Windows.Forms.Button btnups;
+        private System.Windows.Forms.Button btnadds;
+        private System.Windows.Forms.DataGridView dgvServis;
+        private System.Windows.Forms.TextBox txtjenisservis;
+        public System.Windows.Forms.Label lbljenisservis;
+        public System.Windows.Forms.Label lbltanggal;
+        public System.Windows.Forms.Label lblkens;
+        private System.Windows.Forms.Button btnclearu;
+        private System.Windows.Forms.Button btndelu;
+        private System.Windows.Forms.Button btnupu;
+        private System.Windows.Forms.Button btnaddu;
+        private System.Windows.Forms.DataGridView dgvUsers;
+        private System.Windows.Forms.TextBox txtnoteluser;
+        public System.Windows.Forms.Label lblnoteluser;
+        private System.Windows.Forms.TextBox txtusername;
+        public System.Windows.Forms.Label lblusername;
+        private System.Windows.Forms.TextBox txtnamauser;
+        public System.Windows.Forms.Label lblnamausers;
+        private System.Windows.Forms.TextBox txttahunken;
+        public System.Windows.Forms.Label lbltahunken;
+        private System.Windows.Forms.ComboBox cmbkendaraan;
+        private System.Windows.Forms.ComboBox cmbusers;
+        public System.Windows.Forms.Label lblusers;
+        private System.Windows.Forms.DateTimePicker dtptanggal;
+        private System.Windows.Forms.TextBox txtsukucadang;
+        public System.Windows.Forms.Label lblsukucadang;
+        private System.Windows.Forms.TextBox txtbiaya;
+        public System.Windows.Forms.Label lblbiaya;
+        private System.Windows.Forms.TextBox txtcatatan;
+        public System.Windows.Forms.Label lblcatatan;
+        private System.Windows.Forms.ComboBox cmbrole;
+        public System.Windows.Forms.Label lblrole;
+    }
+}
