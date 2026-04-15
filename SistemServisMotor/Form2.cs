@@ -260,6 +260,76 @@ namespace SistemServisMotor
         }
 
 
+        // TAB KENDARAAN
+
+        void LoadKendaraan()
+        {
+            LoadData(@"SELECT k.id_kendaraan AS ID, p.nama AS Pelanggan, 
+                       k.merk AS Merk, k.plat_no AS [Plat No], k.tahun AS Tahun
+                       FROM Kendaraan k JOIN Pelanggan p ON k.id_pelanggan = p.id_pelanggan",
+                     dgvKendaraan);
+            lblcountk.Text = "Total: " + CountRows("Kendaraan");
+        }
+
+        private void btnaddk_Click(object sender, EventArgs e)
+        {
+            int idP = GetComboId(cmbpelanggan);
+            if (idP == -1) { MessageBox.Show("Pilih pelanggan!"); return; }
+            if (txtmerk.Text == "" || txtplano.Text == "")
+            { MessageBox.Show("Merk dan Plat No harus diisi!"); return; }
+
+            RunQuery("INSERT INTO Kendaraan(id_pelanggan, merk, plat_no, tahun) VALUES(@a,@b,@c,@d)",
+                new SqlParameter("@a", idP),
+                new SqlParameter("@b", txtmerk.Text.Trim()),
+                new SqlParameter("@c", txtplano.Text.Trim()),
+                new SqlParameter("@d", txttahunken.Text == "" ? (object)DBNull.Value : int.Parse(txttahunken.Text)));
+
+            MessageBox.Show("Data berhasil ditambahkan!");
+            ClearK(); LoadKendaraan(); LoadCombos();
+        }
+
+        private void btnupk_Click(object sender, EventArgs e)
+        {
+            int id = GetSelectedId(dgvKendaraan);
+            int idP = GetComboId(cmbpelanggan);
+            if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
+            if (idP == -1 || txtmerk.Text == "" || txtplano.Text == "")
+            { MessageBox.Show("Semua field harus diisi!"); return; }
+            if (MessageBox.Show("Yakin ubah?", "Konfirmasi", MessageBoxButtons.YesNo) == DialogResult.No) return;
+
+            RunQuery("UPDATE Kendaraan SET id_pelanggan=@a, merk=@b, plat_no=@c, tahun=@d WHERE id_kendaraan=@id",
+                new SqlParameter("@a", idP),
+                new SqlParameter("@b", txtmerk.Text.Trim()),
+                new SqlParameter("@c", txtplano.Text.Trim()),
+                new SqlParameter("@d", txttahunken.Text == "" ? (object)DBNull.Value : int.Parse(txttahunken.Text)),
+                new SqlParameter("@id", id));
+
+            MessageBox.Show("Data berhasil diubah!");
+            ClearK(); LoadKendaraan(); LoadCombos();
+        }
+
+        private void btndelk_Click(object sender, EventArgs e)
+        {
+            int id = GetSelectedId(dgvKendaraan);
+            if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
+            if (MessageBox.Show("Yakin hapus?", "Konfirmasi", MessageBoxButtons.YesNo) == DialogResult.No) return;
+
+            RunQuery("DELETE FROM Kendaraan WHERE id_kendaraan=@id", new SqlParameter("@id", id));
+            MessageBox.Show("Data berhasil dihapus!");
+            ClearK(); LoadKendaraan(); LoadCombos();
+        }
+
+        // SEARCH using SqlDataAdapter (Bagian A)
+        private void btncarik_Click(object sender, EventArgs e)
+        {
+            string cari = txtcarik.Text.Trim();
+            SearchData(@"SELECT k.id_kendaraan AS ID, p.nama AS Pelanggan, 
+                         k.merk AS Merk, k.plat_no AS [Plat No], k.tahun AS Tahun
+                         FROM Kendaraan k JOIN Pelanggan p ON k.id_pelanggan=p.id_pelanggan
+                         WHERE k.plat_no LIKE '%" + cari + "%' OR k.merk LIKE '%" + cari + "%'",
+                       dgvKendaraan);
+        }
+
 
     }
 }

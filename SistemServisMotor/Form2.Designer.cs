@@ -184,7 +184,6 @@
             this.tabPelanggan.TabIndex = 0;
             this.tabPelanggan.Text = "Pelanggan";
             this.tabPelanggan.UseVisualStyleBackColor = true;
-            this.tabPelanggan.Click += new System.EventHandler(this.tabPelanggan_Click);
             // 
             // dgvPelanggan
             // 
@@ -395,7 +394,6 @@
             this.tabServis.TabIndex = 2;
             this.tabServis.Text = "Servis";
             this.tabServis.UseVisualStyleBackColor = true;
-            this.tabServis.Click += new System.EventHandler(this.tabServis_Click);
             // 
             // txtcatatan
             // 
@@ -423,7 +421,6 @@
             this.txtbiaya.Name = "txtbiaya";
             this.txtbiaya.Size = new System.Drawing.Size(199, 31);
             this.txtbiaya.TabIndex = 40;
-            this.txtbiaya.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
             // lblbiaya
             // 
@@ -697,7 +694,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1014, 88);
             this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // panel2
             // 
