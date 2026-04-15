@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -587,12 +587,18 @@ namespace SistemServisMotor
             cmbrole.SelectedItem = row.Cells["Role"].Value.ToString();
         }
 
-        private void btnClearU_Click(object sender, EventArgs e) { ClearU(); }
+
+
         void ClearU()
         {
             txtnamauser.Clear(); txtusername.Clear();
             txtnoteluser.Clear(); txtcariu.Clear();
             cmbrole.SelectedIndex = -1;
+        }
+
+        private void btnclearu_Click(object sender, EventArgs e)
+        {
+            ClearU();
         }
     }
 }

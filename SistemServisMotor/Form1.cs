@@ -65,14 +65,17 @@ namespace SistemServisMotor
                         string nama = reader["nama"].ToString();
                         string role = reader["role"].ToString();
                         reader.Close();
+                        conn.Close(); // explicitly close before opening new form
 
                         MessageBox.Show("Welcome, " + nama + "!");
                         var f2 = new MainForm(id, nama, role);
                         f2.Show();
                         this.Hide();
+                        return; // exit the using block cleanly
                     }
                     else
                     {
+                        reader.Close();
                         MessageBox.Show("Login gagal! Username atau No. Telp salah.");
                     }
                 }

@@ -1,4 +1,4 @@
-﻿namespace SistemServisMotor
+namespace SistemServisMotor
 {
     partial class MainForm
     {
@@ -68,6 +68,7 @@
             this.lblmerk = new System.Windows.Forms.Label();
             this.lblpelk = new System.Windows.Forms.Label();
             this.tabServis = new System.Windows.Forms.TabPage();
+            this.btnprint = new System.Windows.Forms.Button();
             this.btncaris = new System.Windows.Forms.Button();
             this.txtcaris = new System.Windows.Forms.TextBox();
             this.lblcaris = new System.Windows.Forms.Label();
@@ -114,7 +115,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblcon = new System.Windows.Forms.Label();
-            this.btnprint = new System.Windows.Forms.Button();
             this.tabcontrol1.SuspendLayout();
             this.tabPelanggan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPelanggan)).BeginInit();
@@ -147,6 +147,7 @@
             this.btnlogout.TabIndex = 1;
             this.btnlogout.Text = "Logout";
             this.btnlogout.UseVisualStyleBackColor = true;
+            this.btnlogout.Click += new System.EventHandler(this.btnlogout_Click);
             // 
             // tabcontrol1
             // 
@@ -159,6 +160,7 @@
             this.tabcontrol1.SelectedIndex = 0;
             this.tabcontrol1.Size = new System.Drawing.Size(990, 633);
             this.tabcontrol1.TabIndex = 2;
+            this.tabcontrol1.SelectedIndexChanged += new System.EventHandler(this.tabcontrol1_SelectedIndexChanged);
             // 
             // tabPelanggan
             // 
@@ -195,6 +197,7 @@
             this.btncarip.TabIndex = 52;
             this.btncarip.Text = "Search";
             this.btncarip.UseVisualStyleBackColor = true;
+            this.btncarip.Click += new System.EventHandler(this.btncarip_Click);
             // 
             // txtcarip
             // 
@@ -223,6 +226,7 @@
             this.btnloadp.TabIndex = 49;
             this.btnloadp.Text = "Load";
             this.btnloadp.UseVisualStyleBackColor = true;
+            this.btnloadp.Click += new System.EventHandler(this.btnloadp_Click);
             // 
             // btnclearp
             // 
@@ -233,6 +237,7 @@
             this.btnclearp.TabIndex = 48;
             this.btnclearp.Text = "Clear";
             this.btnclearp.UseVisualStyleBackColor = true;
+            this.btnclearp.Click += new System.EventHandler(this.btnClearP_Click);
             // 
             // btndelp
             // 
@@ -243,6 +248,7 @@
             this.btndelp.TabIndex = 47;
             this.btndelp.Text = "Delete";
             this.btndelp.UseVisualStyleBackColor = true;
+            this.btndelp.Click += new System.EventHandler(this.btndelp_Click);
             // 
             // btnupp
             // 
@@ -253,6 +259,7 @@
             this.btnupp.TabIndex = 46;
             this.btnupp.Text = "Update";
             this.btnupp.UseVisualStyleBackColor = true;
+            this.btnupp.Click += new System.EventHandler(this.btnupp_Click);
             // 
             // btnaddp
             // 
@@ -263,6 +270,7 @@
             this.btnaddp.TabIndex = 45;
             this.btnaddp.Text = "Add";
             this.btnaddp.UseVisualStyleBackColor = true;
+            this.btnaddp.Click += new System.EventHandler(this.btnaddp_Click);
             // 
             // lblcountp
             // 
@@ -283,6 +291,7 @@
             this.dgvPelanggan.RowTemplate.Height = 24;
             this.dgvPelanggan.Size = new System.Drawing.Size(563, 580);
             this.dgvPelanggan.TabIndex = 6;
+            this.dgvPelanggan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPelanggan_CellClick);
             // 
             // txtnohp
             // 
@@ -376,6 +385,7 @@
             this.btncarik.TabIndex = 56;
             this.btncarik.Text = "Search";
             this.btncarik.UseVisualStyleBackColor = true;
+            this.btncarik.Click += new System.EventHandler(this.btncarik_Click);
             // 
             // txtcarik
             // 
@@ -404,6 +414,7 @@
             this.btnloadk.TabIndex = 53;
             this.btnloadk.Text = "Load";
             this.btnloadk.UseVisualStyleBackColor = true;
+            this.btnloadk.Click += new System.EventHandler(this.btnloadk_Click);
             // 
             // btncleark
             // 
@@ -414,6 +425,7 @@
             this.btncleark.TabIndex = 48;
             this.btncleark.Text = "Clear";
             this.btncleark.UseVisualStyleBackColor = true;
+            this.btncleark.Click += new System.EventHandler(this.btncleark_Click);
             // 
             // btndelk
             // 
@@ -424,6 +436,7 @@
             this.btndelk.TabIndex = 47;
             this.btndelk.Text = "Delete";
             this.btndelk.UseVisualStyleBackColor = true;
+            this.btndelk.Click += new System.EventHandler(this.btndelk_Click);
             // 
             // btnupk
             // 
@@ -434,6 +447,7 @@
             this.btnupk.TabIndex = 46;
             this.btnupk.Text = "Update";
             this.btnupk.UseVisualStyleBackColor = true;
+            this.btnupk.Click += new System.EventHandler(this.btnupk_Click);
             // 
             // btnaddk
             // 
@@ -444,6 +458,7 @@
             this.btnaddk.TabIndex = 45;
             this.btnaddk.Text = "Add";
             this.btnaddk.UseVisualStyleBackColor = true;
+            this.btnaddk.Click += new System.EventHandler(this.btnaddk_Click);
             // 
             // lblcountk
             // 
@@ -491,6 +506,7 @@
             this.dgvKendaraan.RowTemplate.Height = 24;
             this.dgvKendaraan.Size = new System.Drawing.Size(569, 579);
             this.dgvKendaraan.TabIndex = 17;
+            this.dgvKendaraan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKendaraan_CellClick);
             // 
             // txtplano
             // 
@@ -573,6 +589,17 @@
             this.tabServis.Text = "Servis";
             this.tabServis.UseVisualStyleBackColor = true;
             // 
+            // btnprint
+            // 
+            this.btnprint.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnprint.Location = new System.Drawing.Point(110, 514);
+            this.btnprint.Name = "btnprint";
+            this.btnprint.Size = new System.Drawing.Size(84, 31);
+            this.btnprint.TabIndex = 57;
+            this.btnprint.Text = "Print";
+            this.btnprint.UseVisualStyleBackColor = true;
+            this.btnprint.Click += new System.EventHandler(this.btnCetak_Click);
+            // 
             // btncaris
             // 
             this.btncaris.Font = new System.Drawing.Font("Dubai", 8.25F);
@@ -582,6 +609,7 @@
             this.btncaris.TabIndex = 56;
             this.btncaris.Text = "Search";
             this.btncaris.UseVisualStyleBackColor = true;
+            this.btncaris.Click += new System.EventHandler(this.btncaris_Click);
             // 
             // txtcaris
             // 
@@ -610,6 +638,7 @@
             this.btnloads.TabIndex = 53;
             this.btnloads.Text = "Load";
             this.btnloads.UseVisualStyleBackColor = true;
+            this.btnloads.Click += new System.EventHandler(this.btnloads_Click);
             // 
             // lblcounts
             // 
@@ -721,6 +750,7 @@
             this.btnclears.TabIndex = 32;
             this.btnclears.Text = "Clear";
             this.btnclears.UseVisualStyleBackColor = true;
+            this.btnclears.Click += new System.EventHandler(this.btnclears_Click);
             // 
             // btndels
             // 
@@ -731,6 +761,7 @@
             this.btndels.TabIndex = 31;
             this.btndels.Text = "Delete";
             this.btndels.UseVisualStyleBackColor = true;
+            this.btndels.Click += new System.EventHandler(this.btndels_Click);
             // 
             // btnups
             // 
@@ -741,6 +772,7 @@
             this.btnups.TabIndex = 30;
             this.btnups.Text = "Update";
             this.btnups.UseVisualStyleBackColor = true;
+            this.btnups.Click += new System.EventHandler(this.btnups_Click);
             // 
             // btnadds
             // 
@@ -751,6 +783,7 @@
             this.btnadds.TabIndex = 29;
             this.btnadds.Text = "Add";
             this.btnadds.UseVisualStyleBackColor = true;
+            this.btnadds.Click += new System.EventHandler(this.btnadds_Click);
             // 
             // dgvServis
             // 
@@ -761,6 +794,7 @@
             this.dgvServis.RowTemplate.Height = 24;
             this.dgvServis.Size = new System.Drawing.Size(565, 581);
             this.dgvServis.TabIndex = 28;
+            this.dgvServis.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvServis_CellClick);
             // 
             // txtjenisservis
             // 
@@ -837,6 +871,7 @@
             this.btncariu.TabIndex = 56;
             this.btncariu.Text = "Search";
             this.btncariu.UseVisualStyleBackColor = true;
+            this.btncariu.Click += new System.EventHandler(this.btncariu_Click);
             // 
             // txtcariu
             // 
@@ -865,6 +900,7 @@
             this.btnloadu.TabIndex = 53;
             this.btnloadu.Text = "Load";
             this.btnloadu.UseVisualStyleBackColor = true;
+            this.btnloadu.Click += new System.EventHandler(this.btnTampilU_Click);
             // 
             // btnclearu
             // 
@@ -875,6 +911,7 @@
             this.btnclearu.TabIndex = 48;
             this.btnclearu.Text = "Clear";
             this.btnclearu.UseVisualStyleBackColor = true;
+            this.btnclearu.Click += new System.EventHandler(this.btnclearu_Click);
             // 
             // btndelu
             // 
@@ -885,6 +922,7 @@
             this.btndelu.TabIndex = 47;
             this.btndelu.Text = "Delete";
             this.btndelu.UseVisualStyleBackColor = true;
+            this.btndelu.Click += new System.EventHandler(this.btndelu_Click);
             // 
             // btnupu
             // 
@@ -895,6 +933,7 @@
             this.btnupu.TabIndex = 46;
             this.btnupu.Text = "Update";
             this.btnupu.UseVisualStyleBackColor = true;
+            this.btnupu.Click += new System.EventHandler(this.btnupu_Click);
             // 
             // btnaddu
             // 
@@ -905,6 +944,7 @@
             this.btnaddu.TabIndex = 45;
             this.btnaddu.Text = "Add";
             this.btnaddu.UseVisualStyleBackColor = true;
+            this.btnaddu.Click += new System.EventHandler(this.btnaddu_Click);
             // 
             // lblcountusers
             // 
@@ -944,6 +984,7 @@
             this.dgvUsers.RowTemplate.Height = 24;
             this.dgvUsers.Size = new System.Drawing.Size(563, 578);
             this.dgvUsers.TabIndex = 28;
+            this.dgvUsers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellClick);
             // 
             // txtnoteluser
             // 
@@ -1028,16 +1069,6 @@
             this.lblcon.TabIndex = 4;
             this.lblcon.Text = "Connection : -";
             // 
-            // btnprint
-            // 
-            this.btnprint.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnprint.Location = new System.Drawing.Point(110, 514);
-            this.btnprint.Name = "btnprint";
-            this.btnprint.Size = new System.Drawing.Size(84, 31);
-            this.btnprint.TabIndex = 57;
-            this.btnprint.Text = "Print";
-            this.btnprint.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1048,6 +1079,8 @@
             this.Controls.Add(this.tabcontrol1);
             this.Name = "MainForm";
             this.Text = "ServisForm";
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.tabcontrol1.ResumeLayout(false);
             this.tabPelanggan.ResumeLayout(false);
             this.tabPelanggan.PerformLayout();
