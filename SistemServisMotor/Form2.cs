@@ -17,6 +17,7 @@ namespace SistemServisMotor
     {
         int userID;
         string userName, userRole;
+        string printText;
 
         public MainForm(int id, string name, string role)
         {
@@ -513,9 +514,86 @@ namespace SistemServisMotor
             preview.ShowDialog();
         }
 
-        
+        // TAB USERS
 
+        void LoadUsers()
+        {
+            LoadData("SELECT id_user AS ID, nama AS Nama, username AS Username, no_telp AS [No Telp], role AS Role FROM Users", dgvUsers);
+            lblcountusers.Text = "Total: " + CountRows("Users");
+        }
 
+        private void btnaddu_Click(object sender, EventArgs e)
+        {
+            if (txtnamauser.Text == "" || txtusername.Text == "" || txtnoteluser.Text == "" || cmbrole.SelectedIndex == -1)
+            { MessageBox.Show("Semua field harus diisi!"); return; }
+
+            RunQuery("INSERT INTO Users(nama, username, no_telp, role) VALUES(@a,@b,@c,@d)",
+                new SqlParameter("@a", txtnamauser.Text.Trim()),
+                new SqlParameter("@b", txtusername.Text.Trim()),
+                new SqlParameter("@c", txtnoteluser.Text.Trim()),
+                new SqlParameter("@d", cmbrole.SelectedItem.ToString()));
+
+            MessageBox.Show("Data berhasil ditambahkan!");
+            ClearU(); LoadUsers(); LoadCombos();
+        }
+
+        private void btnupu_Click(object sender, EventArgs e)
+        {
+            int id = GetSelectedId(dgvUsers);
+            if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
+            if (txtnamauser.Text == "" || txtusername.Text == "" || txtnoteluser.Text == "" || cmbrole.SelectedIndex == -1)
+            { MessageBox.Show("Semua field harus diisi!"); return; }
+            if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
+
+            RunQuery("UPDATE Users SET nama=@a, username=@b, no_telp=@c, role=@d WHERE id_user=@id",
+                new SqlParameter("@a", txtnamauser.Text.Trim()),
+                new SqlParameter("@b", txtusername.Text.Trim()),
+                new SqlParameter("@c", txtnoteluser.Text.Trim()),
+                new SqlParameter("@d", cmbrole.SelectedItem.ToString()),
+                new SqlParameter("@id", id));
+
+            MessageBox.Show("Data berhasil diubah!");
+            ClearU(); LoadUsers(); LoadCombos();
+        }
+
+        private void btndelu_Click(object sender, EventArgs e)
+        {
+            int id = GetSelectedId(dgvUsers);
+            if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
+            if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
+
+            RunQuery("DELETE FROM Users WHERE id_user=@id", new SqlParameter("@id", id));
+            MessageBox.Show("Data berhasil dihapus!");
+            ClearU(); LoadUsers(); LoadCombos();
+        }
+
+        // SEARCH using SqlDataAdapter (Bagian A)
+        private void btncariu_Click(object sender, EventArgs e)
+        {
+            string cari = txtcariu.Text.Trim();
+            SearchData("SELECT id_user AS ID, nama AS Nama, username AS Username, no_telp AS [No Telp], role AS Role " +
+                       "FROM Users WHERE nama LIKE '%" + cari + "%' OR username LIKE '%" + cari + "%'", dgvUsers);
+        }
+
+        private void btnTampilU_Click(object sender, EventArgs e) { LoadUsers(); }
+
+        private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            var row = dgvUsers.Rows[e.RowIndex];
+            txtnamauser.Text = row.Cells["Nama"].Value.ToString();
+            txtusername.Text = row.Cells["Username"].Value.ToString();
+            txtnoteluser.Text = row.Cells["No Telp"].Value.ToString();
+            cmbrole.SelectedItem = row.Cells["Role"].Value.ToString();
+        }
+
+        private void btnClearU_Click(object sender, EventArgs e) { ClearU(); }
+        void ClearU()
+        {
+            txtnamauser.Clear(); txtusername.Clear();
+            txtnoteluser.Clear(); txtcariu.Clear();
+            cmbrole.SelectedIndex = -1;
+        }
     }
 }
       

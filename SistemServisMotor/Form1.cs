@@ -67,7 +67,7 @@ namespace SistemServisMotor
                         reader.Close();
 
                         MessageBox.Show("Welcome, " + nama + "!");
-                        var f2 = new Form2(id, nama, role);
+                        var f2 = new MainForm(id, nama, role);
                         f2.Show();
                         this.Hide();
                     }
