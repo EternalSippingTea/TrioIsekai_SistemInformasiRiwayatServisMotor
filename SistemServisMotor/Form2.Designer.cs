@@ -33,9 +33,9 @@
             this.tabcontrol1 = new System.Windows.Forms.TabControl();
             this.tabPelanggan = new System.Windows.Forms.TabPage();
             this.dgvPelanggan = new System.Windows.Forms.DataGridView();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtnohp = new System.Windows.Forms.TextBox();
             this.lblnotelp = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtalamat = new System.Windows.Forms.TextBox();
             this.lblalamat = new System.Windows.Forms.Label();
             this.txtnamapel = new System.Windows.Forms.TextBox();
             this.lblnamapel = new System.Windows.Forms.Label();
@@ -44,7 +44,7 @@
             this.lbltahunken = new System.Windows.Forms.Label();
             this.cmbpelanggan = new System.Windows.Forms.ComboBox();
             this.dgvKendaraan = new System.Windows.Forms.DataGridView();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtplano = new System.Windows.Forms.TextBox();
             this.lblplatno = new System.Windows.Forms.Label();
             this.txtmerk = new System.Windows.Forms.TextBox();
             this.lblmerk = new System.Windows.Forms.Label();
@@ -171,9 +171,9 @@
             this.tabPelanggan.Controls.Add(this.btnaddp);
             this.tabPelanggan.Controls.Add(this.lblcountp);
             this.tabPelanggan.Controls.Add(this.dgvPelanggan);
-            this.tabPelanggan.Controls.Add(this.textBox2);
+            this.tabPelanggan.Controls.Add(this.txtnohp);
             this.tabPelanggan.Controls.Add(this.lblnotelp);
-            this.tabPelanggan.Controls.Add(this.textBox1);
+            this.tabPelanggan.Controls.Add(this.txtalamat);
             this.tabPelanggan.Controls.Add(this.lblalamat);
             this.tabPelanggan.Controls.Add(this.txtnamapel);
             this.tabPelanggan.Controls.Add(this.lblnamapel);
@@ -196,13 +196,13 @@
             this.dgvPelanggan.Size = new System.Drawing.Size(563, 580);
             this.dgvPelanggan.TabIndex = 6;
             // 
-            // textBox2
+            // txtnohp
             // 
-            this.textBox2.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.textBox2.Location = new System.Drawing.Point(137, 119);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(199, 31);
-            this.textBox2.TabIndex = 5;
+            this.txtnohp.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtnohp.Location = new System.Drawing.Point(137, 119);
+            this.txtnohp.Name = "txtnohp";
+            this.txtnohp.Size = new System.Drawing.Size(199, 31);
+            this.txtnohp.TabIndex = 5;
             // 
             // lblnotelp
             // 
@@ -214,14 +214,14 @@
             this.lblnotelp.TabIndex = 4;
             this.lblnotelp.Text = "No.Telphone :";
             // 
-            // textBox1
+            // txtalamat
             // 
-            this.textBox1.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.textBox1.Location = new System.Drawing.Point(137, 55);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(199, 58);
-            this.textBox1.TabIndex = 3;
+            this.txtalamat.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtalamat.Location = new System.Drawing.Point(137, 55);
+            this.txtalamat.Multiline = true;
+            this.txtalamat.Name = "txtalamat";
+            this.txtalamat.Size = new System.Drawing.Size(199, 58);
+            this.txtalamat.TabIndex = 3;
             // 
             // lblalamat
             // 
@@ -266,7 +266,7 @@
             this.tabKendaraan.Controls.Add(this.lbltahunken);
             this.tabKendaraan.Controls.Add(this.cmbpelanggan);
             this.tabKendaraan.Controls.Add(this.dgvKendaraan);
-            this.tabKendaraan.Controls.Add(this.textBox3);
+            this.tabKendaraan.Controls.Add(this.txtplano);
             this.tabKendaraan.Controls.Add(this.lblplatno);
             this.tabKendaraan.Controls.Add(this.txtmerk);
             this.tabKendaraan.Controls.Add(this.lblmerk);
@@ -316,13 +316,13 @@
             this.dgvKendaraan.Size = new System.Drawing.Size(569, 579);
             this.dgvKendaraan.TabIndex = 17;
             // 
-            // textBox3
+            // txtplano
             // 
-            this.textBox3.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.textBox3.Location = new System.Drawing.Point(139, 94);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(199, 31);
-            this.textBox3.TabIndex = 16;
+            this.txtplano.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.txtplano.Location = new System.Drawing.Point(139, 94);
+            this.txtplano.Name = "txtplano";
+            this.txtplano.Size = new System.Drawing.Size(199, 31);
+            this.txtplano.TabIndex = 16;
             // 
             // lblplatno
             // 
@@ -476,9 +476,9 @@
             this.lblusers.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.lblusers.Location = new System.Drawing.Point(26, 63);
             this.lblusers.Name = "lblusers";
-            this.lblusers.Size = new System.Drawing.Size(77, 24);
+            this.lblusers.Size = new System.Drawing.Size(42, 24);
             this.lblusers.TabIndex = 34;
-            this.lblusers.Text = "Kendaraan :";
+            this.lblusers.Text = "User :";
             // 
             // cmbkendaraan
             // 
@@ -1074,13 +1074,13 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox txtnamapel;
         public System.Windows.Forms.Label lblnamapel;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtalamat;
         public System.Windows.Forms.Label lblalamat;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtnohp;
         public System.Windows.Forms.Label lblnotelp;
         private System.Windows.Forms.DataGridView dgvPelanggan;
         private System.Windows.Forms.DataGridView dgvKendaraan;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtplano;
         public System.Windows.Forms.Label lblplatno;
         private System.Windows.Forms.TextBox txtmerk;
         public System.Windows.Forms.Label lblmerk;

@@ -13,7 +13,7 @@ using System.Drawing.Printing;
 
 namespace SistemServisMotor
 {
-    public partial class MainForm: Form
+    public partial class MainForm : Form
     {
         int userID;
         string userName, userRole;
@@ -74,8 +74,8 @@ namespace SistemServisMotor
             using (var conn = DatabaseHelper.GetConn())
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(sql, conn);       
-                SqlDataReader reader = cmd.ExecuteReader();        
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(reader);
                 reader.Close();
@@ -89,7 +89,7 @@ namespace SistemServisMotor
             {
                 conn.Open();
                 DataTable dt = new DataTable();
-                SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);  
+                SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
                 adapter.Fill(dt);
                 dgv.DataSource = dt;
             }
@@ -183,39 +183,84 @@ namespace SistemServisMotor
             lblcountp.Text = "Total: " + CountRows("Pelanggan");
         }
 
-
-
-        private void tabPelanggan_Click(object sender, EventArgs e)
+        private void btnaddp_Click(object sender, EventArgs e)
         {
+            // Validasi (Bagian F)
+            if (txtnamapel.Text == "" || txtalamat.Text == "" || txtnohp.Text == "")
+            { MessageBox.Show("Semua field harus diisi!"); return; }
 
+            RunQuery("INSERT INTO Pelanggan(nama, alamat, no_hp) VALUES(@a, @b, @c)",
+                new SqlParameter("@a", txtnamapel.Text.Trim()),
+                new SqlParameter("@b", txtalamat.Text.Trim()),
+                new SqlParameter("@c", txtnohp.Text.Trim()));
+
+            MessageBox.Show("Data berhasil ditambahkan!");
+            ClearP(); LoadPelanggan(); LoadCombos();
         }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-
-
-
-        private void tabServis_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
- 
-
 
         private void btnupp_Click(object sender, EventArgs e)
         {
+            int id = GetSelectedId(dgvPelanggan);
+            if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
+            if (txtnamapel.Text == "" || txtalamat.Text == "" || txtnohp.Text == "")
+            { MessageBox.Show("Semua field harus diisi!"); return; }
 
+            // Konfirmasi (Bagian F)
+            if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
+
+            RunQuery("UPDATE Pelanggan SET nama=@a, alamat=@b, no_hp=@c WHERE id_pelanggan=@id",
+                new SqlParameter("@a", txtnamapel.Text.Trim()),
+                new SqlParameter("@b", txtalamat.Text.Trim()),
+                new SqlParameter("@c", txtnohp.Text.Trim()),
+                new SqlParameter("@id", id));
+
+            MessageBox.Show("Data berhasil diubah!");
+            ClearP(); LoadPelanggan(); LoadCombos();
         }
+
+        private void btndelp_Click(object sender, EventArgs e)
+        {
+            int id = GetSelectedId(dgvPelanggan);
+            if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
+
+            // Konfirmasi (Bagian F)
+            if (MessageBox.Show("Yakin hapus?", "Konfirmasi", MessageBoxButtons.YesNo) == DialogResult.No) return;
+
+            RunQuery("DELETE FROM Pelanggan WHERE id_pelanggan=@id", new SqlParameter("@id", id));
+            MessageBox.Show("Data berhasil dihapus!");
+            ClearP(); LoadPelanggan(); LoadCombos();
+        }
+
+        private void btncarip_Click(object sender, EventArgs e)
+        {
+            string cari = txtcarip.Text.Trim();
+            SearchData("SELECT id_pelanggan AS ID, nama AS Nama, alamat AS Alamat, no_hp AS [No HP] " +
+                       "FROM Pelanggan WHERE nama LIKE '%" + cari + "%'", dgvPelanggan);
+        }
+
+        private void btnloadp_Click(object sender, EventArgs e) { LoadPelanggan(); }
+
+        // CLICK ROW → FILL TEXTBOXES (Bagian E)
+        private void dgvPelanggan_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            var row = dgvPelanggan.Rows[e.RowIndex];
+            txtnamapel.Text = row.Cells["Nama"].Value.ToString();
+            txtalamat.Text = row.Cells["Alamat"].Value.ToString();
+            txtnohp.Text = row.Cells["No HP"].Value.ToString();
+        }
+
+        private void btnClearP_Click(object sender, EventArgs e) { ClearP(); }
+        void ClearP()
+        {
+            txtnamapel.Clear();
+            txtalamat.Clear();
+            txtnohp.Clear();
+            txtcarip.Clear();
+        }
+
+
+
     }
 }
+      
