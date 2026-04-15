@@ -57,7 +57,7 @@ namespace SistemServisMotor
             LoadCombos();
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private void tabcontrol1_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (tabcontrol1.SelectedIndex)
             {
@@ -160,15 +160,30 @@ namespace SistemServisMotor
             cmb.SelectedIndex = 0;
         }
 
-        private void btnLogout_Click(object sender, EventArgs e)
+        private void btnlogout_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Yakin logout?", "Konfirmasi",
+            if (MessageBox.Show("Are you sure?", "Confirmation",
                 MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 new LoginForm().Show();
                 this.Close();
             }
         }
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+
+        //TAB PELANGGAN
+
+        void LoadPelanggan()
+        {
+            LoadData("SELECT id_pelanggan AS ID, nama AS Nama, alamat AS Alamat, no_hp AS [No HP] FROM Pelanggan", dgvPelanggan);
+            lblcountp.Text = "Total: " + CountRows("Pelanggan");
+        }
+
+
 
         private void tabPelanggan_Click(object sender, EventArgs e)
         {
