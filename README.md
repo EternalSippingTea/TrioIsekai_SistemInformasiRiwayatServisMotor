@@ -49,19 +49,19 @@ Berikut adalah gambaran sistem yang sedang berjalan:
 
 ### 1. Form Koneksi & Login
 *Menampilkan status koneksi database saat aplikasi dijalankan dan halaman autentikasi.*
-![Form Koneksi & Login](screenshots/login_con.png)
+![Form Koneksi & Login](../screenshots/login_con.png)
 
 ### 2. Form Input Data
 *Proses pengisian data pada modul Pelanggan, Kendaraan, atau Servis.*
-![Form Input Data](screenshots/input_data.png)
+![Form Input Data](../screenshots/input_data.png)
 
 ### 3. Form Tampilan Data
 *Tampilan DataGridView yang menampilkan seluruh record dari database.*
-![Form Tampilan Data](screenshots/tampil_data.png)
+![Form Tampilan Data](../screenshots/tampil_data.png)
 
 ### 4. Bukti Operasi CRUD & Search
 *Dokumentasi hasil setelah melakukan Insert, Update, Delete, maupun fitur pencarian.*
-![Bukti CRUD & Search](screenshots/crud_search_logic.png)
+![Bukti CRUD & Search](../screenshots/crud_search_logic.png)
 
 ---
 *Dibuat untuk Tugas PA Basis Data - SMT 4.*
