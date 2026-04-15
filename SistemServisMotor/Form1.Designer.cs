@@ -97,13 +97,14 @@
             // 
             // btnlogin
             // 
+            this.btnlogin.BackColor = System.Drawing.SystemColors.Control;
             this.btnlogin.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.btnlogin.Location = new System.Drawing.Point(140, 197);
             this.btnlogin.Name = "btnlogin";
             this.btnlogin.Size = new System.Drawing.Size(98, 32);
             this.btnlogin.TabIndex = 6;
             this.btnlogin.Text = "Login";
-            this.btnlogin.UseVisualStyleBackColor = true;
+            this.btnlogin.UseVisualStyleBackColor = false;
             // 
             // LoginForm
             // 
