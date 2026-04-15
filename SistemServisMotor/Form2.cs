@@ -482,6 +482,37 @@ namespace SistemServisMotor
             cmbkendaraan.SelectedIndex = 0; cmbusers.SelectedIndex = 0;
         }
 
+        private void btnCetak_Click(object sender, EventArgs e)
+        {
+            if (dgvServis.CurrentRow == null)
+            { MessageBox.Show("Pilih data servis yang ingin dicetak!"); return; }
+
+            var r = dgvServis.CurrentRow;
+            printText = "================================\n";
+            printText += "   NOTA SERVIS MOTOR BENGKEL\n";
+            printText += "================================\n\n";
+            printText += "ID Servis    : " + r.Cells["ID"].Value + "\n";
+            printText += "Plat No      : " + r.Cells["Plat No"].Value + "\n";
+            printText += "Petugas      : " + r.Cells["Petugas"].Value + "\n";
+            printText += "Tanggal      : " + Convert.ToDateTime(r.Cells["Tanggal"].Value).ToString("dd/MM/yyyy") + "\n";
+            printText += "Jenis Servis : " + r.Cells["Jenis Servis"].Value + "\n";
+            printText += "Suku Cadang  : " + r.Cells["Suku Cadang"].Value + "\n";
+            printText += "Biaya        : Rp " + Convert.ToDecimal(r.Cells["Biaya"].Value).ToString("N0") + "\n";
+            printText += "Catatan      : " + (r.Cells["Catatan"].Value?.ToString() ?? "-") + "\n\n";
+            printText += "================================\n";
+            printText += "       Terima Kasih!\n";
+
+            PrintDocument doc = new PrintDocument();
+            doc.PrintPage += (s, ev) =>
+            {
+                ev.Graphics.DrawString(printText, new Font("Dubai", 11), Brushes.Black, 50, 50);
+            };
+
+            PrintPreviewDialog preview = new PrintPreviewDialog();
+            preview.Document = doc;
+            preview.ShowDialog();
+        }
+
         
 
 
