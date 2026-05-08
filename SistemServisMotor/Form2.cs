@@ -129,6 +129,15 @@ namespace SistemServisMotor
             return int.Parse(cmb.SelectedItem.ToString().Split('-')[0].Trim());
         }
 
+        bool IsValidPhone(string phone)
+        {
+            if (phone.Length < 10 || phone.Length > 13) return false;
+            if (!phone.StartsWith("08")) return false;
+            foreach (char c in phone)
+                if (!char.IsDigit(c)) return false;
+            return true;
+        }
+
 
         // Combos 
         void LoadCombos()
@@ -189,6 +198,8 @@ namespace SistemServisMotor
             // Validasi (Bagian F)
             if (txtnamapel.Text == "" || txtalamat.Text == "" || txtnohp.Text == "")
             { MessageBox.Show("Semua field harus diisi!"); return; }
+            if (!IsValidPhone(txtnohp.Text.Trim()))
+            { MessageBox.Show("No HP harus angka, 10-13 digit, dan dimulai dengan 08!"); return; }
 
             RunQuery("INSERT INTO Pelanggan(nama, alamat, no_hp) VALUES(@a, @b, @c)",
                 new SqlParameter("@a", txtnamapel.Text.Trim()),
@@ -205,6 +216,8 @@ namespace SistemServisMotor
             if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
             if (txtnamapel.Text == "" || txtalamat.Text == "" || txtnohp.Text == "")
             { MessageBox.Show("Semua field harus diisi!"); return; }
+            if (!IsValidPhone(txtnohp.Text.Trim()))
+            { MessageBox.Show("No HP harus angka, 10-13 digit, dan dimulai dengan 08!"); return; }
 
             // Konfirmasi (Bagian F)
             if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
@@ -278,6 +291,12 @@ namespace SistemServisMotor
             if (idP == -1) { MessageBox.Show("Pilih pelanggan!"); return; }
             if (txtmerk.Text == "" || txtplano.Text == "")
             { MessageBox.Show("Merk dan Plat No harus diisi!"); return; }
+            if (txttahunken.Text != "")
+            {
+                int tahun;
+                if (!int.TryParse(txttahunken.Text, out tahun) || tahun < 2000)
+                { MessageBox.Show("Tahun harus angka dan minimal 2000!"); return; }
+            }
 
             RunQuery("INSERT INTO Kendaraan(id_pelanggan, merk, plat_no, tahun) VALUES(@a,@b,@c,@d)",
                 new SqlParameter("@a", idP),
@@ -296,6 +315,12 @@ namespace SistemServisMotor
             if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
             if (idP == -1 || txtmerk.Text == "" || txtplano.Text == "")
             { MessageBox.Show("Semua field harus diisi!"); return; }
+            if (txttahunken.Text != "")
+            {
+                int tahun;
+                if (!int.TryParse(txttahunken.Text, out tahun) || tahun < 2000)
+                { MessageBox.Show("Tahun harus angka dan minimal 2000!"); return; }
+            }
             if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
             RunQuery("UPDATE Kendaraan SET id_pelanggan=@a, merk=@b, plat_no=@c, tahun=@d WHERE id_kendaraan=@id",
@@ -380,6 +405,8 @@ namespace SistemServisMotor
             decimal biaya;
             if (!decimal.TryParse(txtbiaya.Text, out biaya))
             { MessageBox.Show("Biaya harus angka!"); return; }
+            if (biaya < 0 || biaya > 1000000)
+            { MessageBox.Show("Biaya harus antara 0 - 1.000.000!"); return; }
 
             RunQuery(@"INSERT INTO Servis(id_kendaraan, id_user, Tanggal, JenisServis, SukuCadang, Biaya, Catatan) 
                        VALUES(@a,@b,@c,@d,@e,@f,@g)",
@@ -407,6 +434,8 @@ namespace SistemServisMotor
             decimal biaya;
             if (!decimal.TryParse(txtbiaya.Text, out biaya))
             { MessageBox.Show("Biaya harus angka!"); return; }
+            if (biaya < 0 || biaya > 1000000)
+            { MessageBox.Show("Biaya harus antara 0 - 1.000.000!"); return; }
 
             if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
@@ -526,6 +555,8 @@ namespace SistemServisMotor
         {
             if (txtnamauser.Text == "" || txtusername.Text == "" || txtnoteluser.Text == "" || cmbrole.SelectedIndex == -1)
             { MessageBox.Show("Semua field harus diisi!"); return; }
+            if (!IsValidPhone(txtnoteluser.Text.Trim()))
+            { MessageBox.Show("No Telp harus angka, 10-13 digit, dan dimulai dengan 08!"); return; }
 
             RunQuery("INSERT INTO Users(nama, username, no_telp, role) VALUES(@a,@b,@c,@d)",
                 new SqlParameter("@a", txtnamauser.Text.Trim()),
@@ -543,6 +574,8 @@ namespace SistemServisMotor
             if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
             if (txtnamauser.Text == "" || txtusername.Text == "" || txtnoteluser.Text == "" || cmbrole.SelectedIndex == -1)
             { MessageBox.Show("Semua field harus diisi!"); return; }
+            if (!IsValidPhone(txtnoteluser.Text.Trim()))
+            { MessageBox.Show("No Telp harus angka, 10-13 digit, dan dimulai dengan 08!"); return; }
             if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
             RunQuery("UPDATE Users SET nama=@a, username=@b, no_telp=@c, role=@d WHERE id_user=@id",
@@ -594,6 +627,11 @@ namespace SistemServisMotor
             txtnamauser.Clear(); txtusername.Clear();
             txtnoteluser.Clear(); txtcariu.Clear();
             cmbrole.SelectedIndex = -1;
+        }
+
+        private void cmbrole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void btnclearu_Click(object sender, EventArgs e)

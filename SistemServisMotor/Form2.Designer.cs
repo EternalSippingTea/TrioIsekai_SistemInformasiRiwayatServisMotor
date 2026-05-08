@@ -960,10 +960,14 @@ namespace SistemServisMotor
             // 
             this.cmbrole.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.cmbrole.FormattingEnabled = true;
+            this.cmbrole.Items.AddRange(new object[] {
+            "admin",
+            "petugas"});
             this.cmbrole.Location = new System.Drawing.Point(139, 131);
             this.cmbrole.Name = "cmbrole";
             this.cmbrole.Size = new System.Drawing.Size(199, 32);
             this.cmbrole.TabIndex = 35;
+            this.cmbrole.SelectedIndexChanged += new System.EventHandler(this.cmbrole_SelectedIndexChanged);
             // 
             // lblrole
             // 
@@ -1079,8 +1083,8 @@ namespace SistemServisMotor
             this.Controls.Add(this.tabcontrol1);
             this.Name = "MainForm";
             this.Text = "ServisForm";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.tabcontrol1.ResumeLayout(false);
             this.tabPelanggan.ResumeLayout(false);
             this.tabPelanggan.PerformLayout();
