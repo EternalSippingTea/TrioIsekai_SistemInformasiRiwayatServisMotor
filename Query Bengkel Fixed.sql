@@ -1,0 +1,90 @@
+-- Create dan use database
+CREATE DATABASE DBBengkel;
+USE DBBengkel;
+
+-- Create login admin & petugas
+CREATE LOGIN admin WITH PASSWORD = 'admin123';
+CREATE LOGIN petugas WITH PASSWORD = 'petugas123';
+
+-- Create user admin & petugas
+CREATE USER admin_user FOR LOGIN admin;
+CREATE USER petugas_user FOR LOGIN petugas;
+
+-- Create role admin dan grant privileges
+CREATE ROLE role_admin;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON Pelanggan TO role_admin;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Kendaraan TO role_admin;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Users TO role_admin;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Servis TO role_admin;
+
+ALTER ROLE role_admin ADD MEMBER admin_user;
+
+-- Create role petugas dan grant privileges
+CREATE ROLE role_petugas;
+
+GRANT SELECT, INSERT, UPDATE ON Pelanggan TO role_petugas;
+GRANT SELECT, INSERT, UPDATE ON Kendaraan TO role_petugas;
+GRANT SELECT, INSERT, UPDATE ON Users TO role_petugas;
+GRANT SELECT, INSERT, UPDATE ON Servis TO role_petugas;
+
+ALTER ROLE role_petugas ADD MEMBER petugas_user;
+
+-- Memastikan petugas tidak bisa delete
+DENY DELETE ON Pelanggan TO role_petugas;
+DENY DELETE ON Kendaraan TO role_petugas;
+DENY DELETE ON Users TO role_petugas;
+DENY DELETE ON Servis TO role_petugas;
+
+-- Create table pelanggan
+CREATE TABLE Pelanggan(
+	id_pelanggan INT IDENTITY(1,1) PRIMARY KEY,
+	nama VARCHAR(100) NOT NULL,
+	alamat VARCHAR(100) NOT NULL,
+	no_hp VARCHAR(13)
+		CHECK(
+			no_hp NOT LIKE '%[^0-9]%'
+			AND LEN(no_hp) BETWEEN 10 AND 13
+			AND no_hp LIKE '08%'
+			)
+);
+
+-- Create table kendaraan
+CREATE TABLE Kendaraan(
+	id_kendaraan INT IDENTITY(1,1) PRIMARY KEY,
+	id_pelanggan INT,
+	merk VARCHAR(50) NOT NULL,
+	plat_no VARCHAR(10) NOT NULL,
+	tahun INT CHECK (tahun >=2000),
+	FOREIGN KEY (id_pelanggan) REFERENCES Pelanggan(id_pelanggan)
+);
+
+-- Create table users
+CREATE TABLE Users(
+	id_user INT IDENTITY(1,1) PRIMARY KEY,
+	nama VARCHAR(100) NOT NULL,
+	username VARCHAR(50) NOT NULL,
+	no_telp VARCHAR(13)
+		CHECK(
+			no_telp NOT LIKE '%[^0-9]%'
+			AND LEN(no_telp) BETWEEN 10 AND 13
+			AND no_telp LIKE '08%'
+			),
+	role VARCHAR(20)
+		CHECK (role IN ('admin', 'petugas'))
+);
+
+-- Create table servis
+CREATE TABLE Servis(
+	id_servis INT IDENTITY(1,1) PRIMARY KEY,
+	id_kendaraan INT,
+	id_user INT,
+	Tanggal SMALLDATETIME,
+	JenisServis VARCHAR(100) NOT NULL,
+	SukuCadang VARCHAR(100) NOT NULL,
+	Biaya INT CHECK(Biaya >= 0 AND Biaya <= 1000000) NOT NULL,
+	Catatan VARCHAR(255),
+	FOREIGN KEY (id_kendaraan) REFERENCES Kendaraan (id_kendaraan),
+	FOREIGN KEY (id_user) REFERENCES USERS (id_user)
+);
+
