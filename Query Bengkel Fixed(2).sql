@@ -475,3 +475,166 @@ JOIN Kendaraan k
 JOIN Users u
     ON s.id_user = u.id_user;
 GO 
+
+-- SP Get Servis
+CREATE PROCEDURE sp_GetAllServis
+AS
+BEGIN
+    SELECT
+	    id_servis AS [ID Servis],
+	    plat_no AS [Plat No],
+		Nama AS Petugas,
+	    Tanggal AS Tanggal,
+	    JenisServis AS [Jenis Servis],
+	    SukuCadang AS [Suku Cadang],
+	    Biaya AS [Biaya],
+	    Catatan AS Catatan
+    FROM vwServis;
+END
+GO
+
+-- SP Insert Servis
+CREATE PROCEDURE sp_InsertServis
+    @id_ken INT,
+    @id_u INT,
+    @tgl DATETIME,
+    @jenis VARCHAR(100),
+    @suku VARCHAR(100),
+    @biaya INT,
+    @catatan VARCHAR(255),
+    @new_id INT OUTPUT       
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF NOT EXISTS (SELECT 1 FROM Kendaraan WHERE id_kendaraan = @id_ken)
+    BEGIN
+        RAISERROR('Kendaraan tidak ditemukan!', 16, 1);
+        RETURN;
+    END
+
+    IF NOT EXISTS (SELECT 1 FROM Users WHERE id_user = @id_u)
+    BEGIN
+        RAISERROR('User tidak ditemukan!', 16, 1);
+        RETURN;
+    END
+
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        INSERT INTO Servis(id_kendaraan, id_user, Tanggal, JenisServis,
+                           SukuCadang, Biaya, Catatan)
+        VALUES(@id_ken, @id_u, @tgl, @jenis, @suku, @biaya, @catatan);
+
+        SET @new_id = SCOPE_IDENTITY();  
+
+        COMMIT TRANSACTION;            
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        RAISERROR('Gagal menyimpan data servis: %s', 16, 1, ERROR_MESSAGE());
+    END CATCH
+END
+GO
+
+-- SP Update Servis
+CREATE PROCEDURE sp_UpdateServis
+    @id     INT,
+    @id_ken INT,
+    @id_u   INT,
+    @tgl    DATETIME,
+    @jenis  VARCHAR(100),
+    @suku   VARCHAR(100),
+    @biaya  INT,
+    @catatan VARCHAR(255)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF NOT EXISTS (SELECT 1 FROM Servis WHERE id_servis = @id)
+    BEGIN
+        RAISERROR('Data servis tidak ditemukan!', 16, 1);
+        RETURN;
+    END
+
+    IF NOT EXISTS (SELECT 1 FROM Kendaraan WHERE id_kendaraan = @id_ken)
+    BEGIN
+        RAISERROR('Kendaraan tidak ditemukan!', 16, 1);
+        RETURN;
+    END
+
+    IF NOT EXISTS (SELECT 1 FROM Users WHERE id_user = @id_u)
+    BEGIN
+        RAISERROR('User tidak ditemukan!', 16, 1);
+        RETURN;
+    END
+
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+
+        UPDATE Servis
+        SET
+            id_kendaraan = @id_ken,
+            id_user      = @id_u,
+            Tanggal      = @tgl,
+            JenisServis  = @jenis,
+            SukuCadang   = @suku,
+            Biaya        = @biaya,
+            Catatan      = @catatan
+        WHERE id_servis = @id;
+
+        COMMIT TRANSACTION;
+
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        RAISERROR('Gagal mengupdate data servis: %s', 16, 1, ERROR_MESSAGE());
+    END CATCH
+
+END
+GO
+
+
+-- SP Delete Servis
+CREATE PROCEDURE sp_DeleteServis
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF NOT EXISTS (SELECT 1 FROM Servis WHERE id_servis = @id)
+    BEGIN
+        RAISERROR('Servis tidak ditemukan!', 16,1);
+        RETURN;
+    END;
+
+    DELETE FROM Servis
+    WHERE id_servis = @id;
+END
+GO
+
+-- SP Search Servis
+CREATE PROCEDURE sp_SearchServis
+    @cari VARCHAR(100)
+AS
+BEGIN
+    SELECT
+	    id_servis AS [ID Servis],
+	    plat_no AS [No. Plat],
+	    nama AS Petugas,
+	    Tanggal AS [Tanggal Servis],
+	    JenisServis AS [Jenis Servis],
+	    SukuCadang AS [Suku Cadang],
+	    Biaya AS [Biaya],
+	    Catatan AS Catatan
+    FROM vwServis
+    WHERE plat_no LIKE '%' + @cari + '%'
+       OR nama LIKE '%' + @cari + '%';
+
+    IF @@ROWCOUNT = 0
+    BEGIN
+        RAISERROR('Data Servis tidak ditemukan!', 16, 1);
+    END
+END
+GO
