@@ -638,3 +638,9 @@ BEGIN
     END
 END
 GO
+
+
+SELECT * INTO Pelanggan_Backup FROM Pelanggan;
+SELECT * INTO Kendaraan_Backup FROM Kendaraan;
+SELECT * INTO Users_Backup FROM Users;
+SELECT * INTO Servis_Backup FROM Servis;
