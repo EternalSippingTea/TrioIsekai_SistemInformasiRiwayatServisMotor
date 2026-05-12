@@ -351,3 +351,104 @@ SELECT
 FROM Users;
 GO 
     
+-- SP Get Users
+CREATE PROCEDURE sp_GetAllUsers
+AS
+BEGIN
+    SELECT
+        id_user AS ID,
+        nama AS Nama,
+        username AS Username,
+        no_telp AS [No Telp],
+        role AS Role
+    FROM vwUsers;
+END
+GO
+-- SP Insert User
+CREATE PROCEDURE sp_InsertUser
+    @nama VARCHAR(100),
+    @user VARCHAR(50),
+    @telp VARCHAR(13),
+    @role VARCHAR(20)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (SELECT 1 FROM Users WHERE username = @user)
+    BEGIN
+        RAISERROR('Username sudah digunakan!', 16,1);
+        RETURN;
+    END
+
+    INSERT INTO Users(nama, username, no_telp, role)
+    VALUES(@nama, @user, @telp, @role);
+END
+GO
+
+-- SP Update User
+CREATE PROCEDURE sp_UpdateUser
+    @id INT,
+    @nama VARCHAR(100),
+    @user VARCHAR(50),
+    @telp VARCHAR(13),
+    @role VARCHAR(20)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF NOT EXISTS (SELECT 1 FROM Users WHERE id_user = @id)
+    BEGIN
+        RAISERROR('User tidak ditemukan!', 16,1);
+        RETURN;
+    END
+
+    UPDATE Users
+    SET
+        nama = @nama,
+        username = @user,
+        no_telp = @telp,
+        role = @role
+    WHERE id_user = @id;
+END
+GO
+
+-- SP Delete User
+CREATE PROCEDURE sp_DeleteUser
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF NOT EXISTS (SELECT 1 FROM Users WHERE id_user = @id)
+    BEGIN
+        RAISERROR('User tidak ditemukan!', 16,1);
+        RETURN;
+    END
+
+    DELETE FROM Users
+    WHERE id_user = @id;
+END
+GO
+
+-- SP Search User
+CREATE PROCEDURE sp_SearchUser
+    @cari VARCHAR(50)
+AS
+BEGIN
+    SELECT
+        id_user AS ID,
+        nama AS Nama,
+        username AS Username,
+        no_telp AS [No Telp],
+        role AS Role
+    FROM vwUsers
+    WHERE nama LIKE '%' + @cari + '%'
+       OR username LIKE '%' + @cari + '%';
+
+    IF @@ROWCOUNT = 0
+    BEGIN
+        RAISERROR('Data User tidak ditemukan!', 16, 1);
+    END
+END
+GO
+
