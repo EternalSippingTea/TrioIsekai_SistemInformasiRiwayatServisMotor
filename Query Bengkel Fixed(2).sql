@@ -208,3 +208,20 @@ BEGIN
 END
 GO
 
+-- =============================================
+-- STORED PROCEDURES FOR KENDARAAN
+-- =============================================
+
+-- View Kendaraan
+CREATE VIEW vwKendaraan
+AS
+SELECT
+    k.id_kendaraan,
+	p.nama,
+	k.merk,
+	k.plat_no,
+	k.tahun
+FROM Kendaraan k
+JOIN Pelanggan p
+    ON k.id_pelanggan = p.id_pelanggan;
+GO 
