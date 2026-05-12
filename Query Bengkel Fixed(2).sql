@@ -225,3 +225,112 @@ FROM Kendaraan k
 JOIN Pelanggan p
     ON k.id_pelanggan = p.id_pelanggan;
 GO 
+
+-- View Get Kendaraan    
+CREATE PROCEDURE sp_GetAllKendaraan
+AS
+BEGIN
+    SELECT
+        id_kendaraan AS [ID Kendaraan],
+        nama AS Pelanggan,
+        merk AS Merk,
+        plat_no AS [Plat No],
+        tahun AS Tahun
+    FROM vwKendaraan;
+END
+GO
+
+-- SP Insert Kendaraan
+CREATE PROCEDURE sp_InsertKendaraan
+    @id_pel INT,
+    @merk VARCHAR(50),
+    @plat_no VARCHAR(11),
+    @tahun INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (SELECT 1 FROM Kendaraan WHERE plat_no = @plat_no)
+    BEGIN
+        RAISERROR('Plat No. sudah terdaftar!', 16, 1);
+        RETURN;
+    END
+
+    IF NOT EXISTS (SELECT 1 FROM Pelanggan WHERE id_pelanggan = @id_pel)
+    BEGIN
+        RAISERROR('Pelanggan tidak ditemukan!', 16,1);
+        RETURN;
+    END
+
+    INSERT INTO Kendaraan(id_pelanggan, merk, plat_no, tahun)
+    VALUES(@id_pel, @merk, @plat_no, @tahun);
+END
+GO
+
+-- SP Update Kendaraan
+CREATE PROCEDURE sp_UpdateKendaraan
+    @id INT,
+    @id_pel INT,
+    @merk VARCHAR(50),
+    @plat_no VARCHAR(11),
+    @tahun INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF NOT EXISTS (SELECT 1 FROM Pelanggan WHERE id_pelanggan = @id_pel)
+    BEGIN
+        RAISERROR('Pelanggan tidak ditemukan!', 16,1);
+        RETURN;
+    END
+
+    UPDATE Kendaraan
+    SET
+        id_pelanggan = @id_pel,
+        merk = @merk,
+        plat_no = @plat_no,
+        tahun = @tahun
+    WHERE id_kendaraan = @id;
+END
+GO
+
+-- SP Delete Kendaraan
+CREATE PROCEDURE sp_DeleteKendaraan
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF NOT EXISTS (SELECT 1 FROM Kendaraan WHERE id_kendaraan = @id)
+    BEGIN
+        RAISERROR('Kendaraan tidak ditemukan!', 16,1);
+        RETURN;
+    END
+
+    DELETE FROM Kendaraan
+    WHERE id_kendaraan = @id;
+END
+GO
+
+-- SP Search Kendaraan
+CREATE PROCEDURE sp_SearchKendaraan
+    @cari VARCHAR(50)
+AS
+BEGIN
+    SELECT
+        id_kendaraan AS [ID Kendaraan],
+        nama AS Pelanggan,
+        merk AS Merk,
+        plat_no AS [Plat No],
+        tahun AS Tahun
+    FROM vwKendaraan
+    WHERE plat_no LIKE '%' + @cari + '%'
+       OR merk LIKE '%' + @cari + '%';
+
+    IF @@ROWCOUNT = 0
+    BEGIN
+        RAISERROR('Data Kendaraan tidak ditemukan!', 16, 1);
+    END
+END
+GO
+
