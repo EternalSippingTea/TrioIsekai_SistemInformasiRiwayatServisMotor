@@ -334,3 +334,20 @@ BEGIN
 END
 GO
 
+
+-- =============================================
+-- STORED PROCEDURES FOR USERS
+-- =============================================
+
+-- View Users
+CREATE VIEW vwUsers
+AS
+SELECT
+	id_user,
+	nama,
+	username,
+	no_telp,
+	role
+FROM Users;
+GO 
+    
