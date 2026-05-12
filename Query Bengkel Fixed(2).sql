@@ -113,3 +113,98 @@ FROM Pelanggan;
 GO
 
 -- SP Get Pelanggan
+CREATE PROCEDURE sp_GetAllPelanggan
+AS
+BEGIN
+    SELECT
+        id_pelanggan AS ID,
+        nama AS Nama,
+        alamat AS Alamat,
+        no_hp AS [No HP]
+    FROM vwPelanggan;
+END
+GO
+
+-- SP Insert Pelanggan
+CREATE PROCEDURE sp_InsertPelanggan
+    @nama VARCHAR(100),
+    @alamat VARCHAR(100),
+    @no_hp VARCHAR(13)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (SELECT 1 FROM Pelanggan WHERE no_hp = @no_hp)
+    BEGIN
+        RAISERROR('No. HP sudah terdaftar!', 16,1);
+        RETURN;
+    END
+
+    INSERT INTO Pelanggan(nama, alamat, no_hp)
+    VALUES(@nama, @alamat, @no_hp);
+END
+GO
+
+-- SP Update Pelanggan
+CREATE PROCEDURE sp_UpdatePelanggan
+    @id INT,
+    @nama VARCHAR(100),
+    @alamat VARCHAR(100),
+    @no_hp VARCHAR(13)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    IF NOT EXISTS (SELECT * FROM Pelanggan WHERE id_pelanggan = @id)
+    BEGIN
+        RAISERROR('Pelanggan tidak ditemukan!', 16, 1);
+        RETURN;
+    END
+
+    UPDATE Pelanggan
+    SET
+        nama = @nama,
+        alamat = @alamat,
+        no_hp = @no_hp
+    WHERE id_pelanggan = @id;
+END
+GO
+
+-- SP Delete Pelanggan
+CREATE PROCEDURE sp_DeletePelanggan
+    @id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF NOT EXISTS (SELECT 1 FROM Pelanggan WHERE id_pelanggan = @id)
+    BEGIN
+        RAISERROR('Pelanggan tidak ditemukan!', 16, 1);
+        RETURN;
+    END
+
+    DELETE FROM Pelanggan
+    WHERE id_pelanggan = @id;
+END
+GO
+
+-- SP Search Pelanggan
+CREATE PROCEDURE sp_SearchPelanggan
+    @cari VARCHAR(100)
+AS
+BEGIN
+    SELECT
+        id_pelanggan AS ID,
+        nama AS Nama,
+        alamat AS Alamat,
+        no_hp AS [No HP]
+    FROM vwPelanggan
+    WHERE nama LIKE '%' + @cari + '%';
+
+    IF @@ROWCOUNT = 0
+    BEGIN
+        RAISERROR('Data Pelanggan tidak ditemukan!', 16, 1);
+    END
+END
+GO
+
