@@ -452,3 +452,26 @@ BEGIN
 END
 GO
 
+
+-- =============================================
+-- STORED PROCEDURES FOR SERVIS
+-- =============================================
+
+-- View Servis
+CREATE VIEW vwServis
+AS
+SELECT
+	s.id_servis,
+	k.plat_no,
+	u.nama,
+	Tanggal,
+	JenisServis,
+	SukuCadang,
+	Biaya,
+	Catatan
+FROM Servis s
+JOIN Kendaraan k
+    ON s.id_kendaraan = k.id_kendaraan
+JOIN Users u
+    ON s.id_user = u.id_user;
+GO 
