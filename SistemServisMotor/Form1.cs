@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,25 +18,25 @@ namespace SistemServisMotor
             InitializeComponent();
         }
 
+        // Bagian B - Cek status koneksi sebelum form utama
         private void LoginForm_Load(object sender, EventArgs e)
         {
             try
             {
-                using (var conn = DatabaseHelper.GetConn())
+                using (SqlConnection conn = DatabaseHelper.GetConn())
                 {
                     conn.Open();
                     lblStatus.Text = "Status : Connected.";
-                    lblStatus.ForeColor = System.Drawing.Color.Green;
+                    lblStatus.ForeColor = Color.Green;
                 }
             }
             catch
             {
                 lblStatus.Text = "Status : Failed to Connect.";
-                lblStatus.ForeColor = System.Drawing.Color.Red;
+                lblStatus.ForeColor = Color.Red;
                 btnlogin.Enabled = false;
             }
         }
-
 
         private void btnlogin_Click(object sender, EventArgs e)
         {
@@ -49,34 +49,42 @@ namespace SistemServisMotor
 
             try
             {
-                using (var conn = DatabaseHelper.GetConn())
+                using (SqlConnection conn = DatabaseHelper.GetConn())
                 {
-                    conn.Open();
-                    string sql = "SELECT id_user, nama, role FROM Users WHERE username=@u AND no_telp=@t";
-                    var cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@u", txtusername.Text.Trim());
-                    cmd.Parameters.AddWithValue("@t", txttele.Text.Trim());
+                    // =====================================================
+                    // [!] DEMO SQL INJECTION (UCP 2 - point #3)
+                    // Field username sengaja pakai konkatenasi string
+                    // sehingga rentan SQL Injection.
+                    // Contoh payload bypass: admin' OR '1'='1' --
+                    // =====================================================
+                    string sql = "SELECT id_user, nama, role FROM Users"
+                               + " WHERE username='" + txtusername.Text + "'"
+                               + " AND no_telp=@t";
 
-                    // SqlDataReader (Bagian A)
-                    var reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
-                        int id = (int)reader["id_user"];
-                        string nama = reader["nama"].ToString();
-                        string role = reader["role"].ToString();
-                        reader.Close();
-                        conn.Close(); // explicitly close before opening new form
+                        cmd.Parameters.Add(new SqlParameter("@t", txttele.Text.Trim()));
 
-                        MessageBox.Show("Welcome, " + nama + "!");
-                        var f2 = new MainForm(id, nama, role);
-                        f2.Show();
-                        this.Hide();
-                        return; // exit the using block cleanly
-                    }
-                    else
-                    {
-                        reader.Close();
-                        MessageBox.Show("Login gagal! Username atau No. Telp salah.");
+                        conn.Open();
+                        SqlDataReader reader = cmd.ExecuteReader();  // Bagian A
+
+                        if (reader.Read())
+                        {
+                            int id = (int)reader["id_user"];
+                            string nama = reader["nama"].ToString();
+                            string role = reader["role"].ToString();
+                            reader.Close();
+
+                            MessageBox.Show("Welcome, " + nama + "!");
+                            MainForm f2 = new MainForm(id, nama, role);
+                            f2.Show();
+                            this.Hide();
+                        }
+                        else
+                        {
+                            reader.Close();
+                            MessageBox.Show("Login gagal! Username atau No. Telp salah.");
+                        }
                     }
                 }
             }
@@ -87,5 +95,3 @@ namespace SistemServisMotor
         }
     }
 }
-
-  

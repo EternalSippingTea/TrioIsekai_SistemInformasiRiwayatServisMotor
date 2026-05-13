@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Drawing.Printing;
 
-
 namespace SistemServisMotor
 {
     public partial class MainForm : Form
@@ -18,6 +17,12 @@ namespace SistemServisMotor
         int userID;
         string userName, userRole;
         string printText;
+
+        // ===== UCP 2 #4 - BindingSource untuk DataGridView =====
+        BindingSource bsPelanggan = new BindingSource();
+        BindingSource bsKendaraan = new BindingSource();
+        BindingSource bsServis    = new BindingSource();
+        BindingSource bsUsers     = new BindingSource();
 
         public MainForm(int id, string name, string role)
         {
@@ -31,10 +36,10 @@ namespace SistemServisMotor
         {
             lblwelcome.Text = "Halo, " + userName + " (" + userRole + ")";
 
-            // Connection status (Bagian B)
+            // Bagian B - Cek status koneksi
             try
             {
-                using (var c = DatabaseHelper.GetConn()) { c.Open(); }
+                using (SqlConnection c = DatabaseHelper.GetConn()) { c.Open(); }
                 lblcon.Text = "Connection : Successful";
                 lblcon.ForeColor = Color.Green;
             }
@@ -44,18 +49,102 @@ namespace SistemServisMotor
                 lblcon.ForeColor = Color.Red;
             }
 
-            // Hide delete buttons for petugas
+            // Sembunyikan tombol untuk petugas
             if (userRole == "petugas")
             {
                 btndelp.Visible = false;
                 btndelk.Visible = false;
                 btndels.Visible = false;
                 btndelu.Visible = false;
+                // Petugas tidak bisa CRU di tab Users
+                btnaddu.Visible = false;
+                btnupu.Visible = false;
             }
 
-            // Load first tab data + combos on startup
+            // ===== UCP 2 #5 - Connect BindingNavigator (dari Designer) ke BindingSource =====
+            bnPelanggan.BindingSource = bsPelanggan;
+            bnKendaraan.BindingSource = bsKendaraan;
+            bnServis.BindingSource    = bsServis;
+            bnUsers.BindingSource     = bsUsers;
+
+            // Wire event: saat posisi BindingSource berubah (navigator/klik row),
+            // textbox dan combobox otomatis ter-update
+            bsPelanggan.PositionChanged += bsPelanggan_PositionChanged;
+            bsKendaraan.PositionChanged += bsKendaraan_PositionChanged;
+            bsServis.PositionChanged    += bsServis_PositionChanged;
+            bsUsers.PositionChanged     += bsUsers_PositionChanged;
+
+            // Load tab pertama + combobox
             LoadPelanggan();
             LoadCombos();
+        }
+
+        // ============ POSITION CHANGED HANDLERS ============
+        // Dipanggil saat user pencet panah di BindingNavigator atau klik baris di DGV
+
+        private void bsPelanggan_PositionChanged(object sender, EventArgs e)
+        {
+            if (bsPelanggan.Current == null) return;
+            DataRowView row = (DataRowView)bsPelanggan.Current;
+            txtnamapel.Text = row["Nama"].ToString();
+            txtalamat.Text  = row["Alamat"].ToString();
+            txtnohp.Text    = row["No HP"].ToString();
+        }
+
+        private void bsKendaraan_PositionChanged(object sender, EventArgs e)
+        {
+            if (bsKendaraan.Current == null) return;
+            DataRowView row = (DataRowView)bsKendaraan.Current;
+            txtmerk.Text     = row["Merk"].ToString();
+            txtplano.Text    = row["Plat No"].ToString();
+            txttahunken.Text = row["Tahun"] == DBNull.Value ? "" : row["Tahun"].ToString();
+
+            // Sinkronkan ComboBox Pelanggan
+            string pel = row["Pelanggan"].ToString();
+            for (int i = 0; i < cmbpelanggan.Items.Count; i++)
+            {
+                if (cmbpelanggan.Items[i].ToString().Contains(pel))
+                { cmbpelanggan.SelectedIndex = i; break; }
+            }
+        }
+
+        private void bsServis_PositionChanged(object sender, EventArgs e)
+        {
+            if (bsServis.Current == null) return;
+            DataRowView row = (DataRowView)bsServis.Current;
+            txtjenisservis.Text = row["Jenis Servis"].ToString();
+            txtsukucadang.Text  = row["Suku Cadang"].ToString();
+            txtbiaya.Text       = row["Biaya"].ToString();
+            txtcatatan.Text     = row["Catatan"] == DBNull.Value ? "" : row["Catatan"].ToString();
+
+            if (row["Tanggal"] != DBNull.Value)
+                dtptanggal.Value = Convert.ToDateTime(row["Tanggal"]);
+
+            // Sinkronkan ComboBox Kendaraan
+            string plat = row["Plat No"].ToString();
+            for (int i = 0; i < cmbkendaraan.Items.Count; i++)
+            {
+                if (cmbkendaraan.Items[i].ToString().Contains(plat))
+                { cmbkendaraan.SelectedIndex = i; break; }
+            }
+
+            // Sinkronkan ComboBox Users (Petugas)
+            string pet = row["Petugas"].ToString();
+            for (int i = 0; i < cmbusers.Items.Count; i++)
+            {
+                if (cmbusers.Items[i].ToString().Contains(pet))
+                { cmbusers.SelectedIndex = i; break; }
+            }
+        }
+
+        private void bsUsers_PositionChanged(object sender, EventArgs e)
+        {
+            if (bsUsers.Current == null) return;
+            DataRowView row = (DataRowView)bsUsers.Current;
+            txtnamauser.Text  = row["Nama"].ToString();
+            txtusername.Text  = row["Username"].ToString();
+            txtnoteluser.Text = row["No Telp"].ToString();
+            cmbrole.SelectedItem = row["Role"].ToString();
         }
 
         private void tabcontrol1_SelectedIndexChanged(object sender, EventArgs e)
@@ -64,58 +153,13 @@ namespace SistemServisMotor
             {
                 case 0: LoadPelanggan(); break;
                 case 1: LoadKendaraan(); break;
-                case 2: LoadServis(); break;
-                case 3: LoadUsers(); break;
+                case 2: LoadServis();    break;
+                case 3: LoadUsers();     break;
             }
             LoadCombos();
         }
 
-        void LoadData(string sql, DataGridView dgv)
-        {
-            using (var conn = DatabaseHelper.GetConn())
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-                DataTable dt = new DataTable();
-                dt.Load(reader);
-                reader.Close();
-                dgv.DataSource = dt;
-            }
-        }
-
-        void SearchData(string sql, DataGridView dgv)
-        {
-            using (var conn = DatabaseHelper.GetConn())
-            {
-                conn.Open();
-                DataTable dt = new DataTable();
-                SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
-                adapter.Fill(dt);
-                dgv.DataSource = dt;
-            }
-        }
-
-        void RunQuery(string sql, params SqlParameter[] pars)
-        {
-            using (var conn = DatabaseHelper.GetConn())
-            {
-                conn.Open();
-                var cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddRange(pars);
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        int CountRows(string table)
-        {
-            using (var conn = DatabaseHelper.GetConn())
-            {
-                conn.Open();
-                var cmd = new SqlCommand("SELECT COUNT(*) FROM " + table, conn);
-                return (int)cmd.ExecuteScalar();
-            }
-        }
+        // ============ HELPER METHODS ============
 
         int GetSelectedId(DataGridView dgv)
         {
@@ -138,8 +182,6 @@ namespace SistemServisMotor
             return true;
         }
 
-
-        // Combos 
         void LoadCombos()
         {
             FillCombo(cmbpelanggan,
@@ -159,10 +201,10 @@ namespace SistemServisMotor
         {
             cmb.Items.Clear();
             cmb.Items.Add(placeholder);
-            using (var conn = DatabaseHelper.GetConn())
+            using (SqlConnection conn = DatabaseHelper.GetConn())
             {
                 conn.Open();
-                SqlDataReader reader = new SqlCommand(sql, conn).ExecuteReader();  // SqlDataReader
+                SqlDataReader reader = new SqlCommand(sql, conn).ExecuteReader();
                 while (reader.Read())
                     cmb.Items.Add(reader[idCol] + " - " + reader[nameCol]);
                 reader.Close();
@@ -179,18 +221,54 @@ namespace SistemServisMotor
                 this.Close();
             }
         }
+
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
 
-
-        //TAB PELANGGAN
+        // ============================================
+        // TAB PELANGGAN
+        // ============================================
 
         void LoadPelanggan()
         {
-            LoadData("SELECT id_pelanggan AS ID, nama AS Nama, alamat AS Alamat, no_hp AS [No HP] FROM Pelanggan", dgvPelanggan);
-            lblcountp.Text = "Total: " + CountRows("Pelanggan");
+            try
+            {
+                // Load data via Stored Procedure (yang baca dari View vwPelanggan)
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_GetAllPelanggan", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        conn.Open();
+                        SqlDataReader reader = cmd.ExecuteReader();  // Bagian A
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+                        reader.Close();
+
+                        // Bind ke BindingSource (UCP 2 #4)
+                        bsPelanggan.DataSource = dt;
+                        dgvPelanggan.DataSource = bsPelanggan;
+                    }
+                }
+
+                // Bagian D - ExecuteScalar untuk hitung total
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Pelanggan", conn))
+                    {
+                        conn.Open();
+                        int total = (int)cmd.ExecuteScalar();
+                        lblcountp.Text = "Total: " + total;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal load data pelanggan: " + ex.Message);
+            }
         }
 
         private void btnaddp_Click(object sender, EventArgs e)
@@ -201,13 +279,29 @@ namespace SistemServisMotor
             if (!IsValidPhone(txtnohp.Text.Trim()))
             { MessageBox.Show("No HP harus angka, 10-13 digit, dan dimulai dengan 08!"); return; }
 
-            RunQuery("INSERT INTO Pelanggan(nama, alamat, no_hp) VALUES(@a, @b, @c)",
-                new SqlParameter("@a", txtnamapel.Text.Trim()),
-                new SqlParameter("@b", txtalamat.Text.Trim()),
-                new SqlParameter("@c", txtnohp.Text.Trim()));
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_InsertPelanggan", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@nama",   txtnamapel.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@alamat", txtalamat.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@no_hp",  txtnohp.Text.Trim()));
 
-            MessageBox.Show("Data berhasil ditambahkan!");
-            ClearP(); LoadPelanggan(); LoadCombos();
+                        conn.Open();
+                        cmd.ExecuteNonQuery();  // Bagian D
+                    }
+                }
+
+                MessageBox.Show("Data berhasil ditambahkan!");
+                ClearP(); LoadPelanggan(); LoadCombos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal tambah pelanggan: " + ex.Message);
+            }
         }
 
         private void btnupp_Click(object sender, EventArgs e)
@@ -222,47 +316,93 @@ namespace SistemServisMotor
             // Konfirmasi (Bagian F)
             if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
-            RunQuery("UPDATE Pelanggan SET nama=@a, alamat=@b, no_hp=@c WHERE id_pelanggan=@id",
-                new SqlParameter("@a", txtnamapel.Text.Trim()),
-                new SqlParameter("@b", txtalamat.Text.Trim()),
-                new SqlParameter("@c", txtnohp.Text.Trim()),
-                new SqlParameter("@id", id));
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_UpdatePelanggan", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@id",     id));
+                        cmd.Parameters.Add(new SqlParameter("@nama",   txtnamapel.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@alamat", txtalamat.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@no_hp",  txtnohp.Text.Trim()));
 
-            MessageBox.Show("Data berhasil diubah!");
-            ClearP(); LoadPelanggan(); LoadCombos();
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Data berhasil diubah!");
+                ClearP(); LoadPelanggan(); LoadCombos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal update pelanggan: " + ex.Message);
+            }
         }
 
         private void btndelp_Click(object sender, EventArgs e)
         {
             int id = GetSelectedId(dgvPelanggan);
             if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
-
-            // Konfirmasi (Bagian F)
             if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
-            RunQuery("DELETE FROM Pelanggan WHERE id_pelanggan=@id", new SqlParameter("@id", id));
-            MessageBox.Show("Data berhasil dihapus!");
-            ClearP(); LoadPelanggan(); LoadCombos();
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_DeletePelanggan", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@id", id));
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Data berhasil dihapus!");
+                ClearP(); LoadPelanggan(); LoadCombos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal hapus pelanggan: " + ex.Message);
+            }
         }
 
+        // Bagian E - Search pakai SqlDataAdapter + DataSet
         private void btncarip_Click(object sender, EventArgs e)
         {
-            string cari = txtcarip.Text.Trim();
-            SearchData("SELECT id_pelanggan AS ID, nama AS Nama, alamat AS Alamat, no_hp AS [No HP] " +
-                       "FROM Pelanggan WHERE nama LIKE '%" + cari + "%'", dgvPelanggan);
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_SearchPelanggan", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@cari", txtcarip.Text.Trim()));
+
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                        DataSet ds = new DataSet();
+                        adapter.Fill(ds, "Hasil");
+
+                        bsPelanggan.DataSource = ds.Tables["Hasil"];
+                        dgvPelanggan.DataSource = bsPelanggan;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal cari pelanggan: " + ex.Message);
+            }
         }
 
         private void btnloadp_Click(object sender, EventArgs e) { LoadPelanggan(); }
 
-        // CLICK ROW → FILL TEXTBOXES (Bagian E)
-        private void dgvPelanggan_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-            var row = dgvPelanggan.Rows[e.RowIndex];
-            txtnamapel.Text = row.Cells["Nama"].Value.ToString();
-            txtalamat.Text = row.Cells["Alamat"].Value.ToString();
-            txtnohp.Text = row.Cells["No HP"].Value.ToString();
-        }
+        // Bagian E - Pilih data DGV ke TextBox
+        // Klik baris -> BindingSource.Position berubah -> bsPelanggan_PositionChanged otomatis dipanggil
+        private void dgvPelanggan_CellClick(object sender, DataGridViewCellEventArgs e) { }
 
         private void btnClearP_Click(object sender, EventArgs e) { ClearP(); }
         void ClearP()
@@ -273,16 +413,45 @@ namespace SistemServisMotor
             txtcarip.Clear();
         }
 
-
+        // ============================================
         // TAB KENDARAAN
+        // ============================================
 
         void LoadKendaraan()
         {
-            LoadData(@"SELECT k.id_kendaraan AS ID, p.nama AS Pelanggan, 
-                       k.merk AS Merk, k.plat_no AS [Plat No], k.tahun AS Tahun
-                       FROM Kendaraan k JOIN Pelanggan p ON k.id_pelanggan = p.id_pelanggan",
-                     dgvKendaraan);
-            lblcountk.Text = "Total: " + CountRows("Kendaraan");
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_GetAllKendaraan", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        conn.Open();
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+                        reader.Close();
+
+                        bsKendaraan.DataSource = dt;
+                        dgvKendaraan.DataSource = bsKendaraan;
+                    }
+                }
+
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Kendaraan", conn))
+                    {
+                        conn.Open();
+                        int total = (int)cmd.ExecuteScalar();
+                        lblcountk.Text = "Total: " + total;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal load data kendaraan: " + ex.Message);
+            }
         }
 
         private void btnaddk_Click(object sender, EventArgs e)
@@ -291,21 +460,42 @@ namespace SistemServisMotor
             if (idP == -1) { MessageBox.Show("Pilih pelanggan!"); return; }
             if (txtmerk.Text == "" || txtplano.Text == "")
             { MessageBox.Show("Merk dan Plat No harus diisi!"); return; }
+
+            int tahun = 0;
             if (txttahunken.Text != "")
             {
-                int tahun;
                 if (!int.TryParse(txttahunken.Text, out tahun) || tahun < 2000)
                 { MessageBox.Show("Tahun harus angka dan minimal 2000!"); return; }
             }
 
-            RunQuery("INSERT INTO Kendaraan(id_pelanggan, merk, plat_no, tahun) VALUES(@a,@b,@c,@d)",
-                new SqlParameter("@a", idP),
-                new SqlParameter("@b", txtmerk.Text.Trim()),
-                new SqlParameter("@c", txtplano.Text.Trim()),
-                new SqlParameter("@d", txttahunken.Text == "" ? (object)DBNull.Value : int.Parse(txttahunken.Text)));
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_InsertKendaraan", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@id_pel",  idP));
+                        cmd.Parameters.Add(new SqlParameter("@merk",    txtmerk.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@plat_no", txtplano.Text.Trim()));
 
-            MessageBox.Show("Data berhasil ditambahkan!");
-            ClearK(); LoadKendaraan(); LoadCombos();
+                        if (txttahunken.Text == "")
+                            cmd.Parameters.Add(new SqlParameter("@tahun", DBNull.Value));
+                        else
+                            cmd.Parameters.Add(new SqlParameter("@tahun", tahun));
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Data berhasil ditambahkan!");
+                ClearK(); LoadKendaraan(); LoadCombos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal tambah kendaraan: " + ex.Message);
+            }
         }
 
         private void btnupk_Click(object sender, EventArgs e)
@@ -315,23 +505,45 @@ namespace SistemServisMotor
             if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
             if (idP == -1 || txtmerk.Text == "" || txtplano.Text == "")
             { MessageBox.Show("Semua field harus diisi!"); return; }
+
+            int tahun = 0;
             if (txttahunken.Text != "")
             {
-                int tahun;
                 if (!int.TryParse(txttahunken.Text, out tahun) || tahun < 2000)
                 { MessageBox.Show("Tahun harus angka dan minimal 2000!"); return; }
             }
+
             if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
-            RunQuery("UPDATE Kendaraan SET id_pelanggan=@a, merk=@b, plat_no=@c, tahun=@d WHERE id_kendaraan=@id",
-                new SqlParameter("@a", idP),
-                new SqlParameter("@b", txtmerk.Text.Trim()),
-                new SqlParameter("@c", txtplano.Text.Trim()),
-                new SqlParameter("@d", txttahunken.Text == "" ? (object)DBNull.Value : int.Parse(txttahunken.Text)),
-                new SqlParameter("@id", id));
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_UpdateKendaraan", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@id",      id));
+                        cmd.Parameters.Add(new SqlParameter("@id_pel",  idP));
+                        cmd.Parameters.Add(new SqlParameter("@merk",    txtmerk.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@plat_no", txtplano.Text.Trim()));
 
-            MessageBox.Show("Data berhasil diubah!");
-            ClearK(); LoadKendaraan(); LoadCombos();
+                        if (txttahunken.Text == "")
+                            cmd.Parameters.Add(new SqlParameter("@tahun", DBNull.Value));
+                        else
+                            cmd.Parameters.Add(new SqlParameter("@tahun", tahun));
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Data berhasil diubah!");
+                ClearK(); LoadKendaraan(); LoadCombos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal update kendaraan: " + ex.Message);
+            }
         }
 
         private void btndelk_Click(object sender, EventArgs e)
@@ -340,59 +552,110 @@ namespace SistemServisMotor
             if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
             if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
-            RunQuery("DELETE FROM Kendaraan WHERE id_kendaraan=@id", new SqlParameter("@id", id));
-            MessageBox.Show("Data berhasil dihapus!");
-            ClearK(); LoadKendaraan(); LoadCombos();
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_DeleteKendaraan", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@id", id));
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Data berhasil dihapus!");
+                ClearK(); LoadKendaraan(); LoadCombos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal hapus kendaraan: " + ex.Message);
+            }
         }
 
-        // SEARCH using SqlDataAdapter (Bagian A)
         private void btncarik_Click(object sender, EventArgs e)
         {
-            string cari = txtcarik.Text.Trim();
-            SearchData(@"SELECT k.id_kendaraan AS ID, p.nama AS Pelanggan, 
-                         k.merk AS Merk, k.plat_no AS [Plat No], k.tahun AS Tahun
-                         FROM Kendaraan k JOIN Pelanggan p ON k.id_pelanggan=p.id_pelanggan
-                         WHERE k.plat_no LIKE '%" + cari + "%' OR k.merk LIKE '%" + cari + "%'",
-                       dgvKendaraan);
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_SearchKendaraan", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@cari", txtcarik.Text.Trim()));
+
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                        DataSet ds = new DataSet();
+                        adapter.Fill(ds, "Hasil");
+
+                        bsKendaraan.DataSource = ds.Tables["Hasil"];
+                        dgvKendaraan.DataSource = bsKendaraan;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal cari kendaraan: " + ex.Message);
+            }
         }
 
         private void btnloadk_Click(object sender, EventArgs e) { LoadKendaraan(); }
 
-        private void dgvKendaraan_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-            var row = dgvKendaraan.Rows[e.RowIndex];
-            txtmerk.Text = row.Cells["Merk"].Value.ToString();
-            txtplano.Text = row.Cells["Plat No"].Value.ToString();
-            txttahunken.Text = row.Cells["Tahun"].Value?.ToString() ?? "";
-            string pel = row.Cells["Pelanggan"].Value.ToString();
-            for (int i = 0; i < cmbpelanggan.Items.Count; i++)
-                if (cmbpelanggan.Items[i].ToString().Contains(pel))
-                { cmbpelanggan.SelectedIndex = i; break; }
-        }
+        // Klik baris -> bsKendaraan_PositionChanged otomatis dipanggil
+        private void dgvKendaraan_CellClick(object sender, DataGridViewCellEventArgs e) { }
 
         private void btncleark_Click(object sender, EventArgs e) { ClearK(); }
         void ClearK()
         {
             txtmerk.Clear(); txtplano.Clear(); txttahunken.Clear();
-            txtcarik.Clear(); cmbpelanggan.SelectedIndex = 0;
+            txtcarik.Clear();
+            cmbpelanggan.SelectedIndex = 0;
         }
 
-
+        // ============================================
         // TAB SERVIS
+        // ============================================
 
         void LoadServis()
         {
-            LoadData(@"SELECT s.id_servis AS ID, k.plat_no AS [Plat No], u.nama AS Petugas,
-                       s.Tanggal, s.JenisServis AS [Jenis Servis], 
-                       s.SukuCadang AS [Suku Cadang], s.Biaya, s.Catatan
-                       FROM Servis s 
-                       JOIN Kendaraan k ON s.id_kendaraan = k.id_kendaraan
-                       JOIN Users u ON s.id_user = u.id_user",
-                     dgvServis);
-            lblcounts.Text = "Total: " + CountRows("Servis");
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_GetAllServis", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        conn.Open();
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+                        reader.Close();
+
+                        bsServis.DataSource = dt;
+                        dgvServis.DataSource = bsServis;
+                    }
+                }
+
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Servis", conn))
+                    {
+                        conn.Open();
+                        int total = (int)cmd.ExecuteScalar();
+                        lblcounts.Text = "Total: " + total;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal load data servis: " + ex.Message);
+            }
         }
 
+        // Insert Servis - pakai OUTPUT parameter (pola dari materi kelas)
         private void btnadds_Click(object sender, EventArgs e)
         {
             int idK = GetComboId(cmbkendaraan);
@@ -408,23 +671,48 @@ namespace SistemServisMotor
             if (biaya < 0 || biaya > 1000000)
             { MessageBox.Show("Biaya harus antara 0 - 1.000.000!"); return; }
 
-            RunQuery(@"INSERT INTO Servis(id_kendaraan, id_user, Tanggal, JenisServis, SukuCadang, Biaya, Catatan) 
-                       VALUES(@a,@b,@c,@d,@e,@f,@g)",
-                new SqlParameter("@a", idK),
-                new SqlParameter("@b", idU),
-                new SqlParameter("@c", dtptanggal.Value),
-                new SqlParameter("@d", txtjenisservis.Text.Trim()),
-                new SqlParameter("@e", txtsukucadang.Text.Trim()),
-                new SqlParameter("@f", biaya),
-                new SqlParameter("@g", txtcatatan.Text == "" ? (object)DBNull.Value : txtcatatan.Text.Trim()));
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_InsertServis", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@id_ken", idK));
+                        cmd.Parameters.Add(new SqlParameter("@id_u",   idU));
+                        cmd.Parameters.Add(new SqlParameter("@tgl",    dtptanggal.Value));
+                        cmd.Parameters.Add(new SqlParameter("@jenis",  txtjenisservis.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@suku",   txtsukucadang.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@biaya",  (int)biaya));
 
-            MessageBox.Show("Data berhasil ditambahkan!");
-            ClearS(); LoadServis();
+                        if (txtcatatan.Text == "")
+                            cmd.Parameters.Add(new SqlParameter("@catatan", DBNull.Value));
+                        else
+                            cmd.Parameters.Add(new SqlParameter("@catatan", txtcatatan.Text.Trim()));
+
+                        // OUTPUT parameter (pola dari materi kelas)
+                        SqlParameter outputParam = new SqlParameter("@new_id", SqlDbType.Int);
+                        outputParam.Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add(outputParam);
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Data berhasil ditambahkan! ID Servis baru: " + outputParam.Value.ToString());
+                    }
+                }
+
+                ClearS(); LoadServis();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal tambah servis: " + ex.Message);
+            }
         }
 
         private void btnups_Click(object sender, EventArgs e)
         {
-            int id = GetSelectedId(dgvServis);
+            int id  = GetSelectedId(dgvServis);
             int idK = GetComboId(cmbkendaraan);
             int idU = GetComboId(cmbusers);
             if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
@@ -439,20 +727,38 @@ namespace SistemServisMotor
 
             if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
-            RunQuery(@"UPDATE Servis SET id_kendaraan=@a, id_user=@b, Tanggal=@c, 
-                       JenisServis=@d, SukuCadang=@e, Biaya=@f, Catatan=@g 
-                       WHERE id_servis=@id",
-                new SqlParameter("@a", idK),
-                new SqlParameter("@b", idU),
-                new SqlParameter("@c", dtptanggal.Value),
-                new SqlParameter("@d", txtjenisservis.Text.Trim()),
-                new SqlParameter("@e", txtsukucadang.Text.Trim()),
-                new SqlParameter("@f", biaya),
-                new SqlParameter("@g", txtcatatan.Text == "" ? (object)DBNull.Value : txtcatatan.Text.Trim()),
-                new SqlParameter("@id", id));
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_UpdateServis", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@id",     id));
+                        cmd.Parameters.Add(new SqlParameter("@id_ken", idK));
+                        cmd.Parameters.Add(new SqlParameter("@id_u",   idU));
+                        cmd.Parameters.Add(new SqlParameter("@tgl",    dtptanggal.Value));
+                        cmd.Parameters.Add(new SqlParameter("@jenis",  txtjenisservis.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@suku",   txtsukucadang.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@biaya",  (int)biaya));
 
-            MessageBox.Show("Data berhasil diubah!");
-            ClearS(); LoadServis();
+                        if (txtcatatan.Text == "")
+                            cmd.Parameters.Add(new SqlParameter("@catatan", DBNull.Value));
+                        else
+                            cmd.Parameters.Add(new SqlParameter("@catatan", txtcatatan.Text.Trim()));
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Data berhasil diubah!");
+                ClearS(); LoadServis();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal update servis: " + ex.Message);
+            }
         }
 
         private void btndels_Click(object sender, EventArgs e)
@@ -461,47 +767,59 @@ namespace SistemServisMotor
             if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
             if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
-            RunQuery("DELETE FROM Servis WHERE id_servis=@id", new SqlParameter("@id", id));
-            MessageBox.Show("Data berhasil dihapus!");
-            ClearS(); LoadServis();
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_DeleteServis", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@id", id));
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Data berhasil dihapus!");
+                ClearS(); LoadServis();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal hapus servis: " + ex.Message);
+            }
         }
 
         private void btncaris_Click(object sender, EventArgs e)
         {
-            string cari = txtcaris.Text.Trim();
-            SearchData(@"SELECT s.id_servis AS ID, k.plat_no AS [Plat No], u.nama AS Petugas,
-                         s.Tanggal, s.JenisServis AS [Jenis Servis], 
-                         s.SukuCadang AS [Suku Cadang], s.Biaya, s.Catatan
-                         FROM Servis s JOIN Kendaraan k ON s.id_kendaraan=k.id_kendaraan
-                         JOIN Users u ON s.id_user=u.id_user
-                         WHERE k.plat_no LIKE '%" + cari + "%' OR s.JenisServis LIKE '%" + cari + "%'",
-                       dgvServis);
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_SearchServis", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@cari", txtcaris.Text.Trim()));
+
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                        DataSet ds = new DataSet();
+                        adapter.Fill(ds, "Hasil");
+
+                        bsServis.DataSource = ds.Tables["Hasil"];
+                        dgvServis.DataSource = bsServis;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal cari servis: " + ex.Message);
+            }
         }
 
         private void btnloads_Click(object sender, EventArgs e) { LoadServis(); }
 
-        private void dgvServis_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-            var row = dgvServis.Rows[e.RowIndex];
-            txtjenisservis.Text = row.Cells["Jenis Servis"].Value.ToString();
-            txtsukucadang.Text = row.Cells["Suku Cadang"].Value.ToString();
-            txtbiaya.Text = row.Cells["Biaya"].Value.ToString();
-            txtcatatan.Text = row.Cells["Catatan"].Value?.ToString() ?? "";
-
-            if (row.Cells["Tanggal"].Value != null)
-                dtptanggal.Value = Convert.ToDateTime(row.Cells["Tanggal"].Value);
-
-            string plat = row.Cells["Plat No"].Value.ToString();
-            for (int i = 0; i < cmbkendaraan.Items.Count; i++)
-                if (cmbkendaraan.Items[i].ToString().Contains(plat))
-                { cmbkendaraan.SelectedIndex = i; break; }
-
-            string pet = row.Cells["Petugas"].Value.ToString();
-            for (int i = 0; i < cmbusers.Items.Count; i++)
-                if (cmbusers.Items[i].ToString().Contains(pet))
-                { cmbusers.SelectedIndex = i; break; }
-        }
+        // Klik baris -> bsServis_PositionChanged otomatis dipanggil
+        private void dgvServis_CellClick(object sender, DataGridViewCellEventArgs e) { }
 
         private void btnclears_Click(object sender, EventArgs e) { ClearS(); }
         void ClearS()
@@ -509,46 +827,83 @@ namespace SistemServisMotor
             txtjenisservis.Clear(); txtsukucadang.Clear(); txtbiaya.Clear();
             txtcatatan.Clear(); txtcaris.Clear();
             dtptanggal.Value = DateTime.Now;
-            cmbkendaraan.SelectedIndex = 0; cmbusers.SelectedIndex = 0;
+            cmbkendaraan.SelectedIndex = 0;
+            cmbusers.SelectedIndex = 0;
         }
 
+        // Cetak Nota Servis - pakai named handler (bukan lambda)
         private void btnCetak_Click(object sender, EventArgs e)
         {
             if (dgvServis.CurrentRow == null)
             { MessageBox.Show("Pilih data servis yang ingin dicetak!"); return; }
 
-            var r = dgvServis.CurrentRow;
-            printText = "================================\n";
+            DataGridViewRow r = dgvServis.CurrentRow;
+            printText  = "================================\n";
             printText += "   NOTA SERVIS MOTOR BENGKEL\n";
             printText += "================================\n\n";
-            printText += "ID Servis    : " + r.Cells["ID"].Value + "\n";
+            printText += "ID Servis    : " + r.Cells["ID Servis"].Value + "\n";
             printText += "Plat No      : " + r.Cells["Plat No"].Value + "\n";
             printText += "Petugas      : " + r.Cells["Petugas"].Value + "\n";
             printText += "Tanggal      : " + Convert.ToDateTime(r.Cells["Tanggal"].Value).ToString("dd/MM/yyyy") + "\n";
             printText += "Jenis Servis : " + r.Cells["Jenis Servis"].Value + "\n";
             printText += "Suku Cadang  : " + r.Cells["Suku Cadang"].Value + "\n";
             printText += "Biaya        : Rp " + Convert.ToDecimal(r.Cells["Biaya"].Value).ToString("N0") + "\n";
-            printText += "Catatan      : " + (r.Cells["Catatan"].Value?.ToString() ?? "-") + "\n\n";
+            printText += "Catatan      : " + (r.Cells["Catatan"].Value == null ? "-" : r.Cells["Catatan"].Value.ToString()) + "\n\n";
             printText += "================================\n";
             printText += "       Terima Kasih!\n";
 
             PrintDocument doc = new PrintDocument();
-            doc.PrintPage += (s, ev) =>
-            {
-                ev.Graphics.DrawString(printText, new Font("Dubai", 11), Brushes.Black, 50, 50);
-            };
+            doc.PrintPage += new PrintPageEventHandler(doc_PrintPage);
 
             PrintPreviewDialog preview = new PrintPreviewDialog();
             preview.Document = doc;
             preview.ShowDialog();
         }
 
+        private void doc_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            e.Graphics.DrawString(printText, new Font("Dubai", 11), Brushes.Black, 50, 50);
+        }
+
+        // ============================================
         // TAB USERS
+        // ============================================
 
         void LoadUsers()
         {
-            LoadData("SELECT id_user AS ID, nama AS Nama, username AS Username, no_telp AS [No Telp], role AS Role FROM Users", dgvUsers);
-            lblcountusers.Text = "Total: " + CountRows("Users");
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_GetAllUsers", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        conn.Open();
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+                        reader.Close();
+
+                        bsUsers.DataSource = dt;
+                        dgvUsers.DataSource = bsUsers;
+                    }
+                }
+
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Users", conn))
+                    {
+                        conn.Open();
+                        int total = (int)cmd.ExecuteScalar();
+                        lblcountusers.Text = "Total: " + total;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal load data users: " + ex.Message);
+            }
         }
 
         private void btnaddu_Click(object sender, EventArgs e)
@@ -558,14 +913,30 @@ namespace SistemServisMotor
             if (!IsValidPhone(txtnoteluser.Text.Trim()))
             { MessageBox.Show("No Telp harus angka, 10-13 digit, dan dimulai dengan 08!"); return; }
 
-            RunQuery("INSERT INTO Users(nama, username, no_telp, role) VALUES(@a,@b,@c,@d)",
-                new SqlParameter("@a", txtnamauser.Text.Trim()),
-                new SqlParameter("@b", txtusername.Text.Trim()),
-                new SqlParameter("@c", txtnoteluser.Text.Trim()),
-                new SqlParameter("@d", cmbrole.SelectedItem.ToString()));
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_InsertUser", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@nama", txtnamauser.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@user", txtusername.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@telp", txtnoteluser.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@role", cmbrole.SelectedItem.ToString()));
 
-            MessageBox.Show("Data berhasil ditambahkan!");
-            ClearU(); LoadUsers(); LoadCombos();
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Data berhasil ditambahkan!");
+                ClearU(); LoadUsers(); LoadCombos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal tambah user: " + ex.Message);
+            }
         }
 
         private void btnupu_Click(object sender, EventArgs e)
@@ -576,17 +947,34 @@ namespace SistemServisMotor
             { MessageBox.Show("Semua field harus diisi!"); return; }
             if (!IsValidPhone(txtnoteluser.Text.Trim()))
             { MessageBox.Show("No Telp harus angka, 10-13 digit, dan dimulai dengan 08!"); return; }
+
             if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
-            RunQuery("UPDATE Users SET nama=@a, username=@b, no_telp=@c, role=@d WHERE id_user=@id",
-                new SqlParameter("@a", txtnamauser.Text.Trim()),
-                new SqlParameter("@b", txtusername.Text.Trim()),
-                new SqlParameter("@c", txtnoteluser.Text.Trim()),
-                new SqlParameter("@d", cmbrole.SelectedItem.ToString()),
-                new SqlParameter("@id", id));
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_UpdateUser", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@id",   id));
+                        cmd.Parameters.Add(new SqlParameter("@nama", txtnamauser.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@user", txtusername.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@telp", txtnoteluser.Text.Trim()));
+                        cmd.Parameters.Add(new SqlParameter("@role", cmbrole.SelectedItem.ToString()));
 
-            MessageBox.Show("Data berhasil diubah!");
-            ClearU(); LoadUsers(); LoadCombos();
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Data berhasil diubah!");
+                ClearU(); LoadUsers(); LoadCombos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal update user: " + ex.Message);
+            }
         }
 
         private void btndelu_Click(object sender, EventArgs e)
@@ -595,32 +983,59 @@ namespace SistemServisMotor
             if (id == -1) { MessageBox.Show("Pilih data dulu!"); return; }
             if (MessageBox.Show("Are you sure?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.No) return;
 
-            RunQuery("DELETE FROM Users WHERE id_user=@id", new SqlParameter("@id", id));
-            MessageBox.Show("Data berhasil dihapus!");
-            ClearU(); LoadUsers(); LoadCombos();
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_DeleteUser", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@id", id));
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Data berhasil dihapus!");
+                ClearU(); LoadUsers(); LoadCombos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal hapus user: " + ex.Message);
+            }
         }
 
-        // SEARCH using SqlDataAdapter (Bagian A)
         private void btncariu_Click(object sender, EventArgs e)
         {
-            string cari = txtcariu.Text.Trim();
-            SearchData("SELECT id_user AS ID, nama AS Nama, username AS Username, no_telp AS [No Telp], role AS Role " +
-                       "FROM Users WHERE nama LIKE '%" + cari + "%' OR username LIKE '%" + cari + "%'", dgvUsers);
+            try
+            {
+                using (SqlConnection conn = DatabaseHelper.GetConn())
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_SearchUser", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@cari", txtcariu.Text.Trim()));
+
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                        DataSet ds = new DataSet();
+                        adapter.Fill(ds, "Hasil");
+
+                        bsUsers.DataSource = ds.Tables["Hasil"];
+                        dgvUsers.DataSource = bsUsers;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal cari user: " + ex.Message);
+            }
         }
 
         private void btnTampilU_Click(object sender, EventArgs e) { LoadUsers(); }
 
-        private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-            var row = dgvUsers.Rows[e.RowIndex];
-            txtnamauser.Text = row.Cells["Nama"].Value.ToString();
-            txtusername.Text = row.Cells["Username"].Value.ToString();
-            txtnoteluser.Text = row.Cells["No Telp"].Value.ToString();
-            cmbrole.SelectedItem = row.Cells["Role"].Value.ToString();
-        }
-
-
+        // Klik baris -> bsUsers_PositionChanged otomatis dipanggil
+        private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e) { }
 
         void ClearU()
         {
@@ -629,15 +1044,18 @@ namespace SistemServisMotor
             cmbrole.SelectedIndex = -1;
         }
 
-        private void cmbrole_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbrole_SelectedIndexChanged(object sender, EventArgs e) { }
+
+        private void lblcountp_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void btnclearu_Click(object sender, EventArgs e)
+        private void tabServis_Click(object sender, EventArgs e)
         {
-            ClearU();
+
         }
+
+        private void btnclearu_Click(object sender, EventArgs e) { ClearU(); }
     }
 }
-      

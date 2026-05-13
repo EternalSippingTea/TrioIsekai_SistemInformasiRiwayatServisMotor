@@ -532,7 +532,7 @@ BEGIN
     END TRY
     BEGIN CATCH
         ROLLBACK TRANSACTION;
-        RAISERROR('Gagal menyimpan data servis: %s', 16, 1, ERROR_MESSAGE());
+        RAISERROR('Gagal menyimpan data servis!', 16, 1);
     END CATCH
 END
 GO
@@ -589,7 +589,7 @@ BEGIN
     END TRY
     BEGIN CATCH
         ROLLBACK TRANSACTION;
-        RAISERROR('Gagal mengupdate data servis: %s', 16, 1, ERROR_MESSAGE());
+        RAISERROR('Gagal mengupdate data servis!', 16, 1);
     END CATCH
 
 END
@@ -644,3 +644,5 @@ SELECT * INTO Pelanggan_Backup FROM Pelanggan;
 SELECT * INTO Kendaraan_Backup FROM Kendaraan;
 SELECT * INTO Users_Backup FROM Users;
 SELECT * INTO Servis_Backup FROM Servis;
+
+
