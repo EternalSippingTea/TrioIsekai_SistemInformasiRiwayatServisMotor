@@ -701,7 +701,10 @@ SELECT * INTO Pelanggan_Backup FROM Pelanggan;
 SELECT * INTO Kendaraan_Backup FROM Kendaraan;
 SELECT * INTO Users_Backup FROM Users;
 SELECT * INTO Servis_Backup FROM Servis;
--- Fitur PrintCREATE PROCEDURE sp_PrintServis
+
+
+-- Fitur Print
+Create PROCEDURE sp_PrintServis
     @id_servis INT
 AS
 BEGIN
@@ -736,7 +739,13 @@ BEGIN
     BEGIN
         RAISERROR('Tidak ada data servis!', 16, 1);
     END
-END;EXEC sp_PrintServis 1;DROP PROCEDURE sp_PrintServis;-- Alter validasi jumlah digit plat no untuk tabel kendaraanALTER TABLE Kendaraan
+END;
+
+EXEC sp_PrintServis 1;
+DROP PROCEDURE sp_PrintServis;
+
+-- Alter validasi jumlah digit plat no untuk tabel kendaraan
+ALTER TABLE Kendaraan
 ADD CONSTRAINT CK_Kendaraan_plat_no
 CHECK (LEN(plat_no) BETWEEN 1 AND 11);
 
@@ -842,3 +851,5 @@ SELECT
 FROM Kendaraan k
 JOIN Pelanggan p ON k.id_pelanggan = p.id_pelanggan;
 GO
+
+select * from Users
