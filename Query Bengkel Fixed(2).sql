@@ -204,7 +204,7 @@ BEGIN
     VALUES(@nama, @alamat, @no_hp);
 END
 GO
-
+select * from Pelanggan
 -- SP Update Pelanggan
 CREATE PROCEDURE sp_UpdatePelanggan
     @id INT,
@@ -221,13 +221,13 @@ BEGIN
         RETURN;
     END
 
-    IF EXISTS (SELECT 1 FROM Pelanggan WHERE no_hp = @no_hp)
+    IF EXISTS (SELECT 1 FROM Pelanggan WHERE no_hp = @no_hp AND id_pelanggan <> @id)
     BEGIN
         RAISERROR('No. HP sudah terdaftar!', 16, 1);
         RETURN;
     END
 
-    IF EXISTS (SELECT 1 FROM Pelanggan WHERE nama = @nama AND alamat = @alamat)
+    IF EXISTS (SELECT 1 FROM Pelanggan WHERE nama = @nama AND alamat = @alamat AND id_pelanggan <> @id)
     BEGIN
         RAISERROR('Pelanggan dengan nama dan alamat yang sama sudah terdaftar!', 16, 1);
         RETURN;
@@ -470,7 +470,7 @@ BEGIN
         RETURN;
     END
 
-    IF EXISTS (SELECT 1 FROM Users WHERE username = @user AND no_telp = @telp)
+    IF EXISTS (SELECT 1 FROM Users WHERE username = @user AND no_telp = @telp AND id_user <> @id)
     BEGIN
         RAISERROR('Username atau No. Telepon sudah digunakan!', 16,1);
         RETURN;
@@ -554,7 +554,7 @@ GO
 CREATE PROCEDURE sp_InsertServis
     @id_ken INT,
     @id_u INT,
-    @tgl DATETIME,
+    @tgl SMALLDATETIME,
     @jenis VARCHAR(100),
     @suku VARCHAR(100),
     @biaya INT,
@@ -599,7 +599,7 @@ CREATE PROCEDURE sp_UpdateServis
     @id     INT,
     @id_ken INT,
     @id_u   INT,
-    @tgl    DATETIME,
+    @tgl    SMALLDATETIME,
     @jenis  VARCHAR(100),
     @suku   VARCHAR(100),
     @biaya  INT,
@@ -701,42 +701,144 @@ SELECT * INTO Pelanggan_Backup FROM Pelanggan;
 SELECT * INTO Kendaraan_Backup FROM Kendaraan;
 SELECT * INTO Users_Backup FROM Users;
 SELECT * INTO Servis_Backup FROM Servis;
-
-select * from Users-- Fitur PrintCREATE PROCEDURE sp_PrintServis
-    @id_kendaraan INT
+-- Fitur PrintCREATE PROCEDURE sp_PrintServis
+    @id_servis INT
 AS
 BEGIN
     SET NOCOUNT ON;
     
     SELECT
-        Users.nama AS Nama_User,
-        Users.role AS Role,
-        Kendaraan.merk AS Merk,
-        Kendaraan.tahun AS Tahun,
-        Pelanggan.nama AS Nama_Pelanggan,
-        Kendaraan.plat_no AS No_Plat,
-        Servis.Tanggal,
-        Servis.JenisServis AS Jenis_Servis,
-        Servis.SukuCadang AS Suku_Cadang,
-        Servis.Biaya,
-        Servis.Catatan
+        u.nama AS Nama_User,
+        u.role AS Role,
+        p.nama AS Nama_Pelanggan,
+        k.merk AS Merk,
+        k.tahun AS Tahun,
+        k.plat_no AS No_Plat,
+        s.Tanggal,
+        s.JenisServis AS Jenis_Servis,
+        s.SukuCadang AS Suku_Cadang,
+        s.Biaya,
+        s.Catatan
     FROM
-        Servis
+        vwServis s
     JOIN
-        Kendaraan ON Servis.id_kendaraan = Kendaraan.id_kendaraan
+        vwKendaraan k ON s.id_kendaraan = k.id_kendaraan
     JOIN
-        Pelanggan ON Kendaraan.id_pelanggan = Pelanggan.id_pelanggan
+        vwPelanggan p ON k.id_pelanggan = p.id_pelanggan
     JOIN
-        Users ON Servis.id_user = Users.id_user
+        vwUsers u ON s.id_user = u.id_user
     WHERE 
-        Kendaraan.id_kendaraan = @id_kendaraan
+        s.id_servis = @id_servis
     ORDER BY 
-        Servis.Tanggal DESC;
+        s.Tanggal DESC;
 
     IF @@ROWCOUNT = 0
     BEGIN
         RAISERROR('Tidak ada data servis!', 16, 1);
     END
-END;EXEC sp_PrintServis;-- Alter validasi jumlah digit plat no untuk tabel kendaraanALTER TABLE Kendaraan
+END;EXEC sp_PrintServis 1;DROP PROCEDURE sp_PrintServis;-- Alter validasi jumlah digit plat no untuk tabel kendaraanALTER TABLE Kendaraan
 ADD CONSTRAINT CK_Kendaraan_plat_no
 CHECK (LEN(plat_no) BETWEEN 1 AND 11);
+
+-- Tabel Log khusus Servis
+CREATE TABLE ServisLog(
+    id_log      INT IDENTITY(1,1) PRIMARY KEY,
+    aksi        VARCHAR(10),       -- INSERT / UPDATE / DELETE
+    id_servis   INT,               -- PK baris yang terpengaruh
+    pelaku      VARCHAR(128),      -- login database (SUSER_SNAME)
+    waktu       DATETIME DEFAULT GETDATE(),
+    keterangan  VARCHAR(255)
+);
+GO
+
+-- Trigger log servis
+CREATE TRIGGER trg_Log_Servis
+ON Servis
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DECLARE @aksi VARCHAR(10);
+
+    -- Tentukan jenis aksi dari isi tabel inserted/deleted
+    IF EXISTS (SELECT 1 FROM inserted) AND EXISTS (SELECT 1 FROM deleted)
+        SET @aksi = 'UPDATE';
+    ELSE IF EXISTS (SELECT 1 FROM inserted)
+        SET @aksi = 'INSERT';
+    ELSE
+        SET @aksi = 'DELETE';
+
+    -- INSERT & UPDATE: ambil data dari inserted
+    IF @aksi = 'INSERT'
+        INSERT INTO ServisLog(aksi, id_servis, pelaku, keterangan)
+        SELECT @aksi, i.id_servis, SUSER_SNAME(),
+               'Menambahkan data servis "' + i.JenisServis + '" dengan biaya Rp' + CAST(i.Biaya AS VARCHAR)
+        FROM inserted i;
+
+    IF @aksi = 'UPDATE'
+        INSERT INTO ServisLog(aksi, id_servis, pelaku, keterangan)
+        SELECT @aksi, i.id_servis, SUSER_SNAME(),
+               'Mengubah data servis "' + i.JenisServis + '" menjadi biaya Rp' + CAST(i.Biaya AS VARCHAR)
+        FROM inserted i;
+
+    -- DELETE: ambil data dari deleted
+    IF @aksi = 'DELETE'
+        INSERT INTO ServisLog(aksi, id_servis, pelaku, keterangan)
+        SELECT @aksi, d.id_servis, SUSER_SNAME(),
+               'Menghapus data servis "' + d.JenisServis + '"'
+        FROM deleted d;
+
+    -- Pesan bahwa trigger terpicu
+    DECLARE @pesan VARCHAR(200);
+    IF @aksi = 'INSERT'
+        SET @pesan = 'Data servis baru berhasil ditambahkan oleh ' + SUSER_SNAME();
+    ELSE IF @aksi = 'UPDATE'
+        SET @pesan = 'Data servis berhasil diperbarui oleh ' + SUSER_SNAME();
+    ELSE
+        SET @pesan = 'Data servis berhasil dihapus oleh ' + SUSER_SNAME();
+
+    PRINT @pesan + ' pada ' + CONVERT(VARCHAR, GETDATE(), 120) + '.';
+END
+GO 
+
+ -- tes trigger
+ -- Petugas menginput servis baru (trigger catat INSERT)
+EXEC sp_InsertServis 1, 2, '2024-06-10', 'Ganti Oli', 'Oli Shell 10W-40', 75000, 'Servis rutin', 0;
+
+-- Ternyata biaya salah, petugas mengoreksi (trigger catat UPDATE)
+EXEC sp_UpdateServis 1, 1, 2, '2024-01-05', 'Ganti Oli', 'Oli Mesin Shell 10W-40', 80000, 'Koreksi biaya oli';
+
+-- Data servis dobel, admin menghapus (trigger catat DELETE)
+EXEC sp_DeleteServis 15;
+
+-- Alter View
+ALTER VIEW vwServis
+AS
+SELECT
+    s.id_servis,
+    s.id_kendaraan,            -- tambahkan untuk JOIN
+    s.id_user,                 -- tambahkan untuk JOIN
+    k.plat_no,
+    u.nama AS nama_petugas,    -- alias agar tidak ambigu
+    s.Tanggal,
+    s.JenisServis,
+    s.SukuCadang,
+    s.Biaya,
+    s.Catatan
+FROM Servis s
+JOIN Kendaraan k ON s.id_kendaraan = k.id_kendaraan
+JOIN Users u     ON s.id_user = u.id_user;
+GO
+
+ALTER VIEW vwKendaraan
+AS
+SELECT
+    k.id_kendaraan,
+    k.id_pelanggan,            -- tambahkan untuk JOIN
+    p.nama AS nama_pemilik,    -- alias agar tidak ambigu
+    k.merk,
+    k.plat_no,
+    k.tahun
+FROM Kendaraan k
+JOIN Pelanggan p ON k.id_pelanggan = p.id_pelanggan;
+GO

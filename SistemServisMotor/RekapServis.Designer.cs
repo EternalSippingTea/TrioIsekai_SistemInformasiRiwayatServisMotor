@@ -28,126 +28,202 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblJudul = new System.Windows.Forms.Label();
-            this.lblPilih = new System.Windows.Forms.Label();
-            this.cmbKendaraan = new System.Windows.Forms.ComboBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.lblCari = new System.Windows.Forms.Label();
+            this.txtCari = new System.Windows.Forms.TextBox();
             this.btnLoad = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.lblFilterTgl = new System.Windows.Forms.Label();
+            this.chkPakaiTanggal = new System.Windows.Forms.CheckBox();
+            this.dtpDari = new System.Windows.Forms.DateTimePicker();
+            this.dtpSampai = new System.Windows.Forms.DateTimePicker();
+            this.lblDari = new System.Windows.Forms.Label();
+            this.lblSampai = new System.Windows.Forms.Label();
+            this.dgvPreview = new System.Windows.Forms.DataGridView();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.lblPreview = new System.Windows.Forms.Label();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPreview)).BeginInit();
             this.SuspendLayout();
             // 
-            // lblJudul
+            // lblTitle
             // 
-            this.lblJudul.AutoSize = true;
-            this.lblJudul.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblJudul.Location = new System.Drawing.Point(233, 51);
-            this.lblJudul.Name = "lblJudul";
-            this.lblJudul.Size = new System.Drawing.Size(481, 39);
-            this.lblJudul.TabIndex = 0;
-            this.lblJudul.Text = "Rekap Riwayat Servis Motor";
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblTitle.Location = new System.Drawing.Point(298, 40);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(443, 29);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "REKAP RIWAYAT SERVIS MOTOR";
             // 
-            // lblPilih
+            // lblCari
             // 
-            this.lblPilih.AutoSize = true;
-            this.lblPilih.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblPilih.Location = new System.Drawing.Point(225, 121);
-            this.lblPilih.Name = "lblPilih";
-            this.lblPilih.Size = new System.Drawing.Size(195, 29);
-            this.lblPilih.TabIndex = 1;
-            this.lblPilih.Text = "Pilih Kendaraan :";
+            this.lblCari.AutoSize = true;
+            this.lblCari.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblCari.Location = new System.Drawing.Point(277, 101);
+            this.lblCari.Name = "lblCari";
+            this.lblCari.Size = new System.Drawing.Size(166, 25);
+            this.lblCari.TabIndex = 1;
+            this.lblCari.Text = "Cari Kendaraan : ";
             // 
-            // cmbKendaraan
+            // txtCari
             // 
-            this.cmbKendaraan.FormattingEnabled = true;
-            this.cmbKendaraan.Location = new System.Drawing.Point(427, 125);
-            this.cmbKendaraan.Name = "cmbKendaraan";
-            this.cmbKendaraan.Size = new System.Drawing.Size(171, 24);
-            this.cmbKendaraan.TabIndex = 2;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 230);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(897, 330);
-            this.dataGridView1.TabIndex = 3;
+            this.txtCari.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtCari.ForeColor = System.Drawing.Color.Silver;
+            this.txtCari.Location = new System.Drawing.Point(450, 103);
+            this.txtCari.Name = "txtCari";
+            this.txtCari.Size = new System.Drawing.Size(189, 22);
+            this.txtCari.TabIndex = 2;
+            this.txtCari.Text = "Input Plat Nomer";
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(630, 121);
+            this.btnLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLoad.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnLoad.Location = new System.Drawing.Point(670, 102);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(89, 29);
-            this.btnLoad.TabIndex = 4;
-            this.btnLoad.Text = "Load";
-            this.btnLoad.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Size = new System.Drawing.Size(98, 23);
+            this.btnLoad.TabIndex = 3;
+            this.btnLoad.Text = "Search";
+            this.btnLoad.UseVisualStyleBackColor = false;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
-            // label1
+            // lblFilterTgl
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(12, 191);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(194, 20);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Preview Riwayat Servis :";
+            this.lblFilterTgl.AutoSize = true;
+            this.lblFilterTgl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblFilterTgl.Location = new System.Drawing.Point(355, 152);
+            this.lblFilterTgl.Name = "lblFilterTgl";
+            this.lblFilterTgl.Size = new System.Drawing.Size(147, 25);
+            this.lblFilterTgl.TabIndex = 4;
+            this.lblFilterTgl.Text = "Filter Tanggal : ";
             // 
-            // label2
+            // chkPakaiTanggal
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(12, 586);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(122, 20);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Total : 0 Servis";
+            this.chkPakaiTanggal.AutoSize = true;
+            this.chkPakaiTanggal.Location = new System.Drawing.Point(331, 155);
+            this.chkPakaiTanggal.Name = "chkPakaiTanggal";
+            this.chkPakaiTanggal.Size = new System.Drawing.Size(18, 17);
+            this.chkPakaiTanggal.TabIndex = 5;
+            this.chkPakaiTanggal.UseVisualStyleBackColor = true;
+            this.chkPakaiTanggal.Click += new System.EventHandler(this.chkPakaiTanggal_CheckedChanged);
             // 
-            // button1
+            // dtpDari
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.button1.Location = new System.Drawing.Point(786, 583);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(89, 28);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Print";
-            this.button1.UseVisualStyleBackColor = false;
+            this.dtpDari.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDari.Location = new System.Drawing.Point(589, 155);
+            this.dtpDari.Name = "dtpDari";
+            this.dtpDari.Size = new System.Drawing.Size(116, 22);
+            this.dtpDari.TabIndex = 6;
             // 
-            // button2
+            // dtpSampai
             // 
-            this.button2.BackColor = System.Drawing.Color.LightCoral;
-            this.button2.Location = new System.Drawing.Point(670, 583);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(89, 28);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Back";
-            this.button2.UseVisualStyleBackColor = false;
+            this.dtpSampai.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpSampai.Location = new System.Drawing.Point(589, 200);
+            this.dtpSampai.Name = "dtpSampai";
+            this.dtpSampai.Size = new System.Drawing.Size(116, 22);
+            this.dtpSampai.TabIndex = 7;
+            // 
+            // lblDari
+            // 
+            this.lblDari.AutoSize = true;
+            this.lblDari.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblDari.Location = new System.Drawing.Point(527, 152);
+            this.lblDari.Name = "lblDari";
+            this.lblDari.Size = new System.Drawing.Size(58, 25);
+            this.lblDari.TabIndex = 8;
+            this.lblDari.Text = "Dari: ";
+            this.lblDari.Click += new System.EventHandler(this.lblDari_Click);
+            // 
+            // lblSampai
+            // 
+            this.lblSampai.AutoSize = true;
+            this.lblSampai.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblSampai.Location = new System.Drawing.Point(495, 198);
+            this.lblSampai.Name = "lblSampai";
+            this.lblSampai.Size = new System.Drawing.Size(90, 25);
+            this.lblSampai.TabIndex = 9;
+            this.lblSampai.Text = "Sampai: ";
+            // 
+            // dgvPreview
+            // 
+            this.dgvPreview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPreview.Location = new System.Drawing.Point(12, 248);
+            this.dgvPreview.Name = "dgvPreview";
+            this.dgvPreview.RowHeadersWidth = 51;
+            this.dgvPreview.RowTemplate.Height = 24;
+            this.dgvPreview.Size = new System.Drawing.Size(996, 341);
+            this.dgvPreview.TabIndex = 10;
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblTotal.Location = new System.Drawing.Point(12, 615);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(143, 25);
+            this.lblTotal.TabIndex = 11;
+            this.lblTotal.Text = "Total : 0 Servis";
+            // 
+            // lblPreview
+            // 
+            this.lblPreview.AutoSize = true;
+            this.lblPreview.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblPreview.Location = new System.Drawing.Point(12, 210);
+            this.lblPreview.Name = "lblPreview";
+            this.lblPreview.Size = new System.Drawing.Size(97, 25);
+            this.lblPreview.TabIndex = 12;
+            this.lblPreview.Text = "Preview : ";
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnPrint.Location = new System.Drawing.Point(876, 619);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(98, 23);
+            this.btnPrint.TabIndex = 13;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = false;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // btnBack
+            // 
+            this.btnBack.BackColor = System.Drawing.Color.MistyRose;
+            this.btnBack.Location = new System.Drawing.Point(761, 619);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(98, 23);
+            this.btnBack.TabIndex = 14;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // RekapServis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(921, 636);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(1020, 667);
+            this.Controls.Add(this.btnBack);
+            this.Controls.Add(this.btnPrint);
+            this.Controls.Add(this.lblPreview);
+            this.Controls.Add(this.lblTotal);
+            this.Controls.Add(this.dgvPreview);
+            this.Controls.Add(this.lblSampai);
+            this.Controls.Add(this.lblDari);
+            this.Controls.Add(this.dtpSampai);
+            this.Controls.Add(this.dtpDari);
+            this.Controls.Add(this.chkPakaiTanggal);
+            this.Controls.Add(this.lblFilterTgl);
             this.Controls.Add(this.btnLoad);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.cmbKendaraan);
-            this.Controls.Add(this.lblPilih);
-            this.Controls.Add(this.lblJudul);
-            this.MaximizeBox = false;
+            this.Controls.Add(this.txtCari);
+            this.Controls.Add(this.lblCari);
+            this.Controls.Add(this.lblTitle);
             this.Name = "RekapServis";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Rekap Riwayat Servis";
+            this.Text = "RekapServis";
             this.Load += new System.EventHandler(this.RekapServis_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPreview)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -155,14 +231,20 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblJudul;
-        private System.Windows.Forms.Label lblPilih;
-        private System.Windows.Forms.ComboBox cmbKendaraan;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Label lblCari;
+        private System.Windows.Forms.TextBox txtCari;
         private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label lblFilterTgl;
+        private System.Windows.Forms.CheckBox chkPakaiTanggal;
+        private System.Windows.Forms.DateTimePicker dtpDari;
+        private System.Windows.Forms.DateTimePicker dtpSampai;
+        private System.Windows.Forms.Label lblDari;
+        private System.Windows.Forms.Label lblSampai;
+        private System.Windows.Forms.DataGridView dgvPreview;
+        private System.Windows.Forms.Label lblTotal;
+        private System.Windows.Forms.Label lblPreview;
+        private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.Button btnBack;
     }
 }

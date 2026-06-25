@@ -1,3 +1,9 @@
 <Solution>
-  <Project Path="SistemServisMotor/SistemServisMotor.csproj" Id="c759a233-0569-4c7f-959a-1287cacf4b98" />
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="SistemServisMotor/SistemServisMotor.csproj" Id="c759a233-0569-4c7f-959a-1287cacf4b98">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
 </Solution>

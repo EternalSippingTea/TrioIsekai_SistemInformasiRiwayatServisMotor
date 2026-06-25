@@ -13,6 +13,8 @@ namespace SistemServisMotor
 {
     public partial class LoginForm : Form
     {
+        SqlConnection conn = new SqlConnection(DAL.GetConnectionString());
+
         public LoginForm()
         {
             InitializeComponent();
@@ -23,12 +25,12 @@ namespace SistemServisMotor
         {
             try
             {
-                using (SqlConnection conn = DatabaseHelper.GetConn())
+                if (conn.State == ConnectionState.Closed)
                 {
                     conn.Open();
-                    lblStatus.Text = "Status : Connected.";
-                    lblStatus.ForeColor = Color.Green;
                 }
+                lblStatus.Text = "Status : Connected.";
+                lblStatus.ForeColor = Color.Green;
             }
             catch
             {
@@ -49,43 +51,42 @@ namespace SistemServisMotor
 
             try
             {
-                using (SqlConnection conn = DatabaseHelper.GetConn())
+                if (conn.State == ConnectionState.Closed)
                 {
-                    // =====================================================
-                    // [!] DEMO SQL INJECTION (UCP 2 - point #3)
-                    // Field username sengaja pakai konkatenasi string
-                    // sehingga rentan SQL Injection.
-                    // Contoh payload bypass: admin' OR '1'='1' --
-                    // =====================================================
-                    string sql = "SELECT id_user, nama, role FROM Users"
-                               + " WHERE username='" + txtusername.Text + "'"
-                               + " AND no_telp=@t";
+                    conn.Open();
+                }
 
-                    using (SqlCommand cmd = new SqlCommand(sql, conn))
-                    {
-                        cmd.Parameters.Add(new SqlParameter("@t", txttele.Text.Trim()));
+                // =====================================================
+                // [!] DEMO SQL INJECTION (UCP 2 - point #3)
+                // Field username sengaja pakai konkatenasi string
+                // sehingga rentan SQL Injection.
+                // Contoh payload bypass: admin' OR '1'='1' --
+                // =====================================================
+                string sql = "SELECT id_user, nama, role FROM Users"
+                           + " WHERE username='" + txtusername.Text + "'"
+                           + " AND no_telp=@t";
 
-                        conn.Open();
-                        SqlDataReader reader = cmd.ExecuteReader();  // Bagian A
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add(new SqlParameter("@t", txttele.Text.Trim()));
 
-                        if (reader.Read())
-                        {
-                            int id = (int)reader["id_user"];
-                            string nama = reader["nama"].ToString();
-                            string role = reader["role"].ToString();
-                            reader.Close();
+                SqlDataReader reader = cmd.ExecuteReader();  // Bagian A
 
-                            MessageBox.Show("Welcome, " + nama + "!");
-                            MainForm f2 = new MainForm(id, nama, role);
-                            f2.Show();
-                            this.Hide();
-                        }
-                        else
-                        {
-                            reader.Close();
-                            MessageBox.Show("Login gagal! Username atau No. Telp salah.");
-                        }
-                    }
+                if (reader.Read())
+                {
+                    int id = (int)reader["id_user"];
+                    string nama = reader["nama"].ToString();
+                    string role = reader["role"].ToString();
+                    reader.Close();
+
+                    MessageBox.Show("Welcome, " + nama + "!");
+                    MainForm f2 = new MainForm(id, nama, role);
+                    f2.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    reader.Close();
+                    MessageBox.Show("Login gagal! Username atau No. Telp salah.");
                 }
             }
             catch (Exception ex)

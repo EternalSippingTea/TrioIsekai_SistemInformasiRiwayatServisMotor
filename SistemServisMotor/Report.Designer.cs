@@ -41,14 +41,14 @@
             this.crystalReportViewer1.Location = new System.Drawing.Point(0, 0);
             this.crystalReportViewer1.Name = "crystalReportViewer1";
             this.crystalReportViewer1.ReportSource = this.CetakServis1;
-            this.crystalReportViewer1.Size = new System.Drawing.Size(994, 603);
+            this.crystalReportViewer1.Size = new System.Drawing.Size(1103, 788);
             this.crystalReportViewer1.TabIndex = 0;
             // 
             // Report
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(994, 603);
+            this.ClientSize = new System.Drawing.Size(1103, 788);
             this.Controls.Add(this.crystalReportViewer1);
             this.Name = "Report";
             this.Text = "Report";

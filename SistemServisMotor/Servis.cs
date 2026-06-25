@@ -19,5 +19,7 @@ namespace SistemServisMotor
         public string Suku_Cadang { get; set; }      
         public int Biaya { get; set; }
         public string Catatan { get; set; }
+
+
     }
 }

@@ -34,6 +34,8 @@ namespace SistemServisMotor
             this.btnlogout = new System.Windows.Forms.Button();
             this.tabcontrol1 = new System.Windows.Forms.TabControl();
             this.tabPelanggan = new System.Windows.Forms.TabPage();
+            this.btnImpDb = new System.Windows.Forms.Button();
+            this.btnImpExcel = new System.Windows.Forms.Button();
             this.bnPelanggan = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -157,7 +159,6 @@ namespace SistemServisMotor
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblcon = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabcontrol1.SuspendLayout();
             this.tabPelanggan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bnPelanggan)).BeginInit();
@@ -191,13 +192,15 @@ namespace SistemServisMotor
             // 
             // btnlogout
             // 
+            this.btnlogout.BackColor = System.Drawing.Color.Red;
             this.btnlogout.Font = new System.Drawing.Font("Dubai", 8.25F);
+            this.btnlogout.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnlogout.Location = new System.Drawing.Point(404, 35);
             this.btnlogout.Name = "btnlogout";
             this.btnlogout.Size = new System.Drawing.Size(100, 29);
             this.btnlogout.TabIndex = 1;
             this.btnlogout.Text = "Logout";
-            this.btnlogout.UseVisualStyleBackColor = true;
+            this.btnlogout.UseVisualStyleBackColor = false;
             this.btnlogout.Click += new System.EventHandler(this.btnlogout_Click);
             // 
             // tabcontrol1
@@ -209,12 +212,14 @@ namespace SistemServisMotor
             this.tabcontrol1.Location = new System.Drawing.Point(12, 125);
             this.tabcontrol1.Name = "tabcontrol1";
             this.tabcontrol1.SelectedIndex = 0;
-            this.tabcontrol1.Size = new System.Drawing.Size(990, 642);
+            this.tabcontrol1.Size = new System.Drawing.Size(1112, 642);
             this.tabcontrol1.TabIndex = 2;
             this.tabcontrol1.SelectedIndexChanged += new System.EventHandler(this.tabcontrol1_SelectedIndexChanged);
             // 
             // tabPelanggan
             // 
+            this.tabPelanggan.Controls.Add(this.btnImpDb);
+            this.tabPelanggan.Controls.Add(this.btnImpExcel);
             this.tabPelanggan.Controls.Add(this.bnPelanggan);
             this.tabPelanggan.Controls.Add(this.btncarip);
             this.tabPelanggan.Controls.Add(this.txtcarip);
@@ -235,10 +240,33 @@ namespace SistemServisMotor
             this.tabPelanggan.Location = new System.Drawing.Point(4, 25);
             this.tabPelanggan.Name = "tabPelanggan";
             this.tabPelanggan.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPelanggan.Size = new System.Drawing.Size(982, 613);
+            this.tabPelanggan.Size = new System.Drawing.Size(1104, 613);
             this.tabPelanggan.TabIndex = 0;
             this.tabPelanggan.Text = "Pelanggan";
             this.tabPelanggan.UseVisualStyleBackColor = true;
+            // 
+            // btnImpDb
+            // 
+            this.btnImpDb.BackColor = System.Drawing.Color.LightYellow;
+            this.btnImpDb.Enabled = false;
+            this.btnImpDb.Location = new System.Drawing.Point(137, 431);
+            this.btnImpDb.Name = "btnImpDb";
+            this.btnImpDb.Size = new System.Drawing.Size(84, 54);
+            this.btnImpDb.TabIndex = 61;
+            this.btnImpDb.Text = "Import To Database";
+            this.btnImpDb.UseVisualStyleBackColor = false;
+            this.btnImpDb.Click += new System.EventHandler(this.btnImpDb_Click);
+            // 
+            // btnImpExcel
+            // 
+            this.btnImpExcel.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnImpExcel.Location = new System.Drawing.Point(14, 431);
+            this.btnImpExcel.Name = "btnImpExcel";
+            this.btnImpExcel.Size = new System.Drawing.Size(96, 54);
+            this.btnImpExcel.TabIndex = 60;
+            this.btnImpExcel.Text = "Import From Excel";
+            this.btnImpExcel.UseVisualStyleBackColor = false;
+            this.btnImpExcel.Click += new System.EventHandler(this.btnImpExcel_Click);
             // 
             // bnPelanggan
             // 
@@ -264,7 +292,7 @@ namespace SistemServisMotor
             this.bnPelanggan.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bnPelanggan.Name = "bnPelanggan";
             this.bnPelanggan.PositionItem = this.bindingNavigatorPositionItem;
-            this.bnPelanggan.Size = new System.Drawing.Size(976, 27);
+            this.bnPelanggan.Size = new System.Drawing.Size(1098, 27);
             this.bnPelanggan.TabIndex = 53;
             this.bnPelanggan.Text = "bindingNavigator1";
             // 
@@ -378,13 +406,14 @@ namespace SistemServisMotor
             // 
             // btnclearp
             // 
+            this.btnclearp.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnclearp.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.btnclearp.Location = new System.Drawing.Point(299, 178);
             this.btnclearp.Name = "btnclearp";
             this.btnclearp.Size = new System.Drawing.Size(73, 34);
             this.btnclearp.TabIndex = 48;
             this.btnclearp.Text = "Clear";
-            this.btnclearp.UseVisualStyleBackColor = true;
+            this.btnclearp.UseVisualStyleBackColor = false;
             this.btnclearp.Click += new System.EventHandler(this.btnClearP_Click);
             // 
             // btndelp
@@ -401,24 +430,26 @@ namespace SistemServisMotor
             // 
             // btnupp
             // 
+            this.btnupp.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btnupp.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.btnupp.Location = new System.Drawing.Point(108, 178);
             this.btnupp.Name = "btnupp";
             this.btnupp.Size = new System.Drawing.Size(78, 34);
             this.btnupp.TabIndex = 46;
             this.btnupp.Text = "Update";
-            this.btnupp.UseVisualStyleBackColor = true;
+            this.btnupp.UseVisualStyleBackColor = false;
             this.btnupp.Click += new System.EventHandler(this.btnupp_Click);
             // 
             // btnaddp
             // 
+            this.btnaddp.BackColor = System.Drawing.Color.PaleGreen;
             this.btnaddp.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.btnaddp.Location = new System.Drawing.Point(13, 178);
             this.btnaddp.Name = "btnaddp";
             this.btnaddp.Size = new System.Drawing.Size(77, 34);
             this.btnaddp.TabIndex = 45;
             this.btnaddp.Text = "Add";
-            this.btnaddp.UseVisualStyleBackColor = true;
+            this.btnaddp.UseVisualStyleBackColor = false;
             this.btnaddp.Click += new System.EventHandler(this.btnaddp_Click);
             // 
             // lblcountp
@@ -430,7 +461,6 @@ namespace SistemServisMotor
             this.lblcountp.Size = new System.Drawing.Size(174, 24);
             this.lblcountp.TabIndex = 2;
             this.lblcountp.Text = "Count Pelanggan : \"Total : 0\"";
-            this.lblcountp.Click += new System.EventHandler(this.lblcountp_Click);
             // 
             // dgvPelanggan
             // 
@@ -439,7 +469,7 @@ namespace SistemServisMotor
             this.dgvPelanggan.Name = "dgvPelanggan";
             this.dgvPelanggan.RowHeadersWidth = 51;
             this.dgvPelanggan.RowTemplate.Height = 24;
-            this.dgvPelanggan.Size = new System.Drawing.Size(563, 562);
+            this.dgvPelanggan.Size = new System.Drawing.Size(706, 562);
             this.dgvPelanggan.TabIndex = 6;
             this.dgvPelanggan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPelanggan_CellClick);
             // 
@@ -522,7 +552,7 @@ namespace SistemServisMotor
             this.tabKendaraan.Location = new System.Drawing.Point(4, 25);
             this.tabKendaraan.Name = "tabKendaraan";
             this.tabKendaraan.Padding = new System.Windows.Forms.Padding(3);
-            this.tabKendaraan.Size = new System.Drawing.Size(982, 613);
+            this.tabKendaraan.Size = new System.Drawing.Size(1104, 613);
             this.tabKendaraan.TabIndex = 1;
             this.tabKendaraan.Text = "Kendaraan";
             this.tabKendaraan.UseVisualStyleBackColor = true;
@@ -551,7 +581,7 @@ namespace SistemServisMotor
             this.bnKendaraan.MovePreviousItem = this.toolStripButton2;
             this.bnKendaraan.Name = "bnKendaraan";
             this.bnKendaraan.PositionItem = this.toolStripTextBox1;
-            this.bnKendaraan.Size = new System.Drawing.Size(976, 27);
+            this.bnKendaraan.Size = new System.Drawing.Size(1098, 27);
             this.bnKendaraan.TabIndex = 57;
             this.bnKendaraan.Text = "bindingNavigator1";
             // 
@@ -665,13 +695,14 @@ namespace SistemServisMotor
             // 
             // btncleark
             // 
+            this.btncleark.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btncleark.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.btncleark.Location = new System.Drawing.Point(299, 198);
             this.btncleark.Name = "btncleark";
             this.btncleark.Size = new System.Drawing.Size(73, 34);
             this.btncleark.TabIndex = 48;
             this.btncleark.Text = "Clear";
-            this.btncleark.UseVisualStyleBackColor = true;
+            this.btncleark.UseVisualStyleBackColor = false;
             this.btncleark.Click += new System.EventHandler(this.btncleark_Click);
             // 
             // btndelk
@@ -688,24 +719,26 @@ namespace SistemServisMotor
             // 
             // btnupk
             // 
+            this.btnupk.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btnupk.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.btnupk.Location = new System.Drawing.Point(108, 198);
             this.btnupk.Name = "btnupk";
             this.btnupk.Size = new System.Drawing.Size(78, 34);
             this.btnupk.TabIndex = 46;
             this.btnupk.Text = "Update";
-            this.btnupk.UseVisualStyleBackColor = true;
+            this.btnupk.UseVisualStyleBackColor = false;
             this.btnupk.Click += new System.EventHandler(this.btnupk_Click);
             // 
             // btnaddk
             // 
+            this.btnaddk.BackColor = System.Drawing.Color.PaleGreen;
             this.btnaddk.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.btnaddk.Location = new System.Drawing.Point(13, 198);
             this.btnaddk.Name = "btnaddk";
             this.btnaddk.Size = new System.Drawing.Size(77, 34);
             this.btnaddk.TabIndex = 45;
             this.btnaddk.Text = "Add";
-            this.btnaddk.UseVisualStyleBackColor = true;
+            this.btnaddk.UseVisualStyleBackColor = false;
             this.btnaddk.Click += new System.EventHandler(this.btnaddk_Click);
             // 
             // lblcountk
@@ -752,7 +785,7 @@ namespace SistemServisMotor
             this.dgvKendaraan.Name = "dgvKendaraan";
             this.dgvKendaraan.RowHeadersWidth = 51;
             this.dgvKendaraan.RowTemplate.Height = 24;
-            this.dgvKendaraan.Size = new System.Drawing.Size(569, 579);
+            this.dgvKendaraan.Size = new System.Drawing.Size(710, 579);
             this.dgvKendaraan.TabIndex = 17;
             this.dgvKendaraan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKendaraan_CellClick);
             // 
@@ -804,7 +837,6 @@ namespace SistemServisMotor
             // 
             // tabServis
             // 
-            this.tabServis.Controls.Add(this.button1);
             this.tabServis.Controls.Add(this.bnServis);
             this.tabServis.Controls.Add(this.btnprint);
             this.tabServis.Controls.Add(this.btncaris);
@@ -834,11 +866,10 @@ namespace SistemServisMotor
             this.tabServis.Location = new System.Drawing.Point(4, 25);
             this.tabServis.Name = "tabServis";
             this.tabServis.Padding = new System.Windows.Forms.Padding(3);
-            this.tabServis.Size = new System.Drawing.Size(982, 613);
+            this.tabServis.Size = new System.Drawing.Size(1104, 613);
             this.tabServis.TabIndex = 2;
             this.tabServis.Text = "Servis";
             this.tabServis.UseVisualStyleBackColor = true;
-            this.tabServis.Click += new System.EventHandler(this.tabServis_Click);
             // 
             // bnServis
             // 
@@ -864,7 +895,7 @@ namespace SistemServisMotor
             this.bnServis.MovePreviousItem = this.toolStripButton6;
             this.bnServis.Name = "bnServis";
             this.bnServis.PositionItem = this.toolStripTextBox2;
-            this.bnServis.Size = new System.Drawing.Size(976, 27);
+            this.bnServis.Size = new System.Drawing.Size(1098, 27);
             this.bnServis.TabIndex = 58;
             this.bnServis.Text = "bindingNavigator1";
             // 
@@ -939,13 +970,13 @@ namespace SistemServisMotor
             // btnprint
             // 
             this.btnprint.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnprint.Location = new System.Drawing.Point(110, 514);
+            this.btnprint.Location = new System.Drawing.Point(101, 504);
             this.btnprint.Name = "btnprint";
             this.btnprint.Size = new System.Drawing.Size(84, 31);
             this.btnprint.TabIndex = 57;
             this.btnprint.Text = "Print";
             this.btnprint.UseVisualStyleBackColor = true;
-            this.btnprint.Click += new System.EventHandler(this.btnCetak_Click);
+            this.btnprint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // btncaris
             // 
@@ -979,7 +1010,7 @@ namespace SistemServisMotor
             // btnloads
             // 
             this.btnloads.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnloads.Location = new System.Drawing.Point(13, 514);
+            this.btnloads.Location = new System.Drawing.Point(12, 504);
             this.btnloads.Name = "btnloads";
             this.btnloads.Size = new System.Drawing.Size(83, 31);
             this.btnloads.TabIndex = 53;
@@ -1090,13 +1121,14 @@ namespace SistemServisMotor
             // 
             // btnclears
             // 
+            this.btnclears.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnclears.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.btnclears.Location = new System.Drawing.Point(298, 355);
             this.btnclears.Name = "btnclears";
             this.btnclears.Size = new System.Drawing.Size(73, 34);
             this.btnclears.TabIndex = 32;
             this.btnclears.Text = "Clear";
-            this.btnclears.UseVisualStyleBackColor = true;
+            this.btnclears.UseVisualStyleBackColor = false;
             this.btnclears.Click += new System.EventHandler(this.btnclears_Click);
             // 
             // btndels
@@ -1113,24 +1145,26 @@ namespace SistemServisMotor
             // 
             // btnups
             // 
+            this.btnups.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btnups.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.btnups.Location = new System.Drawing.Point(107, 355);
             this.btnups.Name = "btnups";
             this.btnups.Size = new System.Drawing.Size(78, 34);
             this.btnups.TabIndex = 30;
             this.btnups.Text = "Update";
-            this.btnups.UseVisualStyleBackColor = true;
+            this.btnups.UseVisualStyleBackColor = false;
             this.btnups.Click += new System.EventHandler(this.btnups_Click);
             // 
             // btnadds
             // 
+            this.btnadds.BackColor = System.Drawing.Color.PaleGreen;
             this.btnadds.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.btnadds.Location = new System.Drawing.Point(12, 355);
             this.btnadds.Name = "btnadds";
             this.btnadds.Size = new System.Drawing.Size(77, 34);
             this.btnadds.TabIndex = 29;
             this.btnadds.Text = "Add";
-            this.btnadds.UseVisualStyleBackColor = true;
+            this.btnadds.UseVisualStyleBackColor = false;
             this.btnadds.Click += new System.EventHandler(this.btnadds_Click);
             // 
             // dgvServis
@@ -1140,7 +1174,7 @@ namespace SistemServisMotor
             this.dgvServis.Name = "dgvServis";
             this.dgvServis.RowHeadersWidth = 51;
             this.dgvServis.RowTemplate.Height = 24;
-            this.dgvServis.Size = new System.Drawing.Size(565, 581);
+            this.dgvServis.Size = new System.Drawing.Size(706, 581);
             this.dgvServis.TabIndex = 28;
             this.dgvServis.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvServis_CellClick);
             // 
@@ -1206,7 +1240,7 @@ namespace SistemServisMotor
             this.tabUsers.Location = new System.Drawing.Point(4, 25);
             this.tabUsers.Name = "tabUsers";
             this.tabUsers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUsers.Size = new System.Drawing.Size(982, 613);
+            this.tabUsers.Size = new System.Drawing.Size(1104, 613);
             this.tabUsers.TabIndex = 3;
             this.tabUsers.Text = "Users";
             this.tabUsers.UseVisualStyleBackColor = true;
@@ -1235,7 +1269,7 @@ namespace SistemServisMotor
             this.bnUsers.MovePreviousItem = this.toolStripButton10;
             this.bnUsers.Name = "bnUsers";
             this.bnUsers.PositionItem = this.toolStripTextBox3;
-            this.bnUsers.Size = new System.Drawing.Size(976, 27);
+            this.bnUsers.Size = new System.Drawing.Size(1098, 27);
             this.bnUsers.TabIndex = 59;
             this.bnUsers.Text = "bindingNavigator1";
             // 
@@ -1349,13 +1383,17 @@ namespace SistemServisMotor
             // 
             // btnclearu
             // 
+            this.btnclearu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnclearu.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnclearu.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.btnclearu.Location = new System.Drawing.Point(299, 191);
             this.btnclearu.Name = "btnclearu";
-            this.btnclearu.Size = new System.Drawing.Size(73, 34);
+            this.btnclearu.Size = new System.Drawing.Size(72, 34);
             this.btnclearu.TabIndex = 48;
             this.btnclearu.Text = "Clear";
-            this.btnclearu.UseVisualStyleBackColor = true;
+            this.btnclearu.UseVisualStyleBackColor = false;
             this.btnclearu.Click += new System.EventHandler(this.btnclearu_Click);
             // 
             // btndelu
@@ -1372,24 +1410,26 @@ namespace SistemServisMotor
             // 
             // btnupu
             // 
+            this.btnupu.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btnupu.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.btnupu.Location = new System.Drawing.Point(108, 191);
             this.btnupu.Name = "btnupu";
             this.btnupu.Size = new System.Drawing.Size(78, 34);
             this.btnupu.TabIndex = 46;
             this.btnupu.Text = "Update";
-            this.btnupu.UseVisualStyleBackColor = true;
+            this.btnupu.UseVisualStyleBackColor = false;
             this.btnupu.Click += new System.EventHandler(this.btnupu_Click);
             // 
             // btnaddu
             // 
+            this.btnaddu.BackColor = System.Drawing.Color.PaleGreen;
             this.btnaddu.Font = new System.Drawing.Font("Dubai", 8.25F);
             this.btnaddu.Location = new System.Drawing.Point(13, 191);
             this.btnaddu.Name = "btnaddu";
             this.btnaddu.Size = new System.Drawing.Size(77, 34);
             this.btnaddu.TabIndex = 45;
             this.btnaddu.Text = "Add";
-            this.btnaddu.UseVisualStyleBackColor = true;
+            this.btnaddu.UseVisualStyleBackColor = false;
             this.btnaddu.Click += new System.EventHandler(this.btnaddu_Click);
             // 
             // lblcountusers
@@ -1432,7 +1472,7 @@ namespace SistemServisMotor
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.RowHeadersWidth = 51;
             this.dgvUsers.RowTemplate.Height = 24;
-            this.dgvUsers.Size = new System.Drawing.Size(563, 578);
+            this.dgvUsers.Size = new System.Drawing.Size(704, 578);
             this.dgvUsers.TabIndex = 28;
             this.dgvUsers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellClick);
             // 
@@ -1497,7 +1537,7 @@ namespace SistemServisMotor
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1014, 88);
+            this.panel1.Size = new System.Drawing.Size(1136, 88);
             this.panel1.TabIndex = 0;
             // 
             // panel2
@@ -1506,7 +1546,7 @@ namespace SistemServisMotor
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 774);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1014, 77);
+            this.panel2.Size = new System.Drawing.Size(1136, 77);
             this.panel2.TabIndex = 3;
             // 
             // lblcon
@@ -1519,24 +1559,16 @@ namespace SistemServisMotor
             this.lblcon.TabIndex = 4;
             this.lblcon.Text = "Connection : -";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(219, 517);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(141, 23);
-            this.button1.TabIndex = 59;
-            this.button1.Text = "Import From Excel";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1014, 851);
+            this.ClientSize = new System.Drawing.Size(1136, 851);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tabcontrol1);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ServisForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -1702,6 +1734,7 @@ namespace SistemServisMotor
         private System.Windows.Forms.ToolStripButton toolStripButton11;
         private System.Windows.Forms.ToolStripButton toolStripButton12;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnImpDb;
+        private System.Windows.Forms.Button btnImpExcel;
     }
 }

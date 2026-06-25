@@ -47,16 +47,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Dubai", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(260, 315);
+            this.lblTitle.Location = new System.Drawing.Point(169, 252);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(360, 48);
+            this.lblTitle.Size = new System.Drawing.Size(418, 48);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Sistem Pencatat Servis Motor";
+            this.lblTitle.Text = "Sistem Riwayat Servis Motor Login";
             // 
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(428, 374);
+            this.lblStatus.Location = new System.Drawing.Point(365, 311);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(17, 16);
             this.lblStatus.TabIndex = 1;
@@ -66,7 +66,7 @@
             // 
             this.lblusername.AutoSize = true;
             this.lblusername.Font = new System.Drawing.Font("Dubai", 12F);
-            this.lblusername.Location = new System.Drawing.Point(262, 401);
+            this.lblusername.Location = new System.Drawing.Point(199, 338);
             this.lblusername.Name = "lblusername";
             this.lblusername.Size = new System.Drawing.Size(104, 34);
             this.lblusername.TabIndex = 2;
@@ -76,7 +76,7 @@
             // 
             this.lbltele.AutoSize = true;
             this.lbltele.Font = new System.Drawing.Font("Dubai", 12F);
-            this.lbltele.Location = new System.Drawing.Point(262, 451);
+            this.lbltele.Location = new System.Drawing.Point(199, 388);
             this.lbltele.Name = "lbltele";
             this.lbltele.Size = new System.Drawing.Size(132, 34);
             this.lbltele.TabIndex = 3;
@@ -85,7 +85,7 @@
             // txtusername
             // 
             this.txtusername.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.txtusername.Location = new System.Drawing.Point(400, 401);
+            this.txtusername.Location = new System.Drawing.Point(337, 338);
             this.txtusername.Name = "txtusername";
             this.txtusername.Size = new System.Drawing.Size(209, 31);
             this.txtusername.TabIndex = 4;
@@ -93,7 +93,7 @@
             // txttele
             // 
             this.txttele.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.txttele.Location = new System.Drawing.Point(400, 451);
+            this.txttele.Location = new System.Drawing.Point(337, 388);
             this.txttele.Name = "txttele";
             this.txttele.Size = new System.Drawing.Size(209, 31);
             this.txttele.TabIndex = 5;
@@ -102,7 +102,7 @@
             // 
             this.btnlogin.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnlogin.Font = new System.Drawing.Font("Dubai", 8.25F);
-            this.btnlogin.Location = new System.Drawing.Point(388, 505);
+            this.btnlogin.Location = new System.Drawing.Point(325, 442);
             this.btnlogin.Name = "btnlogin";
             this.btnlogin.Size = new System.Drawing.Size(98, 32);
             this.btnlogin.TabIndex = 6;
@@ -112,10 +112,13 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(224, -2);
+            this.pictureBox1.Location = new System.Drawing.Point(205, 15);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(448, 294);
+            this.pictureBox1.Size = new System.Drawing.Size(341, 234);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             // 
@@ -123,7 +126,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(861, 582);
+            this.ClientSize = new System.Drawing.Size(759, 564);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnlogin);
             this.Controls.Add(this.txttele);
